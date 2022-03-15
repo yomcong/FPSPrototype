@@ -1,0 +1,146 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerController : MonoBehaviour
+{
+    [Serializable]
+    public class Components
+    {
+        [HideInInspector] public RotateToMouse RotateToMouse;
+        [HideInInspector] public PlayerMovement Movement;
+        [HideInInspector] public Status Status;
+        [HideInInspector] public AudioSource AudioSource;
+        //private WeaponBase weapon;
+    }
+
+    [Serializable]
+    public class KeyOption
+    {
+        public KeyCode MoveForward = KeyCode.W;
+        public KeyCode MoveBackward = KeyCode.S;
+        public KeyCode MoveLeft = KeyCode.A;
+        public KeyCode MoveRight = KeyCode.D;
+        public KeyCode Run = KeyCode.LeftShift;
+        public KeyCode Jump = KeyCode.Space;
+        public KeyCode Reload = KeyCode.R;
+        public KeyCode ShowCursor = KeyCode.LeftAlt;
+        public string MouseX = "Mouse X";
+        public string MouseY = "Mouse Y";
+        public string Horizontal = "Horizontal";
+        public string Vertical = "Vertical";
+    }
+    
+   [Serializable]
+    public class CharacterState
+    {
+        public bool isMoving;
+        public bool isRunning;
+        public bool isGrounded;
+        public bool isCursorActive;
+    }
+
+    [SerializeField] private Components _components = new Components();
+    [SerializeField] private KeyOption _keyOption = new KeyOption();
+    //[SerializeField] private CameraOption _cameraOption = new CameraOption();
+    //[SerializeField] private AnimatorOption _animatorOption = new AnimatorOption();
+    [SerializeField] private CharacterState _state = new CharacterState();
+    public Components Com => _components;
+    public KeyOption Key => _keyOption;
+    //public CameraOption CamOption => _cameraOption;
+    //public AnimatorOption AnimOption => _animatorOption;
+    public CharacterState State => _state;
+
+    [Header("Audio Clips")]
+    [SerializeField]
+    private AudioClip audioClipWalk;
+    [SerializeField]
+    private AudioClip audioClipRun;
+
+    private float _deltaTime;
+
+    private void Awake()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
+        InitComponents();
+    }
+    private void Update()
+    {
+        UpdateRotate();
+        UpdateMove();
+        UpdateJump();
+        UpdateWeaponAction();
+    }
+
+    private void InitComponents()
+    {
+        Com.RotateToMouse = GetComponent<RotateToMouse>();
+        Com.Movement = GetComponent<PlayerMovement>();
+        Com.AudioSource = GetComponent<AudioSource>();
+        Com.Status = GetComponent<Status>(); 
+    }
+    private void UpdateRotate()
+    {
+        float mouseX = Input.GetAxis(Key.MouseX);
+        float mouseY = Input.GetAxis(Key.MouseY);
+
+        Com.RotateToMouse.UpdateRotate(mouseX, mouseY);
+    }
+
+    private void  UpdateMove()
+    {
+        float x = Input.GetAxisRaw(Key.Horizontal);
+        float z = Input.GetAxisRaw(Key.Vertical);
+
+        State.isMoving = x != 0 || z != 0;
+
+        if (State.isMoving)
+        {
+            State.isRunning = false;
+
+            if (z > 0)
+            {
+                State.isRunning = Input.GetKey(Key.Run);
+            }
+
+
+            Com.Movement.MoveSpeed = State.isRunning == true ? Com.Status.RunSpeed : Com.Status.WalkSpeed;
+            //Com.Weapon.Animator.MoveSpeed = State.isRunning == true ? 1 : 0.5f;
+            Com.AudioSource.clip = State.isRunning == true ? audioClipRun : audioClipWalk;
+
+            if (Com.AudioSource.isPlaying == false)
+            {
+                Com.AudioSource.loop = true;
+                Com.AudioSource.Play();
+            }
+        }
+        else
+        {
+            State.isRunning = false;
+            Com.Movement.MoveSpeed = 0;
+            //Com.Weapon.Animator.MoveSpeed = 0;
+
+            if (Com.AudioSource.isPlaying)
+            {
+                Com.AudioSource.Stop();
+            }
+        }
+
+        Com.Movement.MoveTo(new Vector3(x, 0, z));
+    }
+
+
+
+    private void UpdateJump()
+    {
+
+    }
+
+    private void UpdateWeaponAction()
+    {
+
+    }
+}
