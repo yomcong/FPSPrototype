@@ -6,9 +6,13 @@ public class RotateToMouse : MonoBehaviour
 {
     [SerializeField]
     private float rotationSpeed = 5;   //x축 회전속도
-
+    [SerializeField]
+    [Range(-20, -80)]
     private float lookUpLimitDegree = -80;  //x축 최소범위
-    private float lookDownLimitDegree = 50;   //x축 최대범위
+    [SerializeField]
+    [Range(0, 40f)]
+    private float lookDownLimitDegree = 40;   //x축 최대범위
+    [SerializeField]
     private float eulerAngleX = 0;
     private float eulerAngleY = 0;
 

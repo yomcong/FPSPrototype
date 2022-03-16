@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
         [HideInInspector] public PlayerMovement Movement;
         [HideInInspector] public Status Status;
         [HideInInspector] public AudioSource AudioSource;
-        //private WeaponBase weapon;
+        [HideInInspector] public WeaponBase Weapon;
     }
 
     [Serializable]
@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour
         public bool isMoving;
         public bool isRunning;
         public bool isGrounded;
+        public bool isJumping;
         public bool isCursorActive;
     }
 
@@ -54,9 +55,9 @@ public class PlayerController : MonoBehaviour
 
     [Header("Audio Clips")]
     [SerializeField]
-    private AudioClip audioClipWalk;
+    private AudioClip _audioClipWalk;
     [SerializeField]
-    private AudioClip audioClipRun;
+    private AudioClip _audioClipRun;
 
     private float _deltaTime;
 
@@ -80,7 +81,8 @@ public class PlayerController : MonoBehaviour
         Com.RotateToMouse = GetComponent<RotateToMouse>();
         Com.Movement = GetComponent<PlayerMovement>();
         Com.AudioSource = GetComponent<AudioSource>();
-        Com.Status = GetComponent<Status>(); 
+        Com.Status = GetComponent<Status>();
+        Com.Weapon = GetComponentInChildren<WeaponBase>();
     }
     private void UpdateRotate()
     {
@@ -109,7 +111,9 @@ public class PlayerController : MonoBehaviour
 
             Com.Movement.MoveSpeed = State.isRunning == true ? Com.Status.RunSpeed : Com.Status.WalkSpeed;
             //Com.Weapon.Animator.MoveSpeed = State.isRunning == true ? 1 : 0.5f;
-            Com.AudioSource.clip = State.isRunning == true ? audioClipRun : audioClipWalk;
+            Com.Weapon.Animator.MoveSpeed = Mathf.Lerp(Com.Weapon.Animator.MoveSpeed, 
+                                                        State.isRunning == true ? 1 : 0.5f, 0.3f);
+            Com.AudioSource.clip = State.isRunning == true ? _audioClipRun : _audioClipWalk;
 
             if (Com.AudioSource.isPlaying == false)
             {
@@ -121,7 +125,7 @@ public class PlayerController : MonoBehaviour
         {
             State.isRunning = false;
             Com.Movement.MoveSpeed = 0;
-            //Com.Weapon.Animator.MoveSpeed = 0;
+            Com.Weapon.Animator.MoveSpeed = 0;
 
             if (Com.AudioSource.isPlaying)
             {
@@ -136,11 +140,39 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateJump()
     {
-
+        if (Input.GetKeyDown(Key.Jump))
+        {
+           Com.Movement.Jump();
+        }
     }
 
     private void UpdateWeaponAction()
     {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Com.Weapon.StartWeaponAction();
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            Com.Weapon.StopWeaponAction();
+        }
 
+        if (Input.GetMouseButtonDown(1))
+        {
+            Com.Weapon.StartWeaponAction(1);
+        }
+        else if (Input.GetMouseButtonUp(1))
+        {
+            Com.Weapon.StopWeaponAction(1);
+        }
+
+        if (Input.GetKeyDown(Key.Reload))
+        {
+            Com.Weapon.StartReload();
+        }
+    }
+    public void SwitchingWeapon(WeaponBase newWeapon)
+    {
+        Com.Weapon = newWeapon;
     }
 }
