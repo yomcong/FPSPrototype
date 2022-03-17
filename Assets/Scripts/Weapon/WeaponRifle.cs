@@ -49,7 +49,7 @@ public class WeaponRifle : WeaponBase
 
         //_muzzleFlashEffect.SetActive(false);
 
-        onAmmoEvent.Invoke(_weaponSetting.currentAmmo, _weaponSetting.maxAmmo);
+        OnAmmoEvent.Invoke(_weaponSetting.currentAmmo, _weaponSetting.maxAmmo);
 
         ResetVariables();
     }
@@ -138,7 +138,7 @@ public class WeaponRifle : WeaponBase
             _lastAttackTime = Time.time;
 
             _weaponSetting.currentAmmo--;
-            onAmmoEvent.Invoke(_weaponSetting.currentAmmo, _weaponSetting.maxAmmo);
+            OnAmmoEvent.Invoke(_weaponSetting.currentAmmo, _weaponSetting.maxAmmo);
 
             //_animator.IsAimMode == true ? _animator.Play(_animator.AnimParam.AimFire, -1, 0) :
             //    _animator.Play(_animator.AnimParam.Fire, -1, 0);
@@ -225,7 +225,7 @@ public class WeaponRifle : WeaponBase
                 _isReload = false;
 
                 _weaponSetting.currentAmmo = _weaponSetting.maxAmmo;
-                onAmmoEvent.Invoke(_weaponSetting.currentAmmo, _weaponSetting.maxAmmo);
+                OnAmmoEvent.Invoke(_weaponSetting.currentAmmo, _weaponSetting.maxAmmo);
 
                 yield break;
             }

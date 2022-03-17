@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//public enum WeaponType { Main = 0, Sub, Melee, Throw };
+public enum WeaponType { Main = 0, Sub, Sub2, Special, Throw };
 
 [System.Serializable]
 public class AmmoEvent : UnityEngine.Events.UnityEvent<int, int> { }
@@ -10,8 +10,8 @@ public class AmmoEvent : UnityEngine.Events.UnityEvent<int, int> { }
 public abstract class WeaponBase : MonoBehaviour
 {
     [Header("WeaponBase")]
-    //[SerializeField]
-    //protected WeaponType weaponType;
+    [SerializeField]
+    protected WeaponType weaponType;
     [SerializeField]
     protected WeaponSetting _weaponSetting;
 
@@ -33,12 +33,12 @@ public abstract class WeaponBase : MonoBehaviour
     protected AnimatorController _animator;
 
     [HideInInspector]
-    public AmmoEvent onAmmoEvent = new AmmoEvent();
+    public AmmoEvent OnAmmoEvent = new AmmoEvent();
 
     public AnimatorController Animator => _animator;
     public WeaponNaming WeaponName => _weaponSetting.weaponName;
-    //public int CurrentMagazine => weaponSetting.currentMagazine;
-    //public int MaxMagazine => weaponSetting.maxMagazine;
+    public int CurrentAmmo => _weaponSetting.currentAmmo;
+    public int MaxAmmo => _weaponSetting.maxAmmo;
 
     public abstract void StartWeaponAction(int type = 0);
     public abstract void StopWeaponAction(int type = 0);
@@ -57,5 +57,11 @@ public abstract class WeaponBase : MonoBehaviour
         _audioSource.Play();
     }
 
-    
+    public void IncreaseAmmo(int ammo)
+    {
+        _weaponSetting.currentAmmo =  CurrentAmmo + ammo > MaxAmmo ? MaxAmmo : CurrentAmmo + ammo;
+
+        OnAmmoEvent.Invoke(CurrentAmmo, MaxAmmo);
+    }
+
 }

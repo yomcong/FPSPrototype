@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Explosion
   - InteractionObject
+  - Item
   layers:
   - Default
   - TransparentFX
