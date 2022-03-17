@@ -9,11 +9,11 @@ public class WeaponRifle : WeaponBase
     //[SerializeField]
     //private GameObject _muzzleFlashEffect;
     //
-    //[Header("Spawn Points")]
-    //[SerializeField]
-    //private Transform _casingSpawnPoint;
-    //[SerializeField]
-    //private Transform _bulletSpawnPoint;
+    [Header("Spawn Points")]
+    [SerializeField]
+    private Transform _casingSpawnPoint;
+    [SerializeField]
+    private Transform _bulletSpawnPoint;
 
     [Header("Audio Clips")]
     [SerializeField]
@@ -27,7 +27,7 @@ public class WeaponRifle : WeaponBase
     [SerializeField]
     private Image _imageAim;
 
-    //private CasingMemoryPool casingMemoryPool;
+    private CasingMemoryPool casingMemoryPool;
     //private ImpactMemoryPool impactMemoryPool;
     private Camera _mainCamera;
 
@@ -35,6 +35,9 @@ public class WeaponRifle : WeaponBase
     private void Awake()
     {
         Init();
+
+        casingMemoryPool = GetComponent<CasingMemoryPool>();
+        //impactMemoryPool = GetComponent<ImpactMemoryPool>();
 
         _mainCamera = Camera.main;
 
@@ -53,7 +56,7 @@ public class WeaponRifle : WeaponBase
 
     public override void StartReload()
     {
-        if (_isReload || _animator.IsAimMode == true /*|| weaponSetting.currentMagazine <= 0*/)
+        if (_isReload || _animator.IsAimMode == true)
         {
             return;
         }
@@ -152,7 +155,7 @@ public class WeaponRifle : WeaponBase
             
             PlaySound(_audioClipFire);
 
-            //casingMemoryPool.SpawnCasing(casingSpawnPoint.position, transform.right);
+            casingMemoryPool.SpawnCasing(_casingSpawnPoint.position, transform.right);
 
             TwoStepRaycast();
         }
@@ -177,22 +180,22 @@ public class WeaponRifle : WeaponBase
 
         Debug.DrawRay(ray.origin, ray.direction * _weaponSetting.attackDistance, Color.red);
 
-        //Vector3 attackDirection = (targetPoint - _bulletSpawnPoint.position).normalized;
-        //if (Physics.Raycast(_bulletSpawnPoint.position, attackDirection, out hit, _weaponSetting.attackDistance))
-        //{
-        //    //impactMemoryPool.SpawnImpact(hit);
-        //
-        //    //if (hit.transform.CompareTag("ImpactEnemy"))
-        //    //{
-        //    //    hit.transform.GetComponent<EnemyFSM>().TakeDamage(weaponSetting.damage);
-        //    //}
-        //    //else if (hit.transform.CompareTag("InteractionObject"))
-        //    //{
-        //    //    hit.transform.GetComponent<InteractionObject>().TakeDamage(weaponSetting.damage);
-        //    //}
-        //
-        //}
-        //Debug.DrawRay(_bulletSpawnPoint.position, attackDirection * _weaponSetting.attackDistance, Color.blue);
+        Vector3 attackDirection = (targetPoint - _bulletSpawnPoint.position).normalized;
+        if (Physics.Raycast(_bulletSpawnPoint.position, attackDirection, out hit, _weaponSetting.attackDistance))
+        {
+            //impactMemoryPool.SpawnImpact(hit);
+
+            //if (hit.transform.CompareTag("ImpactEnemy"))
+            //{
+            //    hit.transform.GetComponent<EnemyFSM>().TakeDamage(weaponSetting.damage);
+            //}
+            //else if (hit.transform.CompareTag("InteractionObject"))
+            //{
+            //    hit.transform.GetComponent<InteractionObject>().TakeDamage(weaponSetting.damage);
+            //}
+
+        }
+        Debug.DrawRay(_bulletSpawnPoint.position, attackDirection * _weaponSetting.attackDistance, Color.blue);
     }
 
     private IEnumerator OnMuzzleFlashEffect()

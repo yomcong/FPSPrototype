@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
     [Serializable]
     public class CharacterState
     {
-        public bool isMoving;
+        public bool IsMoving;
         public bool isRunning;
         public bool isGrounded;
         public bool isJumping;
@@ -97,9 +97,9 @@ public class PlayerController : MonoBehaviour
         float x = Input.GetAxisRaw(Key.Horizontal);
         float z = Input.GetAxisRaw(Key.Vertical);
 
-        State.isMoving = x != 0 || z != 0;
+        State.IsMoving = x != 0 || z != 0;
 
-        if (State.isMoving)
+        if (State.IsMoving)
         {
             State.isRunning = false;
 
