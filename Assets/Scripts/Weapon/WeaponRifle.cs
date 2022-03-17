@@ -194,6 +194,11 @@ public class WeaponRifle : WeaponBase
             //    hit.transform.GetComponent<InteractionObject>().TakeDamage(weaponSetting.damage);
             //}
 
+            if (hit.transform.CompareTag("InteractionObject"))
+            {
+                hit.transform.GetComponent<InteractionObject>().TakeDamage(_weaponSetting.damage);
+            }
+
         }
         Debug.DrawRay(_bulletSpawnPoint.position, attackDirection * _weaponSetting.attackDistance, Color.blue);
     }
