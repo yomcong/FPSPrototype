@@ -44,11 +44,13 @@ public class PlayerMovement : MonoBehaviour
         moveForce = new Vector3(direction.x * moveSpeed, moveForce.y, direction.z * moveSpeed);
     }
 
-    public void Jump()
+    public bool Jump()
     {
         if (characterController.isGrounded)
         {
             moveForce.y = jumpForce;
+            return true;
         }
+        return false;
     }
 }

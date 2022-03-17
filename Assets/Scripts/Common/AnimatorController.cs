@@ -12,6 +12,11 @@ public class AnimatorController : MonoBehaviour
     {
         public int FireHash = Animator.StringToHash("Fire");
         public int AimFireHash = Animator.StringToHash("AimFire");
+        public int MovementSpeed = Animator.StringToHash("MovementSpeed");
+        public int OnReload = Animator.StringToHash("OnReload");
+        public int OnJump = Animator.StringToHash("OnJump");
+        public int IsAimMode = Animator.StringToHash("IsAimMode");
+
         public string Movement = "Movement";
         
     }
@@ -27,19 +32,23 @@ public class AnimatorController : MonoBehaviour
 
     public float MoveSpeed
     {
-        set => _animator.SetFloat("MovementSpeed", value);
-        get => _animator.GetFloat("MovementSpeed");
+        set => _animator.SetFloat(_animationParam.MovementSpeed, value);
+        get => _animator.GetFloat(_animationParam.MovementSpeed);
     }
 
     public void OnReload()
     {
-        _animator.SetTrigger("OnReload");
+        _animator.SetTrigger(_animationParam.OnReload);
+    }
+    public void OnJump()
+    {
+        _animator.SetTrigger(_animationParam.OnJump);
     }
 
     public bool IsAimMode
     {
-        set => _animator.SetBool("IsAimMode", value);
-        get => _animator.GetBool("IsAimMode");
+        set => _animator.SetBool(_animationParam.IsAimMode, value);
+        get => _animator.GetBool(_animationParam.IsAimMode);
     }
 
 

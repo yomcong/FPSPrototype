@@ -31,8 +31,8 @@ public class PlayerController : MonoBehaviour
         public string Horizontal = "Horizontal";
         public string Vertical = "Vertical";
     }
-    
-   [Serializable]
+
+    [Serializable]
     public class CharacterState
     {
         public bool isMoving;
@@ -92,7 +92,7 @@ public class PlayerController : MonoBehaviour
         Com.RotateToMouse.UpdateRotate(mouseX, mouseY);
     }
 
-    private void  UpdateMove()
+    private void UpdateMove()
     {
         float x = Input.GetAxisRaw(Key.Horizontal);
         float z = Input.GetAxisRaw(Key.Vertical);
@@ -111,7 +111,7 @@ public class PlayerController : MonoBehaviour
 
             Com.Movement.MoveSpeed = State.isRunning == true ? Com.Status.RunSpeed : Com.Status.WalkSpeed;
             //Com.Weapon.Animator.MoveSpeed = State.isRunning == true ? 1 : 0.5f;
-            Com.Weapon.Animator.MoveSpeed = Mathf.Lerp(Com.Weapon.Animator.MoveSpeed, 
+            Com.Weapon.Animator.MoveSpeed = Mathf.Lerp(Com.Weapon.Animator.MoveSpeed,
                                                         State.isRunning == true ? 1 : 0.5f, 0.3f);
             Com.AudioSource.clip = State.isRunning == true ? _audioClipRun : _audioClipWalk;
 
@@ -140,9 +140,12 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateJump()
     {
-        if (Input.GetKeyDown(Key.Jump))
+        if (Input.GetKeyDown(Key.Jump) /*&& is*/)
         {
-           Com.Movement.Jump();
+            if (Com.Movement.Jump())
+            {
+                Com.Weapon.Animator.OnJump();
+            }
         }
     }
 

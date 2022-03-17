@@ -53,7 +53,7 @@ public class WeaponRifle : WeaponBase
 
     public override void StartReload()
     {
-        if (_isReload /*|| weaponSetting.currentMagazine <= 0*/)
+        if (_isReload || _animator.IsAimMode == true /*|| weaponSetting.currentMagazine <= 0*/)
         {
             return;
         }
@@ -226,14 +226,14 @@ public class WeaponRifle : WeaponBase
         }
     }
 
-    private IEnumerator OnModeChange()
+    private IEnumerator OnAimModeChange()
     {
         float current = 0;
         float percent = 0;
         float time = 0.35f;
 
         _animator.IsAimMode = !_animator.IsAimMode;
-        _imageAim.enabled = !_imageAim.enabled;
+        //_imageAim.enabled = !_imageAim.enabled;
 
         float start = _mainCamera.fieldOfView;
         float end = _animator.IsAimMode == true ? _aimModeFOV : _defaultModeFOV;
