@@ -8,39 +8,37 @@ public class HPEvent : UnityEngine.Events.UnityEvent<int, int> { }
 public class Status : MonoBehaviour
 {
     [HideInInspector]
-    public HPEvent onHPEvent = new HPEvent();
+    public HPEvent OnHPEvent = new HPEvent();
 
-    [Header("Walk, Run Speed")]
     [SerializeField]
-    private float walkSpeed;
+    private float _walkSpeed;
     [SerializeField]
-    private float runSpeed;
+    private float _runSpeed;
 
-    [Header("HP")]
     [SerializeField]
-    private int maxHP = 100;
-    private int currentHP;
+    private int _maxHP = 100;
+    private int _currentHP;
 
-    public float WalkSpeed => walkSpeed;
-    public float RunSpeed => runSpeed;
+    public float WalkSpeed => _walkSpeed;
+    public float RunSpeed => _runSpeed;
 
-    public int CurrentHP => currentHP;
-    public int MaxHP => maxHP;
+    public int CurrentHP => _currentHP;
+    public int MaxHP => _maxHP;
 
     private void Awake()
     {
-        currentHP = maxHP;
+        _currentHP = _maxHP;
     }
 
     public bool DecreaseHP(int damage)
     {
-        int previousHP = currentHP;
+        int previousHP = _currentHP;
 
-        currentHP = currentHP - damage > 0 ? currentHP - damage : 0;
+        _currentHP = _currentHP - damage > 0 ? _currentHP - damage : 0;
 
-        onHPEvent.Invoke(previousHP, currentHP);
+        OnHPEvent.Invoke(previousHP, _currentHP);
 
-        if (currentHP == 0)
+        if (_currentHP == 0)
         {
             return true;
         }
@@ -50,10 +48,10 @@ public class Status : MonoBehaviour
 
     public void IncreaseHP(int hp)
     {
-        int previousHP = currentHP;
+        int previousHP = _currentHP;
 
-        currentHP = currentHP + hp > maxHP ? maxHP : currentHP + hp;
+        _currentHP = _currentHP + hp > _maxHP ? _maxHP : _currentHP + hp;
 
-        onHPEvent.Invoke(previousHP, currentHP);
+        OnHPEvent.Invoke(previousHP, _currentHP);
     }
 }

@@ -174,8 +174,19 @@ public class PlayerController : MonoBehaviour
             Com.Weapon.StartReload();
         }
     }
+    public void TakeDamage(int damage)
+    {
+        bool isDie = Com.Status.DecreaseHP(damage);
+
+        if (isDie == true)
+        {
+            Debug.Log("GameOver");
+        }
+    }
+
     public void SwitchingWeapon(WeaponBase newWeapon)
     {
         Com.Weapon = newWeapon;
     }
+
 }

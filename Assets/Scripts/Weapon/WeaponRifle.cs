@@ -196,7 +196,7 @@ public class WeaponRifle : WeaponBase
 
             if (hit.transform.CompareTag("InteractionObject"))
             {
-                hit.transform.GetComponent<InteractionObject>().TakeDamage(_weaponSetting.damage);
+                hit.transform.GetComponent<InteractionObjectBase>().TakeDamage(_weaponSetting.damage);
             }
 
         }

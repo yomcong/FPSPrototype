@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DestructibleWoodBox : InteractionObject
+public class DestructibleWoodBox : InteractionObjectBase
 {
     [Header("Destructible Barrel")]
     [SerializeField]
