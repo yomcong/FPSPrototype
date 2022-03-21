@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class WeaponAssaultRifle : WeaponBase
 {
-    //[Header("Fire Effects")]
-    //[SerializeField]
-    //private GameObject _muzzleFlashEffect;
-    //
+    [Header("Fire Effects")]
+    [SerializeField]
+    private GameObject _muzzleFlashEffect;
+    
     [Header("Spawn Points")]
     [SerializeField]
     private Transform _casingSpawnPoint;
@@ -28,7 +28,7 @@ public class WeaponAssaultRifle : WeaponBase
     private Image _imageAim;
 
     private CasingMemoryPool casingMemoryPool;
-    //private ImpactMemoryPool impactMemoryPool;
+    private ImpactMemoryPool impactMemoryPool;
     private Camera _mainCamera;
 
 
@@ -37,7 +37,7 @@ public class WeaponAssaultRifle : WeaponBase
         Init();
 
         casingMemoryPool = GetComponent<CasingMemoryPool>();
-        //impactMemoryPool = GetComponent<ImpactMemoryPool>();
+        impactMemoryPool = GetComponent<ImpactMemoryPool>();
 
         _mainCamera = Camera.main;
 
@@ -48,7 +48,7 @@ public class WeaponAssaultRifle : WeaponBase
     {
         PlaySound(_audioClipTakeOutWeapon);
 
-        //_muzzleFlashEffect.SetActive(false);
+        _muzzleFlashEffect.SetActive(false);
 
         OnAmmoEvent.Invoke(_weaponSetting.CurrentAmmo, _weaponSetting.MaxAmmo);
 
@@ -191,18 +191,13 @@ public class WeaponAssaultRifle : WeaponBase
         Vector3 attackDirection = (targetPoint - _bulletSpawnPoint.position).normalized;
         if (Physics.Raycast(_bulletSpawnPoint.position, attackDirection, out hit, _weaponSetting.AttackDistance))
         {
-            //impactMemoryPool.SpawnImpact(hit);
+            impactMemoryPool.SpawnImpact(hit);
 
-            //if (hit.transform.CompareTag("ImpactEnemy"))
-            //{
-            //    hit.transform.GetComponent<EnemyFSM>().TakeDamage(weaponSetting.damage);
-            //}
-            //else if (hit.transform.CompareTag("InteractionObject"))
-            //{
-            //    hit.transform.GetComponent<InteractionObject>().TakeDamage(weaponSetting.damage);
-            //}
-
-            if (hit.transform.CompareTag("InteractionObject"))
+            if (hit.transform.CompareTag("Enemy"))
+            {
+                //hit.transform.GetComponent<EnemyFSM>().TakeDamage(weaponSetting.damage);
+            }
+            else if (hit.transform.CompareTag("InteractionObject"))
             {
                 hit.transform.GetComponent<InteractionObjectBase>().TakeDamage(_weaponSetting.Damage);
             }
@@ -213,11 +208,11 @@ public class WeaponAssaultRifle : WeaponBase
 
     private IEnumerator OnMuzzleFlashEffect()
     {
-        //_muzzleFlashEffect.SetActive(true);
+        _muzzleFlashEffect.SetActive(true);
 
         yield return new WaitForSeconds(_weaponSetting.AttackRate * 0.3f);
 
-        //_muzzleFlashEffect.SetActive(false);
+        _muzzleFlashEffect.SetActive(false);
     }
     private IEnumerator OnReload()
     {
