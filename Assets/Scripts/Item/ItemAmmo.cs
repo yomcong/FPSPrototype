@@ -25,6 +25,8 @@ public class ItemAmmo : MonoBehaviour, IItemBase
     {
         entity.GetComponent<WeaponSwitching>().IncreaseAmmo(_increaseAmmo);
 
+        entity.GetComponent<WeaponSwitching>().IncreaseAmmo(_increaseAmmo);
+
         Instantiate(_ammoEffectPrefab, transform.position, Quaternion.identity);
 
         Destroy(gameObject);

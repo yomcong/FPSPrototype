@@ -2,22 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum WeaponNaming { AssaultRifle = 0, Revolver, CombatKnife, HandGrenade }
+public enum WeaponNaming { AssaultRifle = 0, SniperRifle, Pistol, Launcher }
 
 
 [System.Serializable]
 public struct WeaponSetting
 {
-    public WeaponNaming weaponName;
+    public WeaponNaming WeaponName;
 
-    public int damage;
+    public int Damage;
 
-    public int currentAmmo;
-    public int maxAmmo;
+    public int CurrentAmmo;
+    public int MagCapacity;
+    public int MaxAmmo;
 
-    public float attackRate;
-    public float attackDistance;
+    public float AttackRate;
+    public float AttackDistance;
 
-    public bool isAutomaticAttack;
+    public bool IsAutomaticAttack;
 
 }

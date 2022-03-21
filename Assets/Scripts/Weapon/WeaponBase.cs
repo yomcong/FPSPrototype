@@ -36,9 +36,9 @@ public abstract class WeaponBase : MonoBehaviour
     public AmmoEvent OnAmmoEvent = new AmmoEvent();
 
     public AnimatorController Animator => _animator;
-    public WeaponNaming WeaponName => _weaponSetting.weaponName;
-    public int CurrentAmmo => _weaponSetting.currentAmmo;
-    public int MaxAmmo => _weaponSetting.maxAmmo;
+    public WeaponNaming WeaponName => _weaponSetting.WeaponName;
+    public int CurrentAmmo => _weaponSetting.CurrentAmmo;
+    public int MaxAmmo => _weaponSetting.MagCapacity;
 
     public abstract void StartWeaponAction(int type = 0);
     public abstract void StopWeaponAction(int type = 0);
@@ -59,7 +59,7 @@ public abstract class WeaponBase : MonoBehaviour
 
     public void IncreaseAmmo(int ammo)
     {
-        _weaponSetting.currentAmmo =  CurrentAmmo + ammo > MaxAmmo ? MaxAmmo : CurrentAmmo + ammo;
+        _weaponSetting.CurrentAmmo =  CurrentAmmo + ammo > MaxAmmo ? MaxAmmo : CurrentAmmo + ammo;
 
         OnAmmoEvent.Invoke(CurrentAmmo, MaxAmmo);
     }

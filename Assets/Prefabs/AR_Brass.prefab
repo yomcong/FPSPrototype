@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 857610483702190742}
   - component: {fileID: 857610483702190743}
   - component: {fileID: 857610483702190728}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AR_Brass
   m_TagString: Untagged
   m_Icon: {fileID: 0}

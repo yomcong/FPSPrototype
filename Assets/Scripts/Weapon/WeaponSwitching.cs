@@ -6,8 +6,8 @@ public class WeaponSwitching : MonoBehaviour
 {
     [SerializeField]
     private PlayerController _playerController;
-    //[SerializeField]
-    //private PlayerHUD playerHUD;
+    [SerializeField]
+    private PlayerHUD _playerHUD;
 
     [SerializeField]
     private WeaponBase[] weapons;
@@ -17,7 +17,7 @@ public class WeaponSwitching : MonoBehaviour
 
     private void Awake()
     {
-        //playerHUD.SetupAllWeapons(weapons);
+        _playerHUD.SetupAllWeapons(weapons);
 
         for (int i = 0; i < weapons.Length; ++i)
         {
@@ -70,7 +70,7 @@ public class WeaponSwitching : MonoBehaviour
         }
 
         _playerController.SwitchingWeapon(_currentWeapon);
-        //playerHUD.SwitchingWeapon(currentWeapon);
+        _playerHUD.SwitchingWeapon(_currentWeapon);
 
         if (_previouseWeapon != null)
         {
@@ -94,7 +94,5 @@ public class WeaponSwitching : MonoBehaviour
                 weapons[i].IncreaseAmmo(ammo);
             }
         }
-        
     }
-
 }

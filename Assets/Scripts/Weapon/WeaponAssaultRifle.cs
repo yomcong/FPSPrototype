@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class WeaponRifle : WeaponBase
+public class WeaponAssaultRifle : WeaponBase
 {
     //[Header("Fire Effects")]
     //[SerializeField]
@@ -41,15 +41,16 @@ public class WeaponRifle : WeaponBase
 
         _mainCamera = Camera.main;
 
-        _weaponSetting.currentAmmo = _weaponSetting.maxAmmo;
+        _weaponSetting.CurrentAmmo = _weaponSetting.MagCapacity;
     }
+
     private void OnEnable()
     {
         PlaySound(_audioClipTakeOutWeapon);
 
         //_muzzleFlashEffect.SetActive(false);
 
-        OnAmmoEvent.Invoke(_weaponSetting.currentAmmo, _weaponSetting.maxAmmo);
+        OnAmmoEvent.Invoke(_weaponSetting.CurrentAmmo, _weaponSetting.MaxAmmo);
 
         ResetVariables();
     }
@@ -57,6 +58,11 @@ public class WeaponRifle : WeaponBase
     public override void StartReload()
     {
         if (_isReload || _animator.IsAimMode == true)
+        {
+            return;
+        }
+
+        if (_weaponSetting.CurrentAmmo == _weaponSetting.MagCapacity || MaxAmmo <= 0 )
         {
             return;
         }
@@ -75,7 +81,7 @@ public class WeaponRifle : WeaponBase
 
         if (type == 0)
         {
-            if (_weaponSetting.isAutomaticAttack)
+            if (_weaponSetting.IsAutomaticAttack)
             {
                 StartCoroutine("OnAttackLoop");
             }
@@ -123,22 +129,24 @@ public class WeaponRifle : WeaponBase
 
     private void OnAttack()
     {
-        if (Time.time - _lastAttackTime > _weaponSetting.attackRate)
+        if (Time.time - _lastAttackTime > _weaponSetting.AttackRate)
         {
             if (_animator.MoveSpeed > 0.5f)
             {
                 return;
             }
 
-            if (_weaponSetting.currentAmmo <= 0)
+            if (_weaponSetting.CurrentAmmo <= 0)
             {
                 return;
             }
 
+            _isAttack = true;
+
             _lastAttackTime = Time.time;
 
-            _weaponSetting.currentAmmo--;
-            OnAmmoEvent.Invoke(_weaponSetting.currentAmmo, _weaponSetting.maxAmmo);
+            _weaponSetting.CurrentAmmo--;
+            OnAmmoEvent.Invoke(_weaponSetting.CurrentAmmo, _weaponSetting.MaxAmmo);
 
             //_animator.IsAimMode == true ? _animator.Play(_animator.AnimParam.AimFire, -1, 0) :
             //    _animator.Play(_animator.AnimParam.Fire, -1, 0);
@@ -169,19 +177,19 @@ public class WeaponRifle : WeaponBase
 
         ray = _mainCamera.ViewportPointToRay(Vector2.one * 0.5f);
 
-        if (Physics.Raycast(ray, out hit, _weaponSetting.attackDistance))
+        if (Physics.Raycast(ray, out hit, _weaponSetting.AttackDistance))
         {
             targetPoint = hit.point;
         }
         else
         {
-            targetPoint = ray.origin + ray.direction * _weaponSetting.attackDistance;
+            targetPoint = ray.origin + ray.direction * _weaponSetting.AttackDistance;
         }
 
-        Debug.DrawRay(ray.origin, ray.direction * _weaponSetting.attackDistance, Color.red);
+        Debug.DrawRay(ray.origin, ray.direction * _weaponSetting.AttackDistance, Color.red);
 
         Vector3 attackDirection = (targetPoint - _bulletSpawnPoint.position).normalized;
-        if (Physics.Raycast(_bulletSpawnPoint.position, attackDirection, out hit, _weaponSetting.attackDistance))
+        if (Physics.Raycast(_bulletSpawnPoint.position, attackDirection, out hit, _weaponSetting.AttackDistance))
         {
             //impactMemoryPool.SpawnImpact(hit);
 
@@ -196,18 +204,18 @@ public class WeaponRifle : WeaponBase
 
             if (hit.transform.CompareTag("InteractionObject"))
             {
-                hit.transform.GetComponent<InteractionObjectBase>().TakeDamage(_weaponSetting.damage);
+                hit.transform.GetComponent<InteractionObjectBase>().TakeDamage(_weaponSetting.Damage);
             }
 
         }
-        Debug.DrawRay(_bulletSpawnPoint.position, attackDirection * _weaponSetting.attackDistance, Color.blue);
+        Debug.DrawRay(_bulletSpawnPoint.position, attackDirection * _weaponSetting.AttackDistance, Color.blue);
     }
 
     private IEnumerator OnMuzzleFlashEffect()
     {
         //_muzzleFlashEffect.SetActive(true);
 
-        yield return new WaitForSeconds(_weaponSetting.attackRate * 0.3f);
+        yield return new WaitForSeconds(_weaponSetting.AttackRate * 0.3f);
 
         //_muzzleFlashEffect.SetActive(false);
     }
@@ -224,8 +232,16 @@ public class WeaponRifle : WeaponBase
             {
                 _isReload = false;
 
-                _weaponSetting.currentAmmo = _weaponSetting.maxAmmo;
-                OnAmmoEvent.Invoke(_weaponSetting.currentAmmo, _weaponSetting.maxAmmo);
+                int requireAmmo = _weaponSetting.MagCapacity - CurrentAmmo;
+
+                if (_weaponSetting.MaxAmmo < requireAmmo)
+                {
+                    requireAmmo = _weaponSetting.MaxAmmo;
+                }
+                _weaponSetting.MaxAmmo -= requireAmmo;
+                _weaponSetting.CurrentAmmo += requireAmmo;
+
+                OnAmmoEvent.Invoke(_weaponSetting.CurrentAmmo, _weaponSetting.MaxAmmo);
 
                 yield break;
             }
