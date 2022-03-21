@@ -21,25 +21,17 @@ public class WeaponAssaultRifle : WeaponBase
     [SerializeField]
     private AudioClip _audioClipFire;
     [SerializeField]
-    private AudioClip _audioClipReload;
+    private AudioClip _audioClipReloadPart1;
+    [SerializeField]
+    private AudioClip _audioClipReloadPart2;
 
     [Header("Aim UI")]
     [SerializeField]
     private Image _imageAim;
 
-    private CasingMemoryPool casingMemoryPool;
-    private ImpactMemoryPool impactMemoryPool;
-    private Camera _mainCamera;
-
-
     private void Awake()
     {
         Init();
-
-        casingMemoryPool = GetComponent<CasingMemoryPool>();
-        impactMemoryPool = GetComponent<ImpactMemoryPool>();
-
-        _mainCamera = Camera.main;
 
         _weaponSetting.CurrentAmmo = _weaponSetting.MagCapacity;
     }
@@ -57,7 +49,7 @@ public class WeaponAssaultRifle : WeaponBase
 
     public override void StartReload()
     {
-        if (_isReload || _animator.IsAimMode == true)
+        if (_isReload || _isAttack || _animator.IsAimMode == true)
         {
             return;
         }
@@ -105,7 +97,6 @@ public class WeaponAssaultRifle : WeaponBase
     {
         if (type == 0)
         {
-            _isAttack = false;
             StopCoroutine("OnAttackLoop");
         }
     }
@@ -141,15 +132,13 @@ public class WeaponAssaultRifle : WeaponBase
                 return;
             }
 
-            _isAttack = true;
+            StopCoroutine("AttackAnimation");
+            StartCoroutine("AttackAnimation");
 
             _lastAttackTime = Time.time;
 
             _weaponSetting.CurrentAmmo--;
             OnAmmoEvent.Invoke(_weaponSetting.CurrentAmmo, _weaponSetting.MaxAmmo);
-
-            //_animator.IsAimMode == true ? _animator.Play(_animator.AnimParam.AimFire, -1, 0) :
-            //    _animator.Play(_animator.AnimParam.Fire, -1, 0);
 
             if(_animator.IsAimMode)
             {
@@ -167,6 +156,14 @@ public class WeaponAssaultRifle : WeaponBase
 
             TwoStepRaycast();
         }
+    }
+    private IEnumerator AttackAnimation()
+    {
+        _isAttack = true;
+
+        yield return new WaitForSeconds(0.4f);
+
+        _isAttack = false;
     }
 
     private void TwoStepRaycast()
@@ -210,7 +207,7 @@ public class WeaponAssaultRifle : WeaponBase
     {
         _muzzleFlashEffect.SetActive(true);
 
-        yield return new WaitForSeconds(_weaponSetting.AttackRate * 0.3f);
+        yield return new WaitForSeconds(0.1f);
 
         _muzzleFlashEffect.SetActive(false);
     }
@@ -219,12 +216,15 @@ public class WeaponAssaultRifle : WeaponBase
         _isReload = true;
 
         _animator.OnReload();
-        PlaySound(_audioClipReload);
+
+        StartCoroutine("StartReloadSound");
 
         while (true)
         {
             if (_audioSource.isPlaying == false && _animator.CurrentAnimationIs(_animator.AnimParam.Movement))
             {
+                StopCoroutine("StartReloadSound");
+
                 _isReload = false;
 
                 int requireAmmo = _weaponSetting.MagCapacity - CurrentAmmo;
@@ -243,6 +243,15 @@ public class WeaponAssaultRifle : WeaponBase
 
             yield return null;
         }
+    }
+
+    private IEnumerator StartReloadSound()
+    {
+        PlaySound(_audioClipReloadPart1);
+
+        yield return new WaitForSeconds(1.2f);
+
+        PlaySound(_audioClipReloadPart2);
     }
 
     private IEnumerator OnAimModeChange()

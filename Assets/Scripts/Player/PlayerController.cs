@@ -36,10 +36,8 @@ public class PlayerController : MonoBehaviour
     public class CharacterState
     {
         public bool IsMoving;
-        public bool isRunning;
-        public bool isGrounded;
-        public bool isJumping;
-        public bool isCursorActive;
+        public bool IsRunning;
+        public bool IsCursorActive;
     }
 
     [SerializeField] private Components _components = new Components();
@@ -101,19 +99,19 @@ public class PlayerController : MonoBehaviour
 
         if (State.IsMoving)
         {
-            State.isRunning = false;
+            State.IsRunning = false;
 
             if (z > 0)
             {
-                State.isRunning = Input.GetKey(Key.Run);
+                State.IsRunning = Input.GetKey(Key.Run);
             }
 
 
-            Com.Movement.MoveSpeed = State.isRunning == true ? Com.Status.RunSpeed : Com.Status.WalkSpeed;
+            Com.Movement.MoveSpeed = State.IsRunning == true ? Com.Status.RunSpeed : Com.Status.WalkSpeed;
             //Com.Weapon.Animator.MoveSpeed = State.isRunning == true ? 1 : 0.5f;
             Com.Weapon.Animator.MoveSpeed = Mathf.Lerp(Com.Weapon.Animator.MoveSpeed,
-                                                        State.isRunning == true ? 1 : 0.5f, 0.3f);
-            Com.AudioSource.clip = State.isRunning == true ? _audioClipRun : _audioClipWalk;
+                                                        State.IsRunning == true ? 1 : 0.5f, 0.3f);
+            Com.AudioSource.clip = State.IsRunning == true ? _audioClipRun : _audioClipWalk;
 
             if (Com.AudioSource.isPlaying == false)
             {
@@ -123,7 +121,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            State.isRunning = false;
+            State.IsRunning = false;
             Com.Movement.MoveSpeed = 0;
             Com.Weapon.Animator.MoveSpeed = 0;
 

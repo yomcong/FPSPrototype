@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: WeaponSniperRifle
+  m_Controller: {fileID: 9100000, guid: e1a394fff30c7ff44a6aef1162b5d821, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 6bbdde63318008f488b4b3f80b37dc9d, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: fed9cd443ee2be04591f59de66522203, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 79d39c144080c8d46845baad1e6631ec, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 624622e4ac787b145a75d95e84c66eb7, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 14c26cff4ea2dbb4998003dd8996b6d6, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 0a390bf56b97b064fa1f75455528fd30, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 0b240d48659678f4abd8064d464ca148, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 160852ab1bce40e49bf8711c2062bad9, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 4d6a9ad632ec46d47989fbee26317940, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 85fb7933685a4eb429c5dc8db3771991, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 264d0fe33b9bcf545a2b7a6e656cacc3, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: b47ee353b32741d4e8fe3e3fb89bf8dc, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: b2da6e3d10db2e343b53842f93278d59, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 9d0a4002a15ceba47b7acffa3e8a85f4, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: c3568e9a72abf274996a0d172ae8b12d, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 5d36fe5f9a460ba4992bb5f88f355f03, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: f82619bbc475ec146bfc1585597b0a48, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 377a978e229dcdd4ba19b9016b3973ae, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 6d2594525d14f214f83124af514bdd58, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: cc619ad49ab6a2b4982834b7b06afdc2, type: 3}

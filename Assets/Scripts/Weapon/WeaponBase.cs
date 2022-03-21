@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,6 +30,9 @@ public abstract class WeaponBase : MonoBehaviour
     [SerializeField]
     protected float _aimModeFOV = 30;
 
+    protected CasingMemoryPool casingMemoryPool;
+    protected ImpactMemoryPool impactMemoryPool;
+    protected Camera _mainCamera;
     protected AudioSource _audioSource;
     protected AnimatorController _animator;
 
@@ -48,6 +52,10 @@ public abstract class WeaponBase : MonoBehaviour
     {
         _audioSource = GetComponent<AudioSource>();
         _animator = GetComponent<AnimatorController>();
+        casingMemoryPool = GetComponent<CasingMemoryPool>();
+        impactMemoryPool = GetComponentInParent<ImpactMemoryPool>();
+
+        _mainCamera = Camera.main;
     }
 
     protected void PlaySound(AudioClip clip)
