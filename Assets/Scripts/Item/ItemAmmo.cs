@@ -23,9 +23,7 @@ public class ItemAmmo : MonoBehaviour, IItemBase
 
     public void Use(GameObject entity)
     {
-        entity.GetComponent<WeaponSwitching>().IncreaseAmmo(_increaseAmmo);
-
-        entity.GetComponent<WeaponSwitching>().IncreaseAmmo(_increaseAmmo);
+        entity.GetComponent<WeaponSwitching>().IncreaseAmmo();
 
         Instantiate(_ammoEffectPrefab, transform.position, Quaternion.identity);
 

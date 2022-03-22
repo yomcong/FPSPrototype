@@ -15,6 +15,10 @@ public class PlayerHUD : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI _textWeaponName;
     [SerializeField]
+    private Image _imageAutomaticIcon;
+    [SerializeField]
+    private Image _imageSingleIcon;
+    [SerializeField]
     private Image _imageWeaponIcon;
     [SerializeField]
     private Sprite[] _spriteWeaponIcons;
@@ -41,6 +45,9 @@ public class PlayerHUD : MonoBehaviour
     private void Awake()
     {
         _status.OnHPEvent.AddListener(UpdateHPHUD);
+
+        _imageAutomaticIcon.gameObject.SetActive(true);
+        _imageSingleIcon.gameObject.SetActive(false);
     }
 
     public void SetupAllWeapons(WeaponBase[] weapons)
@@ -50,6 +57,7 @@ public class PlayerHUD : MonoBehaviour
         for (int i = 0; i < weapons.Length; ++i)
         {
             weapons[i].OnAmmoEvent.AddListener(UpdateAmmoHUD);
+            weapons[i].OnAutomaticEvent.AddListener(UpdateAutomaticFireIcon);
         }
     }
 
@@ -71,25 +79,6 @@ public class PlayerHUD : MonoBehaviour
     {
         _textAmmo.text = $"<size=55>{ currentAmmo}/</size=40>{maxAmmo}";
     }
-
-    //private void SetupMagazine()
-    //{
-    //    magazineList = new List<GameObject>();
-    //    for (int i = 0; i < maxMagazineCount; ++i)
-    //    {
-    //        GameObject clone = Instantiate(magazineUIPrefab);
-    //        clone.transform.SetParent(magazineParent);
-    //        clone.SetActive(false);
-
-    //        magazineList.Add(clone);
-    //    }
-
-    //    for (int i = 0; i < weapon.CurrentMagazine; ++i)
-    //    {
-    //        magazineList[i].SetActive(true);
-    //    }
-
-    //}
 
     private void UpdateMagazineHUD(int currentMagazine)
     {
@@ -119,6 +108,13 @@ public class PlayerHUD : MonoBehaviour
             StartCoroutine("OnBloodScreen");
         }
     }
+
+    private void UpdateAutomaticFireIcon(bool isAutomatic)
+    {
+        _imageAutomaticIcon.gameObject.SetActive(isAutomatic);
+        _imageSingleIcon.gameObject.SetActive(isAutomatic == false);
+    }
+
     private IEnumerator OnBloodScreen()
     {
         float percent = 0;

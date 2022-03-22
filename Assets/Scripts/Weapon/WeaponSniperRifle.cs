@@ -28,6 +28,8 @@ public class WeaponSniperRifle : WeaponBase
     [Header("Aim UI")]
     [SerializeField]
     private Image _imageAim;
+    [SerializeField]
+    private Image _imageZoomAim;
 
     private void Awake()
     {
@@ -45,6 +47,10 @@ public class WeaponSniperRifle : WeaponBase
         OnAmmoEvent.Invoke(_weaponSetting.CurrentAmmo, _weaponSetting.MaxAmmo);
 
         ResetVariables();
+
+        _weaponSetting.IsAutomaticAttack = false;
+
+        OnAutomaticEvent.Invoke(_weaponSetting.IsAutomaticAttack);
     }
 
     public override void StartReload()
@@ -97,16 +103,6 @@ public class WeaponSniperRifle : WeaponBase
         _isAttack = false;
         _isAimModeChange = false;
     }
-
-    //private IEnumerator OnAttackLoop()
-    //{
-    //    while (true)
-    //    {
-    //        OnAttack();
-
-    //        yield return null;
-    //    }
-    //}
 
     private void OnAttack()
     {
@@ -251,7 +247,8 @@ public class WeaponSniperRifle : WeaponBase
         float time = 0.35f;
 
         _animator.IsAimMode = !_animator.IsAimMode;
-        //_imageAim.enabled = !_imageAim.enabled;
+        _imageAim.enabled = !_imageAim.enabled;
+        _imageZoomAim.enabled = !_imageAim.enabled;
 
         float start = _mainCamera.fieldOfView;
         float end = _animator.IsAimMode == true ? _aimModeFOV : _defaultModeFOV;
@@ -269,5 +266,18 @@ public class WeaponSniperRifle : WeaponBase
         }
 
         _isAimModeChange = false;
+    }
+    public override void IncreaseAmmo()
+    {
+        _weaponSetting.MaxAmmo = _weaponSetting.MaxAmmo + 10 > _weaponSetting.MaxLimitAmmo
+            ? _weaponSetting.MaxLimitAmmo : _weaponSetting.MaxAmmo + 10;
+
+        OnAmmoEvent.Invoke(CurrentAmmo, MaxAmmo);
+    }
+
+    public override void IsAutomaticChange()
+    {
+        _weaponSetting.IsAutomaticAttack = false;
+        OnAutomaticEvent.Invoke(_weaponSetting.IsAutomaticAttack);
     }
 }

@@ -45,6 +45,10 @@ public class WeaponAssaultRifle : WeaponBase
         OnAmmoEvent.Invoke(_weaponSetting.CurrentAmmo, _weaponSetting.MaxAmmo);
 
         ResetVariables();
+
+        _weaponSetting.IsAutomaticAttack = true;
+
+        OnAutomaticEvent.Invoke(_weaponSetting.IsAutomaticAttack);
     }
 
     public override void StartReload()
@@ -147,6 +151,7 @@ public class WeaponAssaultRifle : WeaponBase
             else
             {
                 _animator.Play(_animator.AnimParam.FireHash, -1, 0);
+                StopCoroutine("OnMuzzleFlashEffect");
                 StartCoroutine("OnMuzzleFlashEffect");
             }
             
@@ -161,7 +166,7 @@ public class WeaponAssaultRifle : WeaponBase
     {
         _isAttack = true;
 
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.3f);
 
         _isAttack = false;
     }
@@ -207,7 +212,7 @@ public class WeaponAssaultRifle : WeaponBase
     {
         _muzzleFlashEffect.SetActive(true);
 
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.05f);
 
         _muzzleFlashEffect.SetActive(false);
     }
@@ -261,7 +266,7 @@ public class WeaponAssaultRifle : WeaponBase
         float time = 0.35f;
 
         _animator.IsAimMode = !_animator.IsAimMode;
-        //_imageAim.enabled = !_imageAim.enabled;
+        _imageAim.enabled = !_imageAim.enabled;
 
         float start = _mainCamera.fieldOfView;
         float end = _animator.IsAimMode == true ? _aimModeFOV : _defaultModeFOV;
@@ -279,5 +284,18 @@ public class WeaponAssaultRifle : WeaponBase
         }
 
         _isAimModeChange = false;
+    }
+    public override void IncreaseAmmo()
+    {
+        _weaponSetting.MaxAmmo = _weaponSetting.MaxAmmo + 60 > _weaponSetting.MaxLimitAmmo
+            ? _weaponSetting.MaxLimitAmmo : _weaponSetting.MaxAmmo + 60;
+
+        OnAmmoEvent.Invoke(CurrentAmmo, MaxAmmo);
+    }
+
+    public override void IsAutomaticChange()
+    {
+        _weaponSetting.IsAutomaticAttack = !_weaponSetting.IsAutomaticAttack;
+        OnAutomaticEvent.Invoke(_weaponSetting.IsAutomaticAttack);
     }
 }

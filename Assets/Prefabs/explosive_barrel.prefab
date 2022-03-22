@@ -128,7 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHP: 100
   _explosionPrefab: {fileID: 3226921059324719311, guid: 699d0eacdd38fc54da351db36838d45a, type: 3}
-  _destrctibleBarrelPieces: {fileID: 0}
+  _destrctibleBarrelPieces: {fileID: 321232068985810451, guid: 479ccefcd5cd10c4482cdaa44dfd3a9a, type: 3}
   _explosionDelayTime: 0.3
   _explosionRadius: 10
   _explosionForce: 1000

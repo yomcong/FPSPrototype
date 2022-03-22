@@ -21,7 +21,9 @@ public class WeaponRocketLauncher : WeaponBase
     [SerializeField]
     private AudioClip _audioClipFire;
     [SerializeField]
-    private AudioClip _audioClipReload;
+    private AudioClip _audioClipReloadPart1;
+    [SerializeField]
+    private AudioClip _audioClipReloadPart2;
 
     [Header("Aim UI")]
     [SerializeField]
@@ -43,6 +45,10 @@ public class WeaponRocketLauncher : WeaponBase
         OnAmmoEvent.Invoke(_weaponSetting.CurrentAmmo, _weaponSetting.MaxAmmo);
 
         ResetVariables();
+
+        _weaponSetting.IsAutomaticAttack = false;
+
+        OnAutomaticEvent.Invoke(_weaponSetting.IsAutomaticAttack);
     }
 
     public override void StartReload()
@@ -71,14 +77,7 @@ public class WeaponRocketLauncher : WeaponBase
 
         if (type == 0)
         {
-            if (_weaponSetting.IsAutomaticAttack)
-            {
-                StartCoroutine("OnAttackLoop");
-            }
-            else
-            {
-                OnAttack();
-            }
+            OnAttack();
         }
         else
         {
@@ -93,11 +92,7 @@ public class WeaponRocketLauncher : WeaponBase
 
     public override void StopWeaponAction(int type = 0)
     {
-        if (type == 0)
-        {
-            _isAttack = false;
-            StopCoroutine("OnAttackLoop");
-        }
+
     }
 
     private void ResetVariables()
@@ -105,16 +100,6 @@ public class WeaponRocketLauncher : WeaponBase
         _isReload = false;
         _isAttack = false;
         _isAimModeChange = false;
-    }
-
-    private IEnumerator OnAttackLoop()
-    {
-        while (true)
-        {
-            OnAttack();
-
-            yield return null;
-        }
     }
 
     private void OnAttack()
@@ -131,7 +116,8 @@ public class WeaponRocketLauncher : WeaponBase
                 return;
             }
 
-            _isAttack = true;
+            StopCoroutine("AttackAnimation");
+            StartCoroutine("AttackAnimation");
 
             _lastAttackTime = Time.time;
 
@@ -154,6 +140,14 @@ public class WeaponRocketLauncher : WeaponBase
 
             TwoStepRaycast();
         }
+    }
+    private IEnumerator AttackAnimation()
+    {
+        _isAttack = true;
+
+        yield return new WaitForSeconds(0.6f);
+
+        _isAttack = false;
     }
 
     private void TwoStepRaycast()
@@ -206,7 +200,8 @@ public class WeaponRocketLauncher : WeaponBase
         _isReload = true;
 
         _animator.OnReload();
-        PlaySound(_audioClipReload);
+
+        StartCoroutine("StartReloadSound");
 
         while (true)
         {
@@ -232,6 +227,20 @@ public class WeaponRocketLauncher : WeaponBase
         }
     }
 
+    private IEnumerator StartReloadSound()
+    {
+        PlaySound(_audioClipReloadPart1);
+
+        yield return new WaitForSeconds(1.4f);
+
+        PlaySound(_audioClipReloadPart2);
+
+        yield return new WaitForSeconds(1.6f);
+
+        PlaySound(_audioClipReloadPart2);
+
+    }
+
     private IEnumerator OnAimModeChange()
     {
         float current = 0;
@@ -239,7 +248,7 @@ public class WeaponRocketLauncher : WeaponBase
         float time = 0.35f;
 
         _animator.IsAimMode = !_animator.IsAimMode;
-        //_imageAim.enabled = !_imageAim.enabled;
+        _imageAim.enabled = !_imageAim.enabled;
 
         float start = _mainCamera.fieldOfView;
         float end = _animator.IsAimMode == true ? _aimModeFOV : _defaultModeFOV;
@@ -257,5 +266,18 @@ public class WeaponRocketLauncher : WeaponBase
         }
 
         _isAimModeChange = false;
+    }
+    public override void IncreaseAmmo()
+    {
+        _weaponSetting.MaxAmmo = _weaponSetting.MaxAmmo + 2 > _weaponSetting.MaxLimitAmmo
+            ? _weaponSetting.MaxLimitAmmo : _weaponSetting.MaxAmmo + 2;
+
+        OnAmmoEvent.Invoke(CurrentAmmo, MaxAmmo);
+    }
+
+    public override void IsAutomaticChange()
+    {
+        _weaponSetting.IsAutomaticAttack = false;
+        OnAutomaticEvent.Invoke(_weaponSetting.IsAutomaticAttack);
     }
 }

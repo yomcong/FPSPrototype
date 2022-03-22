@@ -80,19 +80,20 @@ public class WeaponSwitching : MonoBehaviour
         _currentWeapon.gameObject.SetActive(true);
     }
 
-    public void IncreaseAmmo(int ammo)
+    public void IncreaseAmmo()
     {
-        _currentWeapon.IncreaseAmmo(ammo);
+        _currentWeapon.IncreaseAmmo();
     }
 
-    public void IncreaseAllAmmo(int ammo)
+    public void IncreaseAllAmmo()
     {
         for(int i=0; i<weapons.Length; ++i)
         {
             if (weapons[i] != null)
             {
-                weapons[i].IncreaseAmmo(ammo);
+                weapons[i].IncreaseAmmo();
             }
+            _currentWeapon.OnAmmoEvent.Invoke(_currentWeapon.CurrentAmmo, _currentWeapon.MaxAmmo);
         }
     }
 }

@@ -7,6 +7,8 @@ public enum WeaponType { Main = 0, Sub, Sub2, Special, Throw };
 
 [System.Serializable]
 public class AmmoEvent : UnityEngine.Events.UnityEvent<int, int> { }
+[System.Serializable]
+public class AutomaticEvent : UnityEngine.Events.UnityEvent<bool> { }
 
 public abstract class WeaponBase : MonoBehaviour
 {
@@ -38,15 +40,20 @@ public abstract class WeaponBase : MonoBehaviour
 
     [HideInInspector]
     public AmmoEvent OnAmmoEvent = new AmmoEvent();
+    [HideInInspector]
+    public AutomaticEvent OnAutomaticEvent = new AutomaticEvent();
+
 
     public AnimatorController Animator => _animator;
     public WeaponNaming WeaponName => _weaponSetting.WeaponName;
     public int CurrentAmmo => _weaponSetting.CurrentAmmo;
-    public int MaxAmmo => _weaponSetting.MagCapacity;
+    public int MaxAmmo => _weaponSetting.MaxAmmo;
 
     public abstract void StartWeaponAction(int type = 0);
     public abstract void StopWeaponAction(int type = 0);
     public abstract void StartReload();
+    public abstract void IsAutomaticChange();
+    public abstract void IncreaseAmmo();
 
     protected void Init()
     {
@@ -65,11 +72,8 @@ public abstract class WeaponBase : MonoBehaviour
         _audioSource.Play();
     }
 
-    public void IncreaseAmmo(int ammo)
-    {
-        _weaponSetting.CurrentAmmo =  CurrentAmmo + ammo > MaxAmmo ? MaxAmmo : CurrentAmmo + ammo;
+    
 
-        OnAmmoEvent.Invoke(CurrentAmmo, MaxAmmo);
-    }
+    
 
 }

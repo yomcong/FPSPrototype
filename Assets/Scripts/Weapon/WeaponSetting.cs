@@ -15,6 +15,7 @@ public struct WeaponSetting
     public int CurrentAmmo;
     public int MagCapacity;
     public int MaxAmmo;
+    public int MaxLimitAmmo;
 
     public float AttackRate;
     public float AttackDistance;

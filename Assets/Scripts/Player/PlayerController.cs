@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
         public KeyCode Run = KeyCode.LeftShift;
         public KeyCode Jump = KeyCode.Space;
         public KeyCode Reload = KeyCode.R;
+        public KeyCode AutomaticChange = KeyCode.B;
         public KeyCode ShowCursor = KeyCode.LeftAlt;
         public string MouseX = "Mouse X";
         public string MouseY = "Mouse Y";
@@ -171,6 +172,12 @@ public class PlayerController : MonoBehaviour
         {
             Com.Weapon.StartReload();
         }
+
+        if( Input.GetKeyDown(Key.AutomaticChange))
+        {
+            Com.Weapon.IsAutomaticChange();
+        }
+
     }
     public void TakeDamage(int damage)
     {

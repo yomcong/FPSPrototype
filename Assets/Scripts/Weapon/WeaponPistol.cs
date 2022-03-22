@@ -47,6 +47,10 @@ public class WeaponPistol : WeaponBase
         OnAmmoEvent.Invoke(_weaponSetting.CurrentAmmo, _weaponSetting.MaxAmmo);
 
         ResetVariables();
+
+        _weaponSetting.IsAutomaticAttack = true;
+
+        OnAutomaticEvent.Invoke(_weaponSetting.IsAutomaticAttack);
     }
 
     public override void StartReload()
@@ -266,7 +270,7 @@ public class WeaponPistol : WeaponBase
         float time = 0.35f;
 
         _animator.IsAimMode = !_animator.IsAimMode;
-        //_imageAim.enabled = !_imageAim.enabled;
+        _imageAim.enabled = !_imageAim.enabled;
 
         float start = _mainCamera.fieldOfView;
         float end = _animator.IsAimMode == true ? _aimModeFOV : _defaultModeFOV;
@@ -284,5 +288,18 @@ public class WeaponPistol : WeaponBase
         }
 
         _isAimModeChange = false;
+    }
+    public override void IncreaseAmmo()
+    {
+        _weaponSetting.MaxAmmo = _weaponSetting.MaxAmmo + 40 > _weaponSetting.MaxLimitAmmo
+            ? _weaponSetting.MaxLimitAmmo : _weaponSetting.MaxAmmo + 40;
+
+        OnAmmoEvent.Invoke(CurrentAmmo, MaxAmmo);
+    }
+
+    public override void IsAutomaticChange()
+    {
+        _weaponSetting.IsAutomaticAttack = !_weaponSetting.IsAutomaticAttack;
+        OnAutomaticEvent.Invoke(_weaponSetting.IsAutomaticAttack);
     }
 }
