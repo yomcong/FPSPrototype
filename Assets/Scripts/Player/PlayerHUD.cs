@@ -33,9 +33,9 @@ public class PlayerHUD : MonoBehaviour
 
     private List<GameObject> magazineList;
 
-    //[Header("HP & BloodScreen UI")]
-    //[SerializeField]
-    //private TextMeshProUGUI textHP;
+    [Header("HP & BloodScreen UI")]
+    [SerializeField]
+    private TextMeshProUGUI textHP;
     //[SerializeField]
     //private Image imageBloodScreen;
     //[SerializeField]
@@ -52,8 +52,6 @@ public class PlayerHUD : MonoBehaviour
 
     public void SetupAllWeapons(WeaponBase[] weapons)
     {
-        //SetupMagazine();
-
         for (int i = 0; i < weapons.Length; ++i)
         {
             weapons[i].OnAmmoEvent.AddListener(UpdateAmmoHUD);
@@ -95,18 +93,18 @@ public class PlayerHUD : MonoBehaviour
 
     private void UpdateHPHUD(int previous, int current)
     {
-        //textHP.text = "HP " + current;
+        textHP.text = "HP " + current;
 
         if (previous <= current)
         {
             return;
         }
 
-        if (previous - current > 0)
-        {
-            StopCoroutine("OnBloodScreen");
-            StartCoroutine("OnBloodScreen");
-        }
+        //if (previous - current > 0)
+        //{
+        //    StopCoroutine("OnBloodScreen");
+        //    StartCoroutine("OnBloodScreen");
+        //}
     }
 
     private void UpdateAutomaticFireIcon(bool isAutomatic)

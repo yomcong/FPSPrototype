@@ -3,22 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AnimatorController : MonoBehaviour
+public class AnimationController : MonoBehaviour
 {
     private Animator _animator;
 
     [Serializable]
     public class AnimationParam
     {
-        public int FireHash = Animator.StringToHash("Fire");
-        public int AimFireHash = Animator.StringToHash("AimFire");
+        public int Fire = Animator.StringToHash("Fire");
+        public int AimFire = Animator.StringToHash("AimFire");
         public int MovementSpeed = Animator.StringToHash("MovementSpeed");
         public int OnReload = Animator.StringToHash("OnReload");
         public int OnJump = Animator.StringToHash("OnJump");
         public int IsAimMode = Animator.StringToHash("IsAimMode");
 
         public string Movement = "Movement";
-        
     }
 
     [SerializeField] private AnimationParam _animationParam = new AnimationParam();

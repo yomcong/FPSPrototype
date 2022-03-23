@@ -17,6 +17,7 @@ public class Status : MonoBehaviour
 
     [SerializeField]
     private int _maxHP = 100;
+    [SerializeField]
     private int _currentHP;
 
     public float WalkSpeed => _walkSpeed;

@@ -126,11 +126,11 @@ public class WeaponRocketLauncher : WeaponBase
 
             if (_animator.IsAimMode)
             {
-                _animator.Play(_animator.AnimParam.AimFireHash, -1, 0);
+                _animator.Play(_animator.AnimParam.AimFire, -1, 0);
             }
             else
             {
-                _animator.Play(_animator.AnimParam.FireHash, -1, 0);
+                _animator.Play(_animator.AnimParam.Fire, -1, 0);
                 StartCoroutine("OnMuzzleFlashEffect");
             }
 
@@ -176,7 +176,7 @@ public class WeaponRocketLauncher : WeaponBase
 
             if (hit.transform.CompareTag("Enemy"))
             {
-                //hit.transform.GetComponent<EnemyFSM>().TakeDamage(weaponSetting.damage);
+                hit.transform.GetComponent<EnemyBase>().TakeDamage(_weaponSetting.Damage);
             }
             else if (hit.transform.CompareTag("InteractionObject"))
             {
