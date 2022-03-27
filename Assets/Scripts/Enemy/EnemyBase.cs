@@ -14,7 +14,7 @@ public abstract class EnemyBase : MonoBehaviour, IDamageable
     [SerializeField]
     protected float _detectedLimitRange;  //정찰 범위
     [SerializeField]
-    protected float _detectedInteractionObjectRadius;  //오브젝트 인식 범위
+    protected float _detectedObstacleObjectRadius;  //오브젝트 인식 범위
     [SerializeField]
     protected Transform _target;
 
@@ -57,6 +57,7 @@ public abstract class EnemyBase : MonoBehaviour, IDamageable
         _stateList.Add(patrol);
         _stateList.Add(cover);
         _stateList.Add(crouch);
+        _stateList.Add(standing);
         _stateList.Add(chase);
 
         foreach (var iter in _stateList)

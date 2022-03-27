@@ -6,7 +6,7 @@ public class EnemyStateIdle : EnemyStateBase
 {
     public override void StateEnter()
     {
-        _isAimMode = false;
+        _isStanding = false;
         _isCover = false;
         _isCrouch = false;
 

@@ -6,7 +6,7 @@ public class EnemyStatePatrol : EnemyStateBase
 {
     public override void StateEnter()
     {
-        _isAimMode = false;
+        _isStanding = false;
         _isCover = false;
         _isCrouch = false;
 
@@ -32,8 +32,6 @@ public class EnemyStatePatrol : EnemyStateBase
 
             to = new Vector3(_navMeshAgent.destination.x, 0, _navMeshAgent.destination.z);
             from = new Vector3(transform.position.x, 0, transform.position.z);
-
-            _animator.MoveSpeed = _status.WalkSpeed;
 
             //목표위치도착 또는 10초이상 경과시 
             if ((to - from).sqrMagnitude < 0.01f || currentTime >= maxTime)

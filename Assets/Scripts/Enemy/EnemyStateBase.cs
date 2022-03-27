@@ -13,7 +13,7 @@ public abstract class EnemyStateBase : MonoBehaviour
     protected Transform _target;
     protected EnemyFSM _enemyFSM;
 
-    protected bool _isAimMode = false;
+    protected bool _isStanding = false;
     protected bool _isCover = false;
     protected bool _isCrouch = false;
 
@@ -37,6 +37,6 @@ public abstract class EnemyStateBase : MonoBehaviour
         _navMeshAgent = owner.GetComponent<NavMeshAgent>();
         _status = owner.GetComponent<Status>();
         _enemyFSM = owner.GetComponent<EnemyBase>().EnemyFSM;
-        this._target = target.transform;
+        _target = target.transform;
     }
 }
