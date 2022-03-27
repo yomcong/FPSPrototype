@@ -27,6 +27,18 @@ public class EnemyAssultRifle : EnemyBase
         _enemyFSM.StateUpdate();
     }
 
+    public override void TakeDamage(int damage)
+    {
+        bool isDie = _status.DecreaseHP(damage);
+
+        //hpBarSlider.value = (float)status.CurrentHP / status.MaxHP;
+        
+        if (isDie == true)
+        {
+            //enemyMemoryPool.DeactivateEnemy(gameObject);
+            _status.IncreaseHP(100);
+        }
+    }
 
     private IEnumerator CalculateDistanceToTarget()
     {

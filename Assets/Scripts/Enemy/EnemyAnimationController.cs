@@ -2,69 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAnimationController : MonoBehaviour
+public class EnemyAnimationController : AnimationController
 {
-    private Animator _animator;
-
     void Awake()
     {
-        _animator = GetComponent<Animator>();
+        Setup();
     }
 
-    public float MoveSpeed
+    public bool IsStanding
     {
-        set => _animator.SetFloat("MovementSpeed", value);
-        get => _animator.GetFloat("MovementSpeed");
-    }
-
-    public float MovementX
-    {
-        set => _animator.SetFloat("Movement X", Mathf.Clamp(value, -1, 1));
-        get => _animator.GetFloat("Movement X");
-    }
-    public float MovementZ
-    {
-        set => _animator.SetFloat("Movement Z", Mathf.Clamp(value, -1, 1));
-        get => _animator.GetFloat("Movement Z");
-    }
-
-    public bool IsAimMode
-    {
-        set => _animator.SetBool("isAimMode", value);
-        get => _animator.GetBool("isAimMode");
+        set => _animator.SetBool(_animationParam.IsStanding, value);
+        get => _animator.GetBool(_animationParam.IsStanding);
     }
     public bool IsCover
     {
-        set => _animator.SetBool("isAimMode", value);
-        get => _animator.GetBool("isAimMode");
+        set => _animator.SetBool(_animationParam.IsCover, value);
+        get => _animator.GetBool(_animationParam.IsCover);
     }
     public bool IsCrouch
     {
-        set => _animator.SetBool("isAimMode", value);
-        get => _animator.GetBool("isAimMode");
-    }
-
-    public void OnReload()
-    {
-        _animator.SetTrigger("onReload");
+        set => _animator.SetBool(_animationParam.IsCrouch, value);
+        get => _animator.GetBool(_animationParam.IsCrouch);
     }
 
     public void IsFire()
     {
-        _animator.SetTrigger("Fire");
+        _animator.SetTrigger(_animationParam.Fire);
     }
 
     public void ThrowGrenade()
     {
-        _animator.SetTrigger("Grenade");
-    }
-    public bool CurrentAnimationIs(string name)
-    {
-        return _animator.GetCurrentAnimatorStateInfo(0).IsName(name);
+        _animator.SetTrigger(_animationParam.Grenade);
     }
 
-    public void Play(string name, LayerMask layer, float normalizedTime)
-    {
-        _animator.Play(name, layer, normalizedTime);
-    }
 }

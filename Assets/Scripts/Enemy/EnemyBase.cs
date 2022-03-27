@@ -67,17 +67,19 @@ public abstract class EnemyBase : MonoBehaviour, IDamageable
         _enemyFSM.Setup(idle);
     }
 
-    public void TakeDamage(int damage)
-    {
-        bool isDie = _status.DecreaseHP(damage);
+    public abstract void TakeDamage(int damage);
 
-        //hpBarSlider.value = (float)status.CurrentHP / status.MaxHP;
+    //public void TakeDamage(int damage)
+    //{
+    //    bool isDie = _status.DecreaseHP(damage);
 
-        if (isDie == true)
-        {
-            //enemyMemoryPool.DeactivateEnemy(gameObject);
-            _status.IncreaseHP(100);
-        }
-    }
+    //    //hpBarSlider.value = (float)status.CurrentHP / status.MaxHP;
+
+    //    if (isDie == true)
+    //    {
+    //        //enemyMemoryPool.DeactivateEnemy(gameObject);
+    //        _status.IncreaseHP(100);
+    //    }
+    //}
 
 }

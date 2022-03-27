@@ -3,28 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AnimationController : MonoBehaviour
+public abstract class AnimationController : MonoBehaviour
 {
-    private Animator _animator;
-
-    [Serializable]
-    public class AnimationParam
-    {
-        public int Fire = Animator.StringToHash("Fire");
-        public int AimFire = Animator.StringToHash("AimFire");
-        public int MovementSpeed = Animator.StringToHash("MovementSpeed");
-        public int OnReload = Animator.StringToHash("OnReload");
-        public int OnJump = Animator.StringToHash("OnJump");
-        public int IsAimMode = Animator.StringToHash("IsAimMode");
-
-        public string Movement = "Movement";
-    }
-
-    [SerializeField] private AnimationParam _animationParam = new AnimationParam();
+    protected Animator _animator;
+    [SerializeField]
+    protected AnimationParam _animationParam = new AnimationParam();
 
     public AnimationParam AnimParam => _animationParam;
 
-    void Start()
+    public void Setup()
     {
         _animator = GetComponent<Animator>();
     }
@@ -39,17 +26,6 @@ public class AnimationController : MonoBehaviour
     {
         _animator.SetTrigger(_animationParam.OnReload);
     }
-    public void OnJump()
-    {
-        _animator.SetTrigger(_animationParam.OnJump);
-    }
-
-    public bool IsAimMode
-    {
-        set => _animator.SetBool(_animationParam.IsAimMode, value);
-        get => _animator.GetBool(_animationParam.IsAimMode);
-    }
-
 
     public void Play(string stateName, int layer, float normalizedTime)
     {

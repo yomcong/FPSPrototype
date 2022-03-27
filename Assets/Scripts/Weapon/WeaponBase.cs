@@ -36,7 +36,7 @@ public abstract class WeaponBase : MonoBehaviour
     protected ImpactMemoryPool impactMemoryPool;
     protected Camera _mainCamera;
     protected AudioSource _audioSource;
-    protected AnimationController _animator;
+    protected PlayerAnimationController _animator;
 
     [HideInInspector]
     public AmmoEvent OnAmmoEvent = new AmmoEvent();
@@ -44,7 +44,7 @@ public abstract class WeaponBase : MonoBehaviour
     public AutomaticEvent OnAutomaticEvent = new AutomaticEvent();
 
 
-    public AnimationController Animator => _animator;
+    public PlayerAnimationController Animator => _animator;
     public WeaponNaming WeaponName => _weaponSetting.WeaponName;
     public int CurrentAmmo => _weaponSetting.CurrentAmmo;
     public int MaxAmmo => _weaponSetting.MaxAmmo;
@@ -58,7 +58,7 @@ public abstract class WeaponBase : MonoBehaviour
     protected void Init()
     {
         _audioSource = GetComponent<AudioSource>();
-        _animator = GetComponent<AnimationController>();
+        _animator = GetComponent<PlayerAnimationController>();
         casingMemoryPool = GetComponent<CasingMemoryPool>();
         impactMemoryPool = GetComponentInParent<ImpactMemoryPool>();
 
