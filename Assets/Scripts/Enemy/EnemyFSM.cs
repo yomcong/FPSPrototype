@@ -34,11 +34,4 @@ public class EnemyFSM : MonoBehaviour
         }
     }
 
-    
-
-    public void StateUpdate()
-    {
-        _enemyState.StateAction();
-    }
-
 }

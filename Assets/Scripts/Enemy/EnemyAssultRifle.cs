@@ -30,7 +30,7 @@ public class EnemyAssultRifle : EnemyBase
 
     private void Update()
     {
-        _enemyFSM.StateUpdate();
+
     }
 
     public override void TakeDamage(int damage)
@@ -48,6 +48,8 @@ public class EnemyAssultRifle : EnemyBase
 
     private IEnumerator CalculateDistanceToTarget()
     {
+        yield return null;
+
         while (_target != null)
         {
             float targetDistance = Vector3.Distance(_target.position, transform.position);

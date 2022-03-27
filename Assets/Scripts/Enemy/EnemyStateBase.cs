@@ -17,13 +17,14 @@ public abstract class EnemyStateBase : MonoBehaviour
     protected bool _isCover = false;
     protected bool _isCrouch = false;
 
-    [Header("Attack")]
-    protected GameObject _projectilePrefab;
-    protected Transform _projectileSpawnPoint;
-    protected float _attackRange = 10;
-    protected float _attackRate = 1;
+    protected float _attackRange = 20f;  //사정거리
+    protected float _attackTime = 4f;   //공격 실행시간
+    protected float _attackDelay = 2f;   //공격 대기시간
+    protected float _lastAttackTime = 0f;
+    protected float _attackStartTime = 0f;
 
-    protected float _lastAttackTime = 0;
+    protected int _attackCount = 5;
+
 
     public abstract void StateEnter();
     public abstract IEnumerator StateAction();
@@ -31,12 +32,19 @@ public abstract class EnemyStateBase : MonoBehaviour
 
     public void Setup(GameObject owner, Transform target)
     {
-        this._owner = owner;
+        _owner = owner;
 
         _animator = owner.GetComponent<EnemyAnimationController>();
         _navMeshAgent = owner.GetComponent<NavMeshAgent>();
         _status = owner.GetComponent<Status>();
         _enemyFSM = owner.GetComponent<EnemyBase>().EnemyFSM;
         _target = target.transform;
+    }
+
+    public void ShotProjectile()
+    {
+        Instantiate(_owner.GetComponent<EnemyBase>().ProjectilePrefab,
+           _owner.GetComponent<EnemyBase>().ProjectileSpawnPoint.position,
+           transform.rotation);
     }
 }

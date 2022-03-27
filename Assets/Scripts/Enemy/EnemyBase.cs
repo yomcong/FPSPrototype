@@ -24,6 +24,14 @@ public abstract class EnemyBase : MonoBehaviour, IDamageable
     protected Status _status;
     protected EnemyAnimationController _animator;
 
+    [Header("Attack")]
+    [SerializeField]
+    protected GameObject _projectilePrefab;
+    [SerializeField]
+    protected Transform _projectileSpawnPoint;
+
+    public GameObject ProjectilePrefab => _projectilePrefab;
+    public Transform ProjectileSpawnPoint => _projectileSpawnPoint;
 
     public Transform Target
     {

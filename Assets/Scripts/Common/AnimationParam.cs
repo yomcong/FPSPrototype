@@ -7,6 +7,7 @@ using UnityEngine;
 public class AnimationParam
 {
     [HideInInspector] public readonly int Fire = Animator.StringToHash("Fire");
+    [HideInInspector] public readonly int Idle = Animator.StringToHash("Idle");
     [HideInInspector] public readonly int AimFire = Animator.StringToHash("AimFire");
     [HideInInspector] public readonly int MovementSpeed = Animator.StringToHash("MovementSpeed");
     [HideInInspector] public readonly int OnReload = Animator.StringToHash("OnReload");

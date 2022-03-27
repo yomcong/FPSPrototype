@@ -30,6 +30,11 @@ public class EnemyAnimationController : AnimationController
         _animator.SetTrigger(_animationParam.Fire);
     }
 
+    public void IsIdle()
+    {
+        _animator.SetTrigger(_animationParam.Idle);
+    }
+
     public void ThrowGrenade()
     {
         _animator.SetTrigger(_animationParam.Grenade);
