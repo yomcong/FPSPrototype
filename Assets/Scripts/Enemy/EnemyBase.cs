@@ -2,19 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-public enum EnemyState { Idle = 0, Patrol, Cover, Crouch, chase }
+public enum EnemyState { Idle = 0, Patrol, Cover, Crouch, Standing, Chase }
 
-public abstract class EnemyBase : MonoBehaviour
+public abstract class EnemyBase : MonoBehaviour, IDamageable
 {
     [Header("Target")]
     [SerializeField]
-    protected float targetDetectedRadius; //적 인식범위
+    protected float _targetDetectedRadius; //적 인식범위
     [SerializeField]
-    protected float targetDetectedAngle; //적 인식각도
+    protected float _targetDetectedAngle; //적 인식각도
     [SerializeField]
-    protected float detectedLimitRange;  //정찰 범위
+    protected float _detectedLimitRange;  //정찰 범위
     [SerializeField]
-    protected float detectedInteractionObjectRadius;  //오브젝트 인식 범위
+    protected float _detectedInteractionObjectRadius;  //오브젝트 인식 범위
     [SerializeField]
     protected Transform _target;
 
@@ -24,7 +24,6 @@ public abstract class EnemyBase : MonoBehaviour
     protected Status _status;
     protected EnemyAnimationController _animator;
 
-    protected Transform[] InteractionObejctPoint = new Transform[4];
 
     public Transform Target
     {
@@ -49,14 +48,15 @@ public abstract class EnemyBase : MonoBehaviour
 
         EnemyStateIdle idle = gameObject.AddComponent<EnemyStateIdle>();
         EnemyStatePatrol patrol = gameObject.AddComponent<EnemyStatePatrol>();
-        EnemyStateCover Cover = gameObject.AddComponent<EnemyStateCover>();
-        EnemyStateCrouch Crouch = gameObject.AddComponent<EnemyStateCrouch>();
+        EnemyStateCover cover = gameObject.AddComponent<EnemyStateCover>();
+        EnemyStateCrouch crouch = gameObject.AddComponent<EnemyStateCrouch>();
+        EnemyStateStanding standing = gameObject.AddComponent<EnemyStateStanding>();
         EnemyStateChase chase = gameObject.AddComponent<EnemyStateChase>();
 
         _stateList.Add(idle);
         _stateList.Add(patrol);
-        _stateList.Add(Cover);
-        _stateList.Add(Crouch);
+        _stateList.Add(cover);
+        _stateList.Add(crouch);
         _stateList.Add(chase);
 
         foreach (var iter in _stateList)
@@ -76,7 +76,6 @@ public abstract class EnemyBase : MonoBehaviour
         if (isDie == true)
         {
             //enemyMemoryPool.DeactivateEnemy(gameObject);
-            Debug.Log("enemy 죽음");
             _status.IncreaseHP(100);
         }
     }

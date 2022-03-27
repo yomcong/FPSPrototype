@@ -11,6 +11,8 @@ public class CasingMemoryPool : MonoBehaviour
     private void Awake()
     {
         _memoryPool = new MemoryPool(_casingPrefab);
+
+       // _memoryPool = _casingPrefab.AddComponent<MemoryPool(_casingPrefab)>();
     }
 
     public void SpawnCasing(Vector3 position, Vector3 direction)

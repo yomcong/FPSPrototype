@@ -6,22 +6,10 @@ public class EnemyStateChase : EnemyStateBase
 {
     public override void StateEnter()
     {
-        StartCoroutine("StartChase");
+        StartCoroutine("StateAction");
     }
 
-    public override void StateAction()
-    {
-
-    }
-    public override void StateExit()
-    {
-        _navMeshAgent.speed = 0;
-        _animator.MoveSpeed = 0;
-
-        StopCoroutine("StartChase");
-    }
-
-    private IEnumerator StartChase()
+    public override IEnumerator StateAction()
     {
         _navMeshAgent.speed = _status.RunSpeed;
         _animator.MoveSpeed = _status.RunSpeed;
@@ -39,4 +27,13 @@ public class EnemyStateChase : EnemyStateBase
             yield return null;
         }
     }
+
+    public override void StateExit()
+    {
+        _navMeshAgent.speed = 0;
+        _animator.MoveSpeed = 0;
+
+        StopCoroutine("StateAction");
+    }
+
 }

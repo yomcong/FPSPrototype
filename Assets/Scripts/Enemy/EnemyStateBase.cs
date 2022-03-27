@@ -26,7 +26,7 @@ public abstract class EnemyStateBase : MonoBehaviour
     protected float _lastAttackTime = 0;
 
     public abstract void StateEnter();
-    public abstract void StateAction();
+    public abstract IEnumerator StateAction();
     public abstract void StateExit();
 
     public void Setup(GameObject owner, Transform target)

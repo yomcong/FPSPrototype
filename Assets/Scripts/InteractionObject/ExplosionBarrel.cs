@@ -40,31 +40,43 @@ public class ExplosionBarrel : InteractionObjectBase
         Collider[] colliders = Physics.OverlapSphere(transform.position, _explosionRadius);
         foreach (Collider hit in colliders)
         {
-            PlayerController player = hit.GetComponent<PlayerController>();
-            if (player != null)
+            if(hit.CompareTag("Player") || hit.CompareTag("Enemy"))
             {
-                player.TakeDamage(50);
+                hit.GetComponent<IDamageable>().TakeDamage(50);
                 continue;
             }
+            else if(hit.CompareTag("InteractionObject"))
+            {
+                hit.GetComponent<IDamageable>().TakeDamage(300);
+                hit.GetComponent<Rigidbody>().AddExplosionForce
+                    (_explosionForce, transform.position, _explosionRadius);
+            }
 
-            //EnemyFSM enemy = hit.GetComponent<EnemyFSM>();
+            //PlayerController player = hit.GetComponent<PlayerController>();
+            //if (player != null)
+            //{
+            //    player.TakeDamage(50);
+            //    continue;
+            //}
+
+            //EnemyBase enemy = hit.GetComponent<EnemyBase>();
             //if (enemy != null)
             //{
             //    enemy.TakeDamage(300);
             //    continue;
             //}
 
-            InteractionObjectBase interaction = hit.GetComponent<InteractionObjectBase>();
-            if (interaction != null)
-            {
-                interaction.TakeDamage(300);
-            }
+            //InteractionObjectBase interaction = hit.GetComponent<InteractionObjectBase>();
+            //if (interaction != null)
+            //{
+            //    interaction.TakeDamage(300);
+            //}
 
-            Rigidbody rigidbody = hit.GetComponent<Rigidbody>();
-            if (rigidbody != null)
-            {
-                rigidbody.AddExplosionForce(_explosionForce, transform.position, _explosionRadius);
-            }
+            //Rigidbody rigidbody = hit.GetComponent<Rigidbody>();
+            //if (rigidbody != null)
+            //{
+            //    rigidbody.AddExplosionForce(_explosionForce, transform.position, _explosionRadius);
+            //}
         }
 
         Instantiate(_destrctibleBarrelPieces, transform.position, transform.rotation);

@@ -12,21 +12,11 @@ public class EnemyStateIdle : EnemyStateBase
 
         _navMeshAgent.speed = 0f;
         _animator.MoveSpeed = 0f;
-        StartCoroutine("IdleLoopAnimation");
-
+        StartCoroutine("StateAction")
+;
     }
 
-    public override void StateAction()
-    {
-
-    }
-
-    public override void StateExit()
-    {
-        StopCoroutine("IdleLoopAnimation");
-    }
-
-    private IEnumerator IdleLoopAnimation()
+    public override IEnumerator StateAction()
     {
         _animator.Play("Trun", -1, 0);
 
@@ -34,4 +24,10 @@ public class EnemyStateIdle : EnemyStateBase
 
         _enemyFSM.SetState(_owner.GetComponent<EnemyBase>().StateList[(int)EnemyState.Patrol]);
     }
+
+    public override void StateExit()
+    {
+        StopCoroutine("StateAction");
+    }
+
 }

@@ -4,23 +4,19 @@ using UnityEngine;
 
 public class EnemyStateStanding : EnemyStateBase
 {
-    public override void StateAction()
-    {
-        StartCoroutine("StartBattal");
-    }
-
     public override void StateEnter()
     {
-
+        StartCoroutine("StateAction");
     }
+
+    public override IEnumerator StateAction()
+    {
+        yield return null;
+    }
+
 
     public override void StateExit()
     {
-
-    }
-
-    private IEnumerator StartBattal()
-    {
-        yield return null;
+        StopCoroutine("StateAction");
     }
 }

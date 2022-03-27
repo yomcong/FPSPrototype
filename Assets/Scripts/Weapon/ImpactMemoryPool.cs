@@ -31,6 +31,10 @@ public class ImpactMemoryPool : MonoBehaviour
         else
         {
             Color color = hit.transform.GetComponentInChildren<MeshRenderer>().material.color;
+            if( color == null)
+            {
+                color = Color.black;
+            }
             OnSpawnImpact(ImpactType.Normal, hit.point, Quaternion.LookRotation(hit.normal), color);
         }
     }

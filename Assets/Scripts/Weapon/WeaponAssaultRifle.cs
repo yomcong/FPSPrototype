@@ -197,11 +197,11 @@ public class WeaponAssaultRifle : WeaponBase
 
             if (hit.transform.CompareTag("Enemy"))
             {
-                hit.transform.GetComponent<EnemyBase>().TakeDamage(_weaponSetting.Damage);
+                hit.transform.GetComponent<IDamageable>().TakeDamage(_weaponSetting.Damage);
             }
             else if (hit.transform.CompareTag("InteractionObject"))
             {
-                hit.transform.GetComponent<InteractionObjectBase>().TakeDamage(_weaponSetting.Damage);
+                hit.transform.GetComponent<IDamageable>().TakeDamage(_weaponSetting.Damage);
             }
 
         }

@@ -5,7 +5,9 @@ using UnityEngine.AI;
 
 public class EnemyAssultRifle : EnemyBase
 {
-    private bool inBattle = false;
+    private bool _inBattle = false;
+
+    private Transform[] _interactionObejctPoint = new Transform[4];
 
     private void Awake()
     {
@@ -14,8 +16,8 @@ public class EnemyAssultRifle : EnemyBase
 
     private void Start()
     {
-        //StartCoroutine("CalculateDistanceToTarget");
-        StartCoroutine(CalculateDistanceToTarget());
+        StartCoroutine("CalculateDistanceToTarget");
+        //StartCoroutine(CalculateDistanceToTarget());
 
     }
 
@@ -32,40 +34,34 @@ public class EnemyAssultRifle : EnemyBase
         {
             float targetDistance = Vector3.Distance(_target.position, transform.position);
 
-            if (inBattle == false)
+            if (_inBattle == false)
             {
-                if (targetDistance <= targetDetectedRadius)
+                if (targetDistance <= _targetDetectedRadius)
                 {
                     if (FieldOfViewTargetCheck())
                     {
-                        inBattle = true;
+                        _inBattle = true;
 
-                        FindOfInteractionObject();
+                        if(FindOfInteractionObject())
+                        {
 
-                    }
-                    //else
-                    //{
-                    //    enemyFSM.SetState(stateList[(int)EnemyState.chase]);
-                    //}
+                        }
+                        else
+                        {
+                            _enemyFSM.SetState(_stateList[(int)EnemyState.Standing]);
+                        }
 
-                }
-                else
-                {
-                    if (_animator.MoveSpeed <= 0)
-                    {
-                        _enemyFSM.SetState(_stateList[(int)EnemyState.Idle]);
                     }
                 }
             }
             else
             {
-                if (targetDistance >= detectedLimitRange)
+                if (targetDistance >= _detectedLimitRange)
                 {
-                    inBattle = false;
+                    _inBattle = false;
                     _enemyFSM.SetState(_stateList[(int)EnemyState.Idle]);
                 }
             }
-
 
             yield return null;
         }
@@ -75,12 +71,12 @@ public class EnemyAssultRifle : EnemyBase
     {
         Vector3 dirToTarget = (_target.position - transform.position).normalized;
 
-        if (Vector3.Angle(transform.forward, dirToTarget) <= (targetDetectedAngle / 2))
+        if (Vector3.Angle(transform.forward, dirToTarget) <= (_targetDetectedAngle / 2))
         {
-            Ray ray;
+            //Ray ray;
             RaycastHit hit;
 
-            if (Physics.Raycast(transform.position, dirToTarget, out hit, targetDetectedRadius, -1))
+            if (Physics.Raycast(transform.position, dirToTarget, out hit, _targetDetectedRadius, -1))
             {
                 if (hit.transform.CompareTag("Player"))
                 {
@@ -96,8 +92,8 @@ public class EnemyAssultRifle : EnemyBase
     private bool FindOfInteractionObject()
     {
         RaycastHit[] hits = Physics.SphereCastAll(transform.position,
-                        detectedInteractionObjectRadius, transform.forward, 1, -1);
-
+                        _detectedInteractionObjectRadius, transform.forward, 1, -1);
+        
         foreach (var iter in hits)
         {
             if (iter.transform.CompareTag("InteractionObject"))
@@ -125,18 +121,18 @@ public class EnemyAssultRifle : EnemyBase
                     Debug.Log(" 내적이 더 적음. ");
                     if (cross < 0)
                     {
-                        InteractionObejctPoint[1] = iter.transform.GetChild(1);
+                        _interactionObejctPoint[1] = iter.transform.GetChild(1);
 
-                        Debug.Log($"이름 : {InteractionObejctPoint[1].name}, " +
-                                   $"position : {InteractionObejctPoint[1].position}, ");
+                        Debug.Log($"이름 : {_interactionObejctPoint[1].name}, " +
+                                   $"position : {_interactionObejctPoint[1].position}, ");
 
                     }
                     else
                     {
-                        InteractionObejctPoint[2] = iter.transform.GetChild(2);
+                        _interactionObejctPoint[2] = iter.transform.GetChild(2);
 
-                        Debug.Log($"이름 : {InteractionObejctPoint[2].name}, " +
-                                   $"position : {InteractionObejctPoint[2].position}, ");
+                        Debug.Log($"이름 : {_interactionObejctPoint[2].name}, " +
+                                   $"position : {_interactionObejctPoint[2].position}, ");
                     }
                 }
                 else
@@ -144,17 +140,17 @@ public class EnemyAssultRifle : EnemyBase
                     Debug.Log(" 외적이 더 적음. ");
                     if (dot < 0)
                     {
-                        InteractionObejctPoint[0] = iter.transform.GetChild(0);
+                        _interactionObejctPoint[0] = iter.transform.GetChild(0);
 
-                        Debug.Log($"이름 : {InteractionObejctPoint[0].name}, " +
-                                   $"position : {InteractionObejctPoint[0].position}, ");
+                        Debug.Log($"이름 : {_interactionObejctPoint[0].name}, " +
+                                   $"position : {_interactionObejctPoint[0].position}, ");
                     }
                     else
                     {
-                        InteractionObejctPoint[3] = iter.transform.GetChild(3);
+                        _interactionObejctPoint[3] = iter.transform.GetChild(3);
 
-                        Debug.Log($"이름 : {InteractionObejctPoint[3].name}, " +
-                                   $"position : {InteractionObejctPoint[3].position}, ");
+                        Debug.Log($"이름 : {_interactionObejctPoint[3].name}, " +
+                                   $"position : {_interactionObejctPoint[3].position}, ");
                     }
                 }
             }
@@ -166,10 +162,9 @@ public class EnemyAssultRifle : EnemyBase
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, targetDetectedRadius);
+        Gizmos.DrawWireSphere(transform.position, _targetDetectedRadius);
 
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, detectedLimitRange);
-
+        Gizmos.DrawWireSphere(transform.position, _detectedLimitRange);
     }
 }

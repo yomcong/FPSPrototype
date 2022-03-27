@@ -15,10 +15,8 @@ GameObject:
   - component: {fileID: 857610483702190742}
   - component: {fileID: 857610483702190743}
   - component: {fileID: 857610483702190728}
-  - component: {fileID: -3430150645197741503}
-  - component: {fileID: -1943033106907273208}
   m_Layer: 6
-  m_Name: AR_Brass
+  m_Name: AR_Brass 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -228,27 +226,3 @@ MonoBehaviour:
   _deactivateTime: 5
   _casingSpin: 1
   _audioClips: {fileID: 8300000, guid: 3f8b82312021c504f8a6212dddba71f3, type: 3}
---- !u!114 &-3430150645197741503
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 857610483845507283}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d63d57346663bb4682f4317b09224eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &-1943033106907273208
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 857610483845507283}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d63d57346663bb4682f4317b09224eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

@@ -12,19 +12,10 @@ public class EnemyStatePatrol : EnemyStateBase
 
         _navMeshAgent.speed = _status.WalkSpeed;
 
-        StartCoroutine("StartPatrol");
+        StartCoroutine("StateAction");
     }
 
-    public override void StateAction()
-    {
-
-    }
-    public override void StateExit()
-    {
-        StopCoroutine("StartPatrol");
-    }
-
-    private IEnumerator StartPatrol()
+    public override IEnumerator StateAction()
     {
         float currentTime = 0;
         float maxTime = 10;
@@ -58,6 +49,10 @@ public class EnemyStatePatrol : EnemyStateBase
             yield return null;
         }
     }
+    public override void StateExit()
+    {
+        StopCoroutine("StateAction");
+    }
 
     private Vector3 CalculatePatrolPosition()
     {
@@ -68,7 +63,7 @@ public class EnemyStatePatrol : EnemyStateBase
 
         // 맵 범위 밖으로 나가지 못하도록
         Vector3 rangePosition = Vector3.zero;
-        Vector3 rangeScale = Vector3.one * 100.0f;
+        Vector3 rangeScale = Vector3.one * 100.0f;  //맵 크기 or 영역 크기
 
         // 랜덤하게 선택된 방향으로 이동.
         PatrolJitter = Random.Range(PatrolJitterMin, PatrolJitterMax);

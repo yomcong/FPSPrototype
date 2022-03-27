@@ -26,7 +26,7 @@ public class MemoryPool : MonoBehaviour
     {
         _maxCount = 0;
         _activeCount = 0;
-        this._poolObjectPrefab = poolObject;
+        _poolObjectPrefab = poolObject;
 
         _poolObjectList = new List<PoolObject>();
 
