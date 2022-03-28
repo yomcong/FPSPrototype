@@ -75,22 +75,8 @@ public class EnemyStateCrouch : EnemyStateBase
 
     public override void StateExit()
     {
+        StopLookRotationToTarget();
         StopAllCoroutines();
-        //StopCoroutine("StateAction");
-    }
-
-    private IEnumerator LookRotationToTarget()
-    {
-        while ( true)
-        {
-            Vector3 to = new Vector3(_target.position.x, 0, _target.position.z);
-
-            Vector3 from = new Vector3(transform.position.x, 0, transform.position.z);
-
-            transform.rotation = Quaternion.LookRotation(to - from);
-
-            yield return null;
-        }
     }
 
     private void DoFire()
@@ -132,6 +118,7 @@ public class EnemyStateCrouch : EnemyStateBase
             Vector3 to = new Vector3(_navMeshAgent.destination.x, 0, _navMeshAgent.destination.z);
             Vector3 from = new Vector3(transform.position.x, 0, transform.position.z);
 
+            _navMeshAgent.speed = _status.RunSpeed;
             _animator.MoveSpeed = _status.RunSpeed;
 
             //목표위치도착 또는 10초이상 경과시 
@@ -142,7 +129,8 @@ public class EnemyStateCrouch : EnemyStateBase
                 _navMeshAgent.ResetPath();
 
                 StartCoroutine("StateAction");
-                StartCoroutine("LookRotationToTarget");
+
+                StartLookRotationToTarget();
                 yield break;
             }
 

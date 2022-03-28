@@ -40,11 +40,34 @@ public abstract class EnemyStateBase : MonoBehaviour
         _enemyFSM = owner.GetComponent<EnemyBase>().EnemyFSM;
         _target = target.transform;
     }
+    private IEnumerator LookRotationToTarget()
+    {
+        while (true)
+        {
+            Vector3 to = new Vector3(_target.position.x, 0, _target.position.z);
+
+            Vector3 from = new Vector3(transform.position.x, 0, transform.position.z);
+
+            transform.rotation = Quaternion.LookRotation(to - from);
+
+            yield return null;
+        }
+    }
+    protected void StartLookRotationToTarget()
+    {
+        StartCoroutine("LookRotationToTarget");
+    }
+
+    protected void StopLookRotationToTarget()
+    {
+        StopCoroutine("LookRotationToTarget");
+    }
 
     public void ShotProjectile()
     {
-        Instantiate(_owner.GetComponent<EnemyBase>().ProjectilePrefab,
+       GameObject clone = Instantiate(_owner.GetComponent<EnemyBase>().ProjectilePrefab,
            _owner.GetComponent<EnemyBase>().ProjectileSpawnPoint.position,
            transform.rotation);
+        clone.GetComponent<ProjectileMovement>().Setup(_target.position);
     }
 }

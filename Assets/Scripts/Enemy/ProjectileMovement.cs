@@ -12,19 +12,14 @@ public class ProjectileMovement : MonoBehaviour
     [SerializeField]
     private float moveSpeed = 20f;
     [SerializeField]
-    private Transform _target;
     private Vector3 moveDirection = Vector3.zero;
 
     public void Setup(Vector3 position)
     {
         //movement = GetComponent<MovementTransform>();
-
-        StartCoroutine("OnMove", position);
-    }
-
-    private void OnEnable()
-    {
-        StartCoroutine("OnMove", _target);
+        float impactPoint = Random.Range(-0.2f, 0.2f);
+        Vector3 temp = new Vector3(position.x + impactPoint, position.y + impactPoint, position.z);
+        StartCoroutine("OnMove", temp);
     }
 
     void Update()

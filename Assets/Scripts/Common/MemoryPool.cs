@@ -16,7 +16,7 @@ public class MemoryPool : MonoBehaviour
 
     private GameObject _poolObjectPrefab; 
     private List<PoolObject> _poolObjectList;
-
+    //private Queue<PoolObject> _poolObjectList;
     public int MaxCount => _maxCount;    
     public int ActiveCount => _activeCount; 
 
@@ -29,6 +29,8 @@ public class MemoryPool : MonoBehaviour
         _poolObjectPrefab = poolObject;
 
         _poolObjectList = new List<PoolObject>();
+
+        //_poolObjectList = new Queue<PoolObject>();
 
         InstantiateObject();
     }
@@ -47,6 +49,8 @@ public class MemoryPool : MonoBehaviour
             poolObject.gameObject.SetActive(false);
 
             _poolObjectList.Add(poolObject);
+
+            //_poolObjectList.Enqueue(poolObject);
 
         }
     }

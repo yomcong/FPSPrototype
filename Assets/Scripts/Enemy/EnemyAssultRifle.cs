@@ -58,15 +58,7 @@ public class EnemyAssultRifle : EnemyBase
             {
                 if (targetDistance <= _targetDetectedRadius)
                 {
-                    if (FieldOfViewTargetCheck())
-                    {
-                        _inBattle = true;
-
-                        if (FindOfObstacleObject() == false)
-                        {
-                            _enemyFSM.SetState(_stateList[(int)EnemyState.Standing]);
-                        }
-                    }
+                    FieldOfViewTargetCheck();
                 }
             }
             else
@@ -82,30 +74,27 @@ public class EnemyAssultRifle : EnemyBase
         }
     }
 
-    private bool FieldOfViewTargetCheck()
+    private void FieldOfViewTargetCheck()
     {
         Vector3 dirToTarget = (_target.position - transform.position).normalized;
 
         if (Vector3.Angle(transform.forward, dirToTarget) <= _targetDetectedAngle)
         {
-            //Ray ray;
             RaycastHit hit;
-
-            Debug.DrawRay(transform.position, dirToTarget, Color.red);
 
             if (Physics.Raycast(transform.position, dirToTarget, out hit, _targetDetectedRadius, -1))
             {
                 if (hit.transform.CompareTag("Player"))
                 {
-                    return true;
-                }
+                    FindOfObstacleObject();
 
+                    _inBattle = true;
+                }
             }
         }
-        return false;
     }
 
-    private bool FindOfObstacleObject()
+    private void FindOfObstacleObject()
     {
         RaycastHit[] hits = Physics.SphereCastAll(transform.position,
                         _detectedObstacleObjectRadius, transform.forward, 1, -1);
@@ -135,100 +124,44 @@ public class EnemyAssultRifle : EnemyBase
                     if (cross < 0)
                     {
                         _ObstacleObjectPoint = iter.transform.GetChild((int)ObstaclePointDir.Right);
-
-                        if(iter.transform.localScale.y <=1 )
-                        {
-                            EnemyFSM.SetState(_stateList[(int)EnemyState.Crouch]);
-                        }
-
-                        _navMeshAgent.ResetPath();
-                        _navMeshAgent.SetDestination(_ObstacleObjectPoint.position);
-
-                        _navMeshAgent.speed = _status.RunSpeed;
-                        _animator.MoveSpeed = _status.RunSpeed;
-
-                        return true;
-
-                        Debug.Log(iter.transform.localScale.y);
-                        Debug.Log(iter.transform.name);
-
-                        Debug.Log($"이름 : {_ObstacleObjectPoint.name}, " +
-                                   $"position : {_ObstacleObjectPoint.position}, ");
-
                     }
                     else
                     {
                         _ObstacleObjectPoint = iter.transform.GetChild((int)ObstaclePointDir.Left);
-
-
-                        if (iter.transform.localScale.y <= 1)
-                        {
-                            EnemyFSM.SetState(_stateList[(int)EnemyState.Crouch]);
-                        }
-
-                        _navMeshAgent.ResetPath();
-                        _navMeshAgent.SetDestination(_ObstacleObjectPoint.position);
-                        
-                        return true;
-
-                        Debug.Log(iter.transform.localScale.y);
-                        Debug.Log(iter.transform.name);
-
-
-                        Debug.Log($"이름 : {_ObstacleObjectPoint.name}, " +
-                                   $"position : {_ObstacleObjectPoint.position}, ");
                     }
                 }
                 else
                 {
-                    Debug.Log(" 외적이 더 적음. ");
                     if (dot < 0)
                     {
                         _ObstacleObjectPoint = iter.transform.GetChild((int)ObstaclePointDir.Forward);
-
-                        if (iter.transform.localScale.y <= 1)
-                        {
-                            EnemyFSM.SetState(_stateList[(int)EnemyState.Crouch]);
-                        }
-
-                        _navMeshAgent.ResetPath();
-                        _navMeshAgent.SetDestination(_ObstacleObjectPoint.position);
-
-                        return true;
-
-                        Debug.Log(iter.transform.localScale.y);
-                        Debug.Log(iter.transform.name);
-
-
-                        Debug.Log($"이름 : {_ObstacleObjectPoint.name}, " +
-                                   $"position : {_ObstacleObjectPoint.position}, ");
                     }
                     else
                     {
                         _ObstacleObjectPoint = iter.transform.GetChild((int)ObstaclePointDir.Back);
-
-                        if (iter.transform.localScale.y <= 1)
-                        {
-                            EnemyFSM.SetState(_stateList[(int)EnemyState.Crouch]);
-                        }
-
-                        _navMeshAgent.ResetPath();
-                        _navMeshAgent.SetDestination(_ObstacleObjectPoint.position);
-                        
-                        return true;
-
-                        Debug.Log(iter.transform.localScale.y);
-                        Debug.Log(iter.transform.name);
-
-
-                        Debug.Log($"이름 : {_ObstacleObjectPoint.name}, " +
-                                   $"position : {_ObstacleObjectPoint.position}, ");
                     }
                 }
+
+                if (iter.transform.localScale.y <= 1)
+                {
+                    EnemyFSM.SetState(_stateList[(int)EnemyState.Crouch]);
+                }
+                else if (iter.transform.localScale.y > 1)
+                {
+                    EnemyFSM.SetState(_stateList[(int)EnemyState.Cover]);
+                }
+                else
+                {
+                    EnemyFSM.SetState(_stateList[(int)EnemyState.Standing]);
+                }
+
+                _navMeshAgent.ResetPath();
+                _navMeshAgent.SetDestination(_ObstacleObjectPoint.position);
+
+                return;
             }
         }
 
-        return false;
     }
 
     private void OnDrawGizmos()

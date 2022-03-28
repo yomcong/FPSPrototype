@@ -4430,7 +4430,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ad42717551077c74fb1e8087d07bcad1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.74
+      value: -1.43
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ad42717551077c74fb1e8087d07bcad1, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4806,7 +4806,7 @@ MonoBehaviour:
   _targetDetectedAngle: 60
   _detectedLimitRange: 30
   _detectedObstacleObjectRadius: 10
-  _target: {fileID: 1350978780}
+  _target: {fileID: 1425497369}
   _projectilePrefab: {fileID: 857610483845507283, guid: bf956f622b1642f4f9ad71c5e592f8a5, type: 3}
   _projectileSpawnPoint: {fileID: 932846146}
 --- !u!114 &1292232720
@@ -5292,7 +5292,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1327108420
 Transform:
   m_ObjectHideFlags: 0
@@ -5989,7 +5989,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1425497368}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.155, y: -0.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1350978780}
@@ -6319,7 +6319,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1526630033
 Transform:
   m_ObjectHideFlags: 0
