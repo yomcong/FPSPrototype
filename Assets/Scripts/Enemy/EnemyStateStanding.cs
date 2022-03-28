@@ -17,6 +17,8 @@ public class EnemyStateStanding : EnemyStateBase
 
     public override void StateExit()
     {
-        StopCoroutine("StateAction");
+        StopAllCoroutines();
+
+        //StopCoroutine("StateAction");
     }
 }

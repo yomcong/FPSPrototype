@@ -34,7 +34,9 @@ public class EnemyStateIdle : EnemyStateBase
 
     public override void StateExit()
     {
-        StopCoroutine("StateAction");
+        StopAllCoroutines();
+
+        //StopCoroutine("StateAction");
     }
 
     private IEnumerator TurnAround()

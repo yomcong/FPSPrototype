@@ -49,7 +49,9 @@ public class EnemyStatePatrol : EnemyStateBase
     }
     public override void StateExit()
     {
-        StopCoroutine("StateAction");
+        StopAllCoroutines();
+
+        //StopCoroutine("StateAction");
     }
 
     private Vector3 CalculatePatrolPosition()

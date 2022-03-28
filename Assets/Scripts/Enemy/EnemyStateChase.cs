@@ -33,7 +33,8 @@ public class EnemyStateChase : EnemyStateBase
         _navMeshAgent.speed = 0;
         _animator.MoveSpeed = 0;
 
-        StopCoroutine("StateAction");
+        StopAllCoroutines();
+        //StopCoroutine("StateAction");
     }
 
 }

@@ -17,8 +17,10 @@ public class EnemyStateCover : EnemyStateBase
     }
     public override void StateExit()
     {
+        StopAllCoroutines();
+
         Debug.Log("cover exit");
-        StopCoroutine("StateAction");
+        //StopCoroutine("StateAction");
 
     }
 }

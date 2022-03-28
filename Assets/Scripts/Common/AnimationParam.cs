@@ -21,4 +21,5 @@ public class AnimationParam
 
     public readonly string Movement = "Movement";
     public readonly string Trun = "Trun";
+    public readonly string CrouchAutoFire = "CrouchAutoFire";
 }

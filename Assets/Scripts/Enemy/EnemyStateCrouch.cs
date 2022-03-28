@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemyStateCrouch : EnemyStateBase
 {
+    private WaitForSeconds _attackDelaySeconds = new WaitForSeconds(1f);
+
     private int _currAttackCount = 0;
 
     private bool _isAttack = false;
@@ -11,41 +13,33 @@ public class EnemyStateCrouch : EnemyStateBase
     public override void StateEnter()
     {
         _currAttackCount = 0;
-        StartCoroutine("TakeCover");
 
-        //StartCoroutine("StateAction");
+        StartCoroutine("TakeCover");
     }
+
     public override IEnumerator StateAction()
     {
         _animator.IsCrouch = true;
 
         yield return null;
 
-        _animator.IsFire();
-        _currAttackCount++;
-        _isAttack = true;
-        _attackStartTime = Time.time;
-        float shotDelay = Time.time;
+        DoFire();
+
         while (true)
         {
-            transform.rotation = Quaternion.LookRotation(_target.position - transform.position);
-            transform.eulerAngles = new Vector3(-10, transform.localEulerAngles.y, transform.localEulerAngles.z);
-
             if (_isAttack)
             {
+                yield return new WaitForSeconds (4f);
+
+                _animator.IsIdle();
+                _lastAttackTime = Time.time;
+                _isAttack = false;
+
                 if (Time.time - _attackStartTime >= _attackTime)
                 {
                     _animator.IsIdle();
                     _lastAttackTime = Time.time;
                     _isAttack = false;
-                }
-                else
-                {
-                    if(Time.time - shotDelay >= 1f )
-                    {
-                        shotDelay = Time.time;
-                        ShotProjectile();
-                    }
                 }
             }
             else
@@ -66,14 +60,35 @@ public class EnemyStateCrouch : EnemyStateBase
                     yield return new WaitForSeconds(5f);
 
                     _currAttackCount = 0;
-
-                    DoFire();
+                    
                 }
-                else if (Time.time - _lastAttackTime >= _attackTime)
+
+                if (Time.time - _lastAttackTime >= _attackTime)
                 {
                     DoFire();
                 }
             }
+            yield return null;
+        }
+    }
+
+
+    public override void StateExit()
+    {
+        StopAllCoroutines();
+        //StopCoroutine("StateAction");
+    }
+
+    private IEnumerator LookRotationToTarget()
+    {
+        while ( true)
+        {
+            Vector3 to = new Vector3(_target.position.x, 0, _target.position.z);
+
+            Vector3 from = new Vector3(transform.position.x, 0, transform.position.z);
+
+            transform.rotation = Quaternion.LookRotation(to - from);
+
             yield return null;
         }
     }
@@ -84,12 +99,27 @@ public class EnemyStateCrouch : EnemyStateBase
         _attackStartTime = Time.time;
         _currAttackCount++;
         _isAttack = true;
-    }
-    public override void StateExit()
-    {
-        StopCoroutine("StateAction");
+
+        StopCoroutine("LaunchedProjectile");
+        StartCoroutine("LaunchedProjectile");
     }
 
+    private IEnumerator LaunchedProjectile()
+    {
+        yield return _attackDelaySeconds;
+
+        while (true)
+        {
+            if(_animator.CurrentAnimationIs(_animator.AnimParam.CrouchAutoFire))
+            {
+                ShotProjectile();
+    
+                yield return _attackDelaySeconds;
+            }
+
+            yield return null;
+        }
+    }
     private IEnumerator TakeCover()
     {
         yield return null;
@@ -112,7 +142,7 @@ public class EnemyStateCrouch : EnemyStateBase
                 _navMeshAgent.ResetPath();
 
                 StartCoroutine("StateAction");
-
+                StartCoroutine("LookRotationToTarget");
                 yield break;
             }
 
