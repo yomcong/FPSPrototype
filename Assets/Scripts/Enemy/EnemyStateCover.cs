@@ -4,25 +4,104 @@ using UnityEngine;
 
 public class EnemyStateCover : EnemyStateBase
 {
+    private WaitForSeconds _attackDelaySeconds = new WaitForSeconds(1f);
+
     public override void StateEnter()
     {
-        Debug.Log("cover exit");
         StartCoroutine("TakeCover");
     }
 
     public override IEnumerator StateAction()
     {
-        Debug.Log("cover Action");
-        yield return null; 
+        _animator.IsCover = true;
+
+        yield return null;
+
+        DoFire();
+
+        while (true)
+        {
+            if (_isAttack)
+            {
+                yield return new WaitForSeconds(4f);
+
+                _animator.IsIdle();
+                _lastAttackTime = Time.time;
+                _isAttack = false;
+            }
+            else
+            {
+                if (_currAttackCount >= _attackCount)
+                {
+                    // ∏Æ∆—≈‰∏µ
+                    int temp = Random.Range(1, 5);
+
+                    if (temp == 1)
+                    {
+                        _animator.ThrowGrenade();
+
+                        yield return new WaitForSeconds(2.5f);
+                    }
+                    _animator.OnReload();
+
+                    yield return new WaitForSeconds(5f);
+
+                    _currAttackCount = 0;
+                }
+                yield return new WaitForSeconds(2f);
+
+                DoFire();
+            }
+            yield return null;
+        }
     }
     public override void StateExit()
     {
-        StopLookRotationToTarget();
 
+        StopCoroutine("LookRotationToTarget");
         StopAllCoroutines();
 
-        Debug.Log("cover exit");
         //StopCoroutine("StateAction");
+    }
+
+    private void DoFire()
+    {
+        _animator.IsFire();
+        _attackStartTime = Time.time;
+        _currAttackCount++;
+        _isAttack = true;
+
+        StopCoroutine("LaunchedProjectile");
+        StartCoroutine("LaunchedProjectile");
+    }
+    private IEnumerator LaunchedProjectile()
+    {
+        yield return _attackDelaySeconds;
+
+        while (true)
+        {
+            if (_animator.CurrentAnimationIs(_animator.AnimParam.CrouchAutoFire))
+            {
+                ShotProjectile();
+
+                yield return _attackDelaySeconds;
+            }
+
+            yield return null;
+        }
+    }
+    private IEnumerator LookRotationToTarget()
+    {
+        while (true)
+        {
+            Vector3 to = new Vector3(-_target.position.x, 0, -_target.position.z);
+
+            Vector3 from = new Vector3(transform.position.x, 0, transform.position.z);
+
+            transform.rotation = Quaternion.LookRotation(to - from);
+
+            yield return null;
+        }
     }
 
     private IEnumerator TakeCover()
@@ -48,8 +127,7 @@ public class EnemyStateCover : EnemyStateBase
                 _navMeshAgent.ResetPath();
 
                 StartCoroutine("StateAction");
-
-                StartLookRotationToTarget();
+                StartCoroutine("LookRotationToTarget");
                 yield break;
             }
 

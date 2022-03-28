@@ -6,9 +6,7 @@ public class EnemyStateCrouch : EnemyStateBase
 {
     private WaitForSeconds _attackDelaySeconds = new WaitForSeconds(1f);
 
-    private int _currAttackCount = 0;
 
-    private bool _isAttack = false;
 
     public override void StateEnter()
     {
@@ -29,23 +27,17 @@ public class EnemyStateCrouch : EnemyStateBase
         {
             if (_isAttack)
             {
-                yield return new WaitForSeconds (4f);
+                yield return new WaitForSeconds(4f);
 
                 _animator.IsIdle();
                 _lastAttackTime = Time.time;
                 _isAttack = false;
-
-                if (Time.time - _attackStartTime >= _attackTime)
-                {
-                    _animator.IsIdle();
-                    _lastAttackTime = Time.time;
-                    _isAttack = false;
-                }
             }
             else
             {
                 if (_currAttackCount >= _attackCount)
                 {
+                    // ¸®ÆÑÅä¸µ
                     int temp = Random.Range(1, 5);
 
                     if (temp == 1)
@@ -54,19 +46,15 @@ public class EnemyStateCrouch : EnemyStateBase
 
                         yield return new WaitForSeconds(2.5f);
                     }
-
                     _animator.OnReload();
 
                     yield return new WaitForSeconds(5f);
 
                     _currAttackCount = 0;
-                    
                 }
+                yield return new WaitForSeconds(2f);
 
-                if (Time.time - _lastAttackTime >= _attackTime)
-                {
-                    DoFire();
-                }
+                DoFire();
             }
             yield return null;
         }
@@ -75,7 +63,10 @@ public class EnemyStateCrouch : EnemyStateBase
 
     public override void StateExit()
     {
-        StopLookRotationToTarget();
+        _animator.IsIdle();
+        _animator.IsCover = false;
+
+        StopCoroutine("LookRotationToTarget");
         StopAllCoroutines();
     }
 
@@ -96,16 +87,17 @@ public class EnemyStateCrouch : EnemyStateBase
 
         while (true)
         {
-            if(_animator.CurrentAnimationIs(_animator.AnimParam.CrouchAutoFire))
+            if (_animator.CurrentAnimationIs(_animator.AnimParam.CrouchAutoFire))
             {
                 ShotProjectile();
-    
+
                 yield return _attackDelaySeconds;
             }
 
             yield return null;
         }
     }
+
     private IEnumerator TakeCover()
     {
         yield return null;
@@ -129,10 +121,24 @@ public class EnemyStateCrouch : EnemyStateBase
                 _navMeshAgent.ResetPath();
 
                 StartCoroutine("StateAction");
+                StartCoroutine("LookRotationToTarget");
 
-                StartLookRotationToTarget();
                 yield break;
             }
+
+            yield return null;
+        }
+    }
+
+    private IEnumerator LookRotationToTarget()
+    {
+        while (true)
+        {
+            Vector3 to = new Vector3(_target.position.x, 0, _target.position.z);
+
+            Vector3 from = new Vector3(transform.position.x, 0, transform.position.z);
+
+            transform.rotation = Quaternion.LookRotation(to - from);
 
             yield return null;
         }

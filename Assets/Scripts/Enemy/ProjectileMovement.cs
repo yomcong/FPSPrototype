@@ -18,8 +18,9 @@ public class ProjectileMovement : MonoBehaviour
     {
         //movement = GetComponent<MovementTransform>();
         float impactPoint = Random.Range(-0.2f, 0.2f);
-        Vector3 temp = new Vector3(position.x + impactPoint, position.y + impactPoint, position.z);
-        StartCoroutine("OnMove", temp);
+        Vector3 targetPosition = new Vector3(position.x + impactPoint, position.y + impactPoint, position.z);
+        
+        StartCoroutine("OnMove", targetPosition);
     }
 
     void Update()

@@ -23,7 +23,10 @@ public abstract class EnemyStateBase : MonoBehaviour
     protected float _lastAttackTime = 0f;
     protected float _attackStartTime = 0f;
 
+    protected int _currAttackCount = 0;
     protected int _attackCount = 5;
+
+    protected bool _isAttack = false;
 
 
     public abstract void StateEnter();
@@ -39,28 +42,6 @@ public abstract class EnemyStateBase : MonoBehaviour
         _status = owner.GetComponent<Status>();
         _enemyFSM = owner.GetComponent<EnemyBase>().EnemyFSM;
         _target = target.transform;
-    }
-    private IEnumerator LookRotationToTarget()
-    {
-        while (true)
-        {
-            Vector3 to = new Vector3(_target.position.x, 0, _target.position.z);
-
-            Vector3 from = new Vector3(transform.position.x, 0, transform.position.z);
-
-            transform.rotation = Quaternion.LookRotation(to - from);
-
-            yield return null;
-        }
-    }
-    protected void StartLookRotationToTarget()
-    {
-        StartCoroutine("LookRotationToTarget");
-    }
-
-    protected void StopLookRotationToTarget()
-    {
-        StopCoroutine("LookRotationToTarget");
     }
 
     public void ShotProjectile()
