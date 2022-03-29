@@ -46,6 +46,7 @@ public class EnemyStateCrouch : EnemyStateBase
 
                         yield return new WaitForSeconds(2.5f);
                     }
+
                     _animator.OnReload();
 
                     yield return new WaitForSeconds(5f);

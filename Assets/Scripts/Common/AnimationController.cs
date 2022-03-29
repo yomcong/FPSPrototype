@@ -27,6 +27,11 @@ public abstract class AnimationController : MonoBehaviour
         _animator.SetTrigger(_animationParam.OnReload);
     }
 
+    public void SetLayerWeight(int layerIndex, float weight)
+    {
+        _animator.SetLayerWeight(layerIndex, weight);
+    }
+
     public void Play(string stateName, int layer, float normalizedTime)
     {
         _animator.Play(stateName, layer, normalizedTime);

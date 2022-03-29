@@ -20,9 +20,6 @@ public class EnemyStateIdle : EnemyStateBase
     {
         _animator.Play(_animator.AnimParam.TrunAround, -1, 0);
 
-        //_animator.Play(_animator.AnimParam.Trun, -1, 0);
-
-
         StartCoroutine("TurnAround");
 
         yield return new WaitForSeconds(Random.Range(2, 5));

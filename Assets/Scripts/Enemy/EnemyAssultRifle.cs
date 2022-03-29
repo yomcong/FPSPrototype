@@ -37,6 +37,9 @@ public class EnemyAssultRifle : EnemyBase
     {
         bool isDie = _status.DecreaseHP(damage);
 
+        _animator.Play(_animator.AnimParam.Hit, -1, 0);
+        StopCoroutine("HitLayerWeight");
+        StartCoroutine("HitLayerWeight");
         //hpBarSlider.value = (float)status.CurrentHP / status.MaxHP;
 
         if (isDie == true)
@@ -44,6 +47,15 @@ public class EnemyAssultRifle : EnemyBase
             //enemyMemoryPool.DeactivateEnemy(gameObject);
             _status.IncreaseHP(100);
         }
+    }
+
+    private IEnumerator HitLayerWeight()
+    {
+        _animator.SetLayerWeight(1, 1);
+
+        yield return new WaitForSeconds(0.1f);
+
+        _animator.SetLayerWeight(1, 0);
     }
 
     private IEnumerator CalculateDistanceToTarget()
@@ -86,7 +98,10 @@ public class EnemyAssultRifle : EnemyBase
             {
                 if (hit.transform.CompareTag("Player"))
                 {
-                    FindOfObstacleObject();
+                    if (FindOfObstacleObject() == false)
+                    {
+                        EnemyFSM.SetState(_stateList[(int)EnemyState.Standing]);
+                    }
 
                     _inBattle = true;
                 }
@@ -94,7 +109,7 @@ public class EnemyAssultRifle : EnemyBase
         }
     }
 
-    private void FindOfObstacleObject()
+    private bool FindOfObstacleObject()
     {
         RaycastHit[] hits = Physics.SphereCastAll(transform.position,
                         _detectedObstacleObjectRadius, transform.forward, 1, -1);
@@ -150,17 +165,15 @@ public class EnemyAssultRifle : EnemyBase
                 {
                     EnemyFSM.SetState(_stateList[(int)EnemyState.Cover]);
                 }
-                else
-                {
-                    EnemyFSM.SetState(_stateList[(int)EnemyState.Standing]);
-                }
 
                 _navMeshAgent.ResetPath();
                 _navMeshAgent.SetDestination(_ObstacleObjectPoint.position);
 
-                return;
+                return true;
             }
         }
+
+        return false;
 
     }
 

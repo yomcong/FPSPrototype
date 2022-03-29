@@ -18,8 +18,12 @@ public class AnimationParam
     [HideInInspector] public readonly int IsCrouch = Animator.StringToHash("IsCrouch");
     [HideInInspector] public readonly int Grenade = Animator.StringToHash("Grenade");
     [HideInInspector] public readonly int TrunAround = Animator.StringToHash("Trun");
+    [HideInInspector] public readonly int Hit = Animator.StringToHash("Hit");
 
     public readonly string Movement = "Movement";
     public readonly string Trun = "Trun";
     public readonly string CrouchAutoFire = "CrouchAutoFire";
+    public readonly string CoverFire = "CoverFire";
+    public readonly string StandingFire = "StandingFire";
+    
 }

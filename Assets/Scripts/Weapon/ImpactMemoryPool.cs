@@ -20,11 +20,11 @@ public class ImpactMemoryPool : MonoBehaviour
     }
     public void SpawnImpact(RaycastHit hit)
     {
-        if (hit.transform.CompareTag("ObstacleObject"))
-        {
-            OnSpawnImpact(ImpactType.Obstacle, hit.point, Quaternion.LookRotation(hit.normal));
-        }
-        else if (hit.transform.CompareTag("Enemy"))
+        //if (hit.transform.CompareTag("ObstacleObject"))
+        //{
+        //    OnSpawnImpact(ImpactType.Obstacle, hit.point, Quaternion.LookRotation(hit.normal));
+        //}
+        /*else */if (hit.transform.CompareTag("Enemy"))
         {
             OnSpawnImpact(ImpactType.Enemy, hit.point, Quaternion.LookRotation(hit.normal));
         }

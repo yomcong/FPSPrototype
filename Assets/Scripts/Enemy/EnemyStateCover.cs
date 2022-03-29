@@ -80,7 +80,7 @@ public class EnemyStateCover : EnemyStateBase
 
         while (true)
         {
-            if (_animator.CurrentAnimationIs(_animator.AnimParam.CrouchAutoFire))
+            if (_animator.CurrentAnimationIs(_animator.AnimParam.CoverFire))
             {
                 ShotProjectile();
 
@@ -94,11 +94,17 @@ public class EnemyStateCover : EnemyStateBase
     {
         while (true)
         {
-            Vector3 to = new Vector3(-_target.position.x, 0, -_target.position.z);
+            Vector3 to = new Vector3(_target.position.x , 0, _target.position.z);
 
             Vector3 from = new Vector3(transform.position.x, 0, transform.position.z);
 
-            transform.rotation = Quaternion.LookRotation(to - from);
+            //transform.rotation = Quaternion.LookRotation(to - from);
+
+            //Vector3 dir = (_target.position - transform.position).normalized;
+
+            Quaternion rot = Quaternion.LookRotation(-(to - from).normalized);
+
+            transform.rotation = rot;
 
             yield return null;
         }
