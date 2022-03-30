@@ -58,7 +58,7 @@ public class ProjectileMovement : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             //Debug.Log("Player Hit");
-            other.GetComponent<IDamageable>().TakeDamage(damage);
+            other.GetComponent<IDamageable>()?.TakeDamage(damage);
 
             Destroy(gameObject);
         }

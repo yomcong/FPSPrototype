@@ -25,6 +25,7 @@ public class WeaponSwitching : MonoBehaviour
             {
                 weapons[i].gameObject.SetActive(false);
             }
+
         }
 
         SwitchingWeapon(WeaponType.Main);

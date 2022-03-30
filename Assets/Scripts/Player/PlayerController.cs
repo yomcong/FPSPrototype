@@ -13,6 +13,10 @@ public class PlayerController : MonoBehaviour, IDamageable
         [HideInInspector] public Status Status;
         [HideInInspector] public AudioSource AudioSource;
         [HideInInspector] public WeaponBase Weapon;
+
+        public GameObject _grenadePrefab;
+        public Transform _grenadeSpawnPoint;
+
     }
 
     [Serializable]
@@ -25,6 +29,8 @@ public class PlayerController : MonoBehaviour, IDamageable
         public KeyCode Run = KeyCode.LeftShift;
         public KeyCode Jump = KeyCode.Space;
         public KeyCode Reload = KeyCode.R;
+        public KeyCode Grenade = KeyCode.G;
+        public KeyCode MeleeAttack = KeyCode.V;
         public KeyCode AutomaticChange = KeyCode.B;
         public KeyCode ShowCursor = KeyCode.LeftAlt;
         public string MouseX = "Mouse X";
@@ -172,8 +178,18 @@ public class PlayerController : MonoBehaviour, IDamageable
         {
             Com.Weapon.StartReload();
         }
+        
+        if (Input.GetKeyDown(Key.Grenade))
+        {
+            Com.Weapon.ThrowGrenade(Com._grenadePrefab, Com._grenadeSpawnPoint);
+        }
 
-        if( Input.GetKeyDown(Key.AutomaticChange))
+        if (Input.GetKeyDown(Key.MeleeAttack))
+        {
+            Com.Weapon.MeleeAttack();
+        }
+
+        if ( Input.GetKeyDown(Key.AutomaticChange))
         {
             Com.Weapon.IsAutomaticChange();
         }

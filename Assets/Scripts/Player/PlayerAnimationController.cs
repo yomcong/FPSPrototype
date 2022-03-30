@@ -18,4 +18,5 @@ public class PlayerAnimationController : AnimationController
         _animator.SetTrigger(_animationParam.OnJump);
     }
 
+    
 }

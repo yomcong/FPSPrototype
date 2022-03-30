@@ -52,6 +52,8 @@ public abstract class WeaponBase : MonoBehaviour
     public abstract void StartWeaponAction(int type = 0);
     public abstract void StopWeaponAction(int type = 0);
     public abstract void StartReload();
+    //public abstract void ThrowGrenade();
+
     public abstract void IsAutomaticChange();
     public abstract void IncreaseAmmo();
 
@@ -70,6 +72,30 @@ public abstract class WeaponBase : MonoBehaviour
         _audioSource.Stop();
         _audioSource.clip = clip;
         _audioSource.Play();
+    }
+    public void ThrowGrenade(GameObject grenadePrefab, Transform grenadeSpawnPoint)
+    {
+        if( _isAimModeChange || _isReload || _isAttack)
+        {
+            return;
+        }
+
+        StartCoroutine(GrenadeInstantiate(grenadePrefab, grenadeSpawnPoint));
+    }
+
+    public IEnumerator GrenadeInstantiate(GameObject grenadePrefab, Transform grenadeSpawnPoint)
+    {
+        _animator.Play(_animator.AnimParam.Grenade, -1, 0);
+
+        yield return new WaitForSeconds(1f);
+
+        GameObject grenadeClone = Instantiate(grenadePrefab, grenadeSpawnPoint.position, UnityEngine.Random.rotation);
+        grenadeClone.GetComponent<GrenadeProjectile>().Setup(_weaponSetting.Damage, -transform.forward);
+    }
+
+    public void MeleeAttack()
+    {
+        _animator.Play(_animator.AnimParam.MeleeAttack, -1, 0);
     }
 
 }

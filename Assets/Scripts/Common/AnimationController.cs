@@ -26,6 +26,10 @@ public abstract class AnimationController : MonoBehaviour
     {
         _animator.SetTrigger(_animationParam.OnReload);
     }
+    public void ThrowGrenade()
+    {
+        _animator.SetTrigger(_animationParam.Grenade);
+    }
 
     public void SetLayerWeight(int layerIndex, float weight)
     {

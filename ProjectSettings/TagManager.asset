@@ -10,6 +10,7 @@ TagManager:
   - Enemy
   - Obstacle
   - ObstacleObject
+  - Grenade
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - UI
   - AmmoCasing
   - Enemy
-  - 
+  - Grenade
   - 
   - 
   - 

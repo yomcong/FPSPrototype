@@ -20,22 +20,25 @@ public class ImpactMemoryPool : MonoBehaviour
     }
     public void SpawnImpact(RaycastHit hit)
     {
-        //if (hit.transform.CompareTag("ObstacleObject"))
-        //{
-        //    OnSpawnImpact(ImpactType.Obstacle, hit.point, Quaternion.LookRotation(hit.normal));
-        //}
-        /*else */if (hit.transform.CompareTag("Enemy"))
+        if (hit.transform.CompareTag("ObstacleObject"))
+        {
+            OnSpawnImpact(ImpactType.Obstacle, hit.point, Quaternion.LookRotation(hit.normal));
+        }
+        /*else */
+        if (hit.transform.CompareTag("Enemy"))
         {
             OnSpawnImpact(ImpactType.Enemy, hit.point, Quaternion.LookRotation(hit.normal));
         }
         else
         {
-            Color color = hit.transform.GetComponentInChildren<MeshRenderer>().material.color;
-            if( color == null)
-            {
-                color = Color.black;
-            }
-            OnSpawnImpact(ImpactType.Normal, hit.point, Quaternion.LookRotation(hit.normal), color);
+            //Color color = hit.transform.GetComponentInChildren<MeshRenderer>().material.color;
+
+            //if( color == null)
+            //{
+            //    color = Color.black;
+            //}
+
+            //OnSpawnImpact(ImpactType.Normal, hit.point, Quaternion.LookRotation(hit.normal), color);
         }
     }
 
@@ -51,8 +54,14 @@ public class ImpactMemoryPool : MonoBehaviour
         }
         else
         {
-            Color color = other.transform.GetComponentInChildren<MeshRenderer>().material.color;
-            OnSpawnImpact(ImpactType.Normal, knifeTransform.position, Quaternion.Inverse(knifeTransform.rotation), color);
+            //Color color = new Color();// = other.transform.GetComponentInChildren<MeshRenderer>().material.color;
+
+            //if( color == null)
+            //{
+            //    color = Color.black;
+            //}
+
+            //OnSpawnImpact(ImpactType.Normal, knifeTransform.position, Quaternion.Inverse(knifeTransform.rotation), color);
         }
     }
 
