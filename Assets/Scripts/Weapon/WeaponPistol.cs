@@ -158,7 +158,7 @@ public class WeaponPistol : WeaponBase
 
             PlaySound(_audioClipFire);
 
-            casingMemoryPool.SpawnCasing(_casingSpawnPoint.position, transform.right);
+            _casingMemoryPool.SpawnCasing(_casingSpawnPoint.position, transform.right);
 
             TwoStepRaycast();
         }
@@ -195,7 +195,7 @@ public class WeaponPistol : WeaponBase
         Vector3 attackDirection = (targetPoint - _bulletSpawnPoint.position).normalized;
         if (Physics.Raycast(_bulletSpawnPoint.position, attackDirection, out hit, _weaponSetting.AttackDistance))
         {
-            impactMemoryPool.SpawnImpact(hit);
+            _impactMemoryPool.SpawnImpact(hit);
 
             if (hit.transform.CompareTag("Enemy"))
             {

@@ -42,7 +42,7 @@ public class ExplosionBarrel : InteractionObjectBase
         {
             if(hit.CompareTag("Player") || hit.CompareTag("Enemy"))
             {
-                hit.GetComponent<IDamageable>().TakeDamage(50);
+                hit.GetComponent<IDamageable>()?.TakeDamage(50);
                 continue;
             }
             else if(hit.CompareTag("InteractionObject"))

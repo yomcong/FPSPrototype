@@ -24,8 +24,7 @@ public class ImpactMemoryPool : MonoBehaviour
         {
             OnSpawnImpact(ImpactType.Obstacle, hit.point, Quaternion.LookRotation(hit.normal));
         }
-        /*else */
-        if (hit.transform.CompareTag("Enemy"))
+        else if (hit.transform.CompareTag("Enemy"))
         {
             OnSpawnImpact(ImpactType.Enemy, hit.point, Quaternion.LookRotation(hit.normal));
         }
@@ -44,7 +43,7 @@ public class ImpactMemoryPool : MonoBehaviour
 
     public void SpawnImpact(Collider other, Transform knifeTransform)
     {
-        if (other.CompareTag("Obstacle"))
+        if (other.CompareTag("ObstacleObject"))
         {
             OnSpawnImpact(ImpactType.Obstacle, knifeTransform.position, Quaternion.Inverse(knifeTransform.rotation));
         }

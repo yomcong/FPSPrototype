@@ -14,9 +14,11 @@ public abstract class WeaponBase : MonoBehaviour
 {
     [Header("WeaponBase")]
     [SerializeField]
-    protected WeaponType weaponType;
+    protected WeaponType _weaponType;
     [SerializeField]
     protected WeaponSetting _weaponSetting;
+    [SerializeField]
+    protected WeaponKnifeCollider _weaponKnifeCollider;
 
     protected float _lastAttackTime = 0;
 
@@ -32,11 +34,12 @@ public abstract class WeaponBase : MonoBehaviour
     [SerializeField]
     protected float _aimModeFOV = 30;
 
-    protected CasingMemoryPool casingMemoryPool;
-    protected ImpactMemoryPool impactMemoryPool;
+    protected CasingMemoryPool _casingMemoryPool;
+    protected ImpactMemoryPool _impactMemoryPool;
     protected Camera _mainCamera;
     protected AudioSource _audioSource;
     protected PlayerAnimationController _animator;
+    protected Transform _knifeCollider;
 
     [HideInInspector]
     public AmmoEvent OnAmmoEvent = new AmmoEvent();
@@ -61,8 +64,9 @@ public abstract class WeaponBase : MonoBehaviour
     {
         _audioSource = GetComponent<AudioSource>();
         _animator = GetComponent<PlayerAnimationController>();
-        casingMemoryPool = GetComponent<CasingMemoryPool>();
-        impactMemoryPool = GetComponentInParent<ImpactMemoryPool>();
+        _casingMemoryPool = GetComponent<CasingMemoryPool>();
+        _impactMemoryPool = GetComponentInParent<ImpactMemoryPool>();
+        _weaponKnifeCollider = transform.parent.GetComponentInChildren<WeaponKnifeCollider>();
 
         _mainCamera = Camera.main;
     }
@@ -96,6 +100,15 @@ public abstract class WeaponBase : MonoBehaviour
     public void MeleeAttack()
     {
         _animator.Play(_animator.AnimParam.MeleeAttack, -1, 0);
+
+        StartCoroutine("MeleeAttackCollisionCheck");
+    }
+
+    private IEnumerator MeleeAttackCollisionCheck()
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        _weaponKnifeCollider.StartCollider(_weaponSetting.MeleeDamage);
     }
 
 }

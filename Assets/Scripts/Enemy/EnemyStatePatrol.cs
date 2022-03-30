@@ -10,6 +10,7 @@ public class EnemyStatePatrol : EnemyStateBase
         _isCover = false;
         _isCrouch = false;
 
+        _animator.MoveSpeed = _status.WalkSpeed;
         _navMeshAgent.speed = _status.WalkSpeed;
 
         StartCoroutine("StateAction");

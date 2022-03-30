@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class EnemyStateCover : EnemyStateBase
 {
-    private WaitForSeconds _attackDelaySeconds = new WaitForSeconds(1f);
-
     public override void StateEnter()
     {
         StartCoroutine("TakeCover");
@@ -23,9 +21,9 @@ public class EnemyStateCover : EnemyStateBase
         {
             if (_isAttack)
             {
-                yield return new WaitForSeconds(4f);
+                yield return new WaitForSeconds(3f);
 
-                _animator.IsIdle();
+                //_animator.IsIdle();
                 _lastAttackTime = Time.time;
                 _isAttack = false;
             }
@@ -57,7 +55,6 @@ public class EnemyStateCover : EnemyStateBase
     }
     public override void StateExit()
     {
-
         StopCoroutine("LookRotationToTarget");
         StopAllCoroutines();
 
@@ -76,7 +73,7 @@ public class EnemyStateCover : EnemyStateBase
     }
     private IEnumerator LaunchedProjectile()
     {
-        yield return _attackDelaySeconds;
+        yield return new WaitForSeconds(1.5f);
 
         while (true)
         {
@@ -84,7 +81,7 @@ public class EnemyStateCover : EnemyStateBase
             {
                 ShotProjectile();
 
-                yield return _attackDelaySeconds;
+                yield return new WaitForSeconds(1.2f);
             }
 
             yield return null;
@@ -97,10 +94,6 @@ public class EnemyStateCover : EnemyStateBase
             Vector3 to = new Vector3(_target.position.x , 0, _target.position.z);
 
             Vector3 from = new Vector3(transform.position.x, 0, transform.position.z);
-
-            //transform.rotation = Quaternion.LookRotation(to - from);
-
-            //Vector3 dir = (_target.position - transform.position).normalized;
 
             Quaternion rot = Quaternion.LookRotation(-(to - from).normalized);
 
