@@ -28,6 +28,8 @@ public class Casing : MonoBehaviour
                                                 Random.Range(-_casingSpin, _casingSpin),
                                                 Random.Range(-_casingSpin, _casingSpin));
 
+
+
         StartCoroutine("DeactivateAfterTime");
     }
 

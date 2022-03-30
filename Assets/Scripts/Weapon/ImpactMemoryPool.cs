@@ -38,6 +38,8 @@ public class ImpactMemoryPool : MonoBehaviour
             //}
 
             //OnSpawnImpact(ImpactType.Normal, hit.point, Quaternion.LookRotation(hit.normal), color);
+
+            OnSpawnImpact(ImpactType.Normal, hit.point, Quaternion.LookRotation(hit.normal), Color.gray);
         }
     }
 
@@ -53,6 +55,8 @@ public class ImpactMemoryPool : MonoBehaviour
         }
         else
         {
+            OnSpawnImpact(ImpactType.Enemy, knifeTransform.position, Quaternion.Inverse(knifeTransform.rotation));
+
             //Color color = new Color();// = other.transform.GetComponentInChildren<MeshRenderer>().material.color;
 
             //if( color == null)
