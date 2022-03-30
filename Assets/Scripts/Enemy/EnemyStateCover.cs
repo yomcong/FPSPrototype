@@ -8,7 +8,6 @@ public class EnemyStateCover : EnemyStateBase
     {
         StartCoroutine("TakeCover");
     }
-
     public override IEnumerator StateAction()
     {
         _animator.IsCover = true;
@@ -23,7 +22,6 @@ public class EnemyStateCover : EnemyStateBase
             {
                 yield return new WaitForSeconds(3f);
 
-                //_animator.IsIdle();
                 _lastAttackTime = Time.time;
                 _isAttack = false;
             }
@@ -55,10 +53,10 @@ public class EnemyStateCover : EnemyStateBase
     }
     public override void StateExit()
     {
-        StopCoroutine("LookRotationToTarget");
-        StopAllCoroutines();
+        _animator.IsCover = false;
+        OnInteractEvent.Invoke(false);
 
-        //StopCoroutine("StateAction");
+        StopAllCoroutines();
     }
 
     private void DoFire()

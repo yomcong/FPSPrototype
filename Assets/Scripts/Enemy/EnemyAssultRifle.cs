@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-enum ObstaclePointDir { Forward = 0, Right, Left, Back }
 
 public class EnemyAssultRifle : EnemyBase
 {
+    private enum ObstaclePointDir { Forward = 0, Right, Left, Back }
+
     private bool _inBattle = false;
 
     private Transform _ObstacleObjectPoint;
@@ -118,6 +119,16 @@ public class EnemyAssultRifle : EnemyBase
         {
             if (iter.transform.CompareTag("ObstacleObject"))
             {
+                if (iter.transform.GetComponent<ObstacleObject>()?.InCover == false)
+                {
+                    _interactObject = iter.transform.gameObject;
+                    iter.transform.GetComponent<ObstacleObject>().InCover = true;
+                }
+                else
+                {
+                    continue;
+                }
+
                 float targetDistance = Vector3.Distance(_target.position, transform.position);
 
                 Vector3 dirToTarget = (_target.position - iter.transform.position).normalized;

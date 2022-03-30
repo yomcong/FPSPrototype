@@ -30,6 +30,8 @@ public abstract class EnemyBase : MonoBehaviour, IDamageable
     [SerializeField]
     protected Transform _projectileSpawnPoint;
 
+    protected GameObject _interactObject;
+
     public GameObject ProjectilePrefab => _projectilePrefab;
     public Transform ProjectileSpawnPoint => _projectileSpawnPoint;
 
@@ -71,12 +73,18 @@ public abstract class EnemyBase : MonoBehaviour, IDamageable
         foreach (var iter in _stateList)
         {
             iter.Setup(gameObject, _target);
+            iter.OnInteractEvent.AddListener(InCover);
         }
 
         _enemyFSM.Setup(idle);
     }
 
     public abstract void TakeDamage(int damage);
+
+    public void InCover(bool inCover)
+    {
+        _interactObject.transform.GetComponent<ObstacleObject>().InCover = inCover;
+    }
 
     //public void TakeDamage(int damage)
     //{

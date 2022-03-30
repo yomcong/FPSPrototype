@@ -6,8 +6,6 @@ public class EnemyStateCrouch : EnemyStateBase
 {
     private WaitForSeconds _attackDelaySeconds = new WaitForSeconds(1f);
 
-
-
     public override void StateEnter()
     {
         _currAttackCount = 0;
@@ -61,11 +59,11 @@ public class EnemyStateCrouch : EnemyStateBase
         }
     }
 
-
     public override void StateExit()
     {
         _animator.IsIdle();
         _animator.IsCover = false;
+        OnInteractEvent.Invoke(false);
 
         StopCoroutine("LookRotationToTarget");
         StopAllCoroutines();
@@ -130,7 +128,6 @@ public class EnemyStateCrouch : EnemyStateBase
             yield return null;
         }
     }
-
     private IEnumerator LookRotationToTarget()
     {
         while (true)

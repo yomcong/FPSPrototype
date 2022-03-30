@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class ProjectileMovement : MonoBehaviour
 {
-    //private MovementTransform movement;
     private float _projectileDistance = 30;  //최대발사 거리
     private int damage = 5;
-    
 
     [SerializeField]
     private float moveSpeed = 20f;
@@ -16,7 +14,6 @@ public class ProjectileMovement : MonoBehaviour
 
     public void Setup(Vector3 position)
     {
-        //movement = GetComponent<MovementTransform>();
         float impactPoint = Random.Range(-0.2f, 0.2f);
         Vector3 targetPosition = new Vector3(position.x + impactPoint, position.y + impactPoint, position.z);
         
@@ -57,7 +54,6 @@ public class ProjectileMovement : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            //Debug.Log("Player Hit");
             other.GetComponent<IDamageable>()?.TakeDamage(damage);
 
             Destroy(gameObject);

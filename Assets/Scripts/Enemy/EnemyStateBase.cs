@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+
+[System.Serializable]
+public class InteractEvent : UnityEngine.Events.UnityEvent<bool> { }
+
 public abstract class EnemyStateBase : MonoBehaviour
 {
     protected GameObject _owner = null;
@@ -27,6 +31,8 @@ public abstract class EnemyStateBase : MonoBehaviour
     protected int _attackCount = 5;
 
     protected bool _isAttack = false;
+
+    public InteractEvent OnInteractEvent = new InteractEvent();
 
 
     public abstract void StateEnter();

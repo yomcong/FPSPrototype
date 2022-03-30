@@ -47,36 +47,10 @@ public class ExplosionBarrel : InteractionObjectBase
             }
             else if(hit.CompareTag("InteractionObject"))
             {
-                hit.GetComponent<IDamageable>().TakeDamage(300);
+                hit.GetComponent<IDamageable>()?.TakeDamage(300);
                 hit.GetComponent<Rigidbody>().AddExplosionForce
                     (_explosionForce, transform.position, _explosionRadius);
             }
-
-            //PlayerController player = hit.GetComponent<PlayerController>();
-            //if (player != null)
-            //{
-            //    player.TakeDamage(50);
-            //    continue;
-            //}
-
-            //EnemyBase enemy = hit.GetComponent<EnemyBase>();
-            //if (enemy != null)
-            //{
-            //    enemy.TakeDamage(300);
-            //    continue;
-            //}
-
-            //InteractionObjectBase interaction = hit.GetComponent<InteractionObjectBase>();
-            //if (interaction != null)
-            //{
-            //    interaction.TakeDamage(300);
-            //}
-
-            //Rigidbody rigidbody = hit.GetComponent<Rigidbody>();
-            //if (rigidbody != null)
-            //{
-            //    rigidbody.AddExplosionForce(_explosionForce, transform.position, _explosionRadius);
-            //}
         }
 
         Instantiate(_destrctibleBarrelPieces, transform.position, transform.rotation);
