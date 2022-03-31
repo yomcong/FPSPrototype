@@ -13,10 +13,6 @@ public class PlayerController : MonoBehaviour, IDamageable
         [HideInInspector] public Status Status;
         [HideInInspector] public AudioSource AudioSource;
         [HideInInspector] public WeaponBase Weapon;
-
-        public GameObject _grenadePrefab;
-        public Transform _grenadeSpawnPoint;
-
     }
 
     [Serializable]
@@ -181,7 +177,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         
         if (Input.GetKeyDown(Key.Grenade))
         {
-            Com.Weapon.ThrowGrenade(Com._grenadePrefab, Com._grenadeSpawnPoint);
+            Com.Weapon.ThrowGrenade();
         }
 
         if (Input.GetKeyDown(Key.MeleeAttack))

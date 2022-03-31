@@ -7,15 +7,19 @@ public enum ImpactType { Normal = 0, Obstacle, Enemy, }
 public class ImpactMemoryPool : MonoBehaviour
 {
     [SerializeField]
-    private GameObject[] imapctPrefab;
-    private MemoryPool[] memoryPool;
+    private GameObject[] _imapctPrefab;
+    private MemoryPool[] _memoryPool;
 
     private void Awake()
     {
-        memoryPool = new MemoryPool[imapctPrefab.Length];
-        for (int i = 0; i < imapctPrefab.Length; ++i)
+        _memoryPool = new MemoryPool[_imapctPrefab.Length];
+        for (int i = 0; i < _imapctPrefab.Length; ++i)
         {
-            memoryPool[i] = new MemoryPool(imapctPrefab[i]);
+            //_memoryPool[i] = new MemoryPool(_imapctPrefab[i]);
+            //_memoryPool[i] = _imapctPrefab[i].GetComponent<MemoryPool>();
+            _memoryPool[i] = _imapctPrefab[i].AddComponent<MemoryPool>();
+            _memoryPool[i].setup(_imapctPrefab[i]);
+
         }
     }
     public void SpawnImpact(RaycastHit hit)
@@ -55,8 +59,6 @@ public class ImpactMemoryPool : MonoBehaviour
         }
         else
         {
-            OnSpawnImpact(ImpactType.Enemy, knifeTransform.position, Quaternion.Inverse(knifeTransform.rotation));
-
             //Color color = new Color();// = other.transform.GetComponentInChildren<MeshRenderer>().material.color;
 
             //if( color == null)
@@ -65,17 +67,18 @@ public class ImpactMemoryPool : MonoBehaviour
             //}
 
             //OnSpawnImpact(ImpactType.Normal, knifeTransform.position, Quaternion.Inverse(knifeTransform.rotation), color);
+
+            OnSpawnImpact(ImpactType.Enemy, knifeTransform.position, Quaternion.Inverse(knifeTransform.rotation));
         }
     }
 
 
     public void OnSpawnImpact(ImpactType type, Vector3 position, Quaternion rotation, Color color = new Color())
     {
-        GameObject _object = memoryPool[(int)type].ActivatePoolObject();
+        GameObject _object = _memoryPool[(int)type].ActivatePoolObject();
         _object.transform.position = position;
         _object.transform.rotation = rotation;
-        _object.GetComponent<Impact>().SetUp(memoryPool[(int)type]);
-
+        _object.GetComponent<Impact>().Setup(_memoryPool[(int)type]);
         if (type == ImpactType.Normal)
         {
             ParticleSystem.MainModule main = _object.GetComponent<ParticleSystem>().main;

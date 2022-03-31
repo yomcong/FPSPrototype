@@ -20,6 +20,11 @@ public abstract class WeaponBase : MonoBehaviour
     [SerializeField]
     protected WeaponKnifeCollider _weaponKnifeCollider;
 
+    [SerializeField]
+    protected GameObject _grenadePrefab;
+    [SerializeField]
+    protected Transform _grenadeSpawnPoint;
+
     protected float _lastAttackTime = 0;
 
     [SerializeField]
@@ -78,23 +83,24 @@ public abstract class WeaponBase : MonoBehaviour
         _audioSource.clip = clip;
         _audioSource.Play();
     }
-    public void ThrowGrenade(GameObject grenadePrefab, Transform grenadeSpawnPoint)
+    public void ThrowGrenade()
     {
         if( _isAimModeChange || _isReload || _isAttack)
         {
             return;
         }
 
-        StartCoroutine(GrenadeInstantiate(grenadePrefab, grenadeSpawnPoint));
+        StartCoroutine("GrenadeInstantiate");
+        //StartCoroutine("GrenadeInstantiate", (grenadePrefab, grenadeSpawnPoint));
     }
 
-    public IEnumerator GrenadeInstantiate(GameObject grenadePrefab, Transform grenadeSpawnPoint)
+    public IEnumerator GrenadeInstantiate()
     {
         _animator.Play(_animator.AnimParam.Grenade, -1, 0);
 
         yield return new WaitForSeconds(1f);
 
-        GameObject grenadeClone = Instantiate(grenadePrefab, grenadeSpawnPoint.position, UnityEngine.Random.rotation);
+        GameObject grenadeClone = Instantiate(_grenadePrefab, _grenadeSpawnPoint.position, UnityEngine.Random.rotation);
         grenadeClone.GetComponent<GrenadeProjectile>().Setup(_weaponSetting.Damage, -transform.forward);
     }
 

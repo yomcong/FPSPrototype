@@ -31,7 +31,6 @@ public class EnemyStateStanding : EnemyStateBase
                 yield return new WaitForSeconds(3f);
 
                 _animator.IsIdle();
-                _lastAttackTime = Time.time;
                 _isAttack = false;
             }
             else
@@ -46,6 +45,8 @@ public class EnemyStateStanding : EnemyStateBase
                         _animator.ThrowGrenade();
 
                         yield return new WaitForSeconds(2.5f);
+
+                        GrenadeInstantiate();
                     }
 
                     _animator.OnReload();
@@ -63,7 +64,6 @@ public class EnemyStateStanding : EnemyStateBase
         }
     }
 
-
     public override void StateExit()
     {
         _animator.IsStanding = false;
@@ -74,7 +74,6 @@ public class EnemyStateStanding : EnemyStateBase
     private void DoFire()
     {
         _animator.IsFire();
-        _attackStartTime = Time.time;
         _currAttackCount++;
         _isAttack = true;
 

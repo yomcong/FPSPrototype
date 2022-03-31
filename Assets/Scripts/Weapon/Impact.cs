@@ -4,23 +4,19 @@ using UnityEngine;
 
 public class Impact : MonoBehaviour
 {
-    private ParticleSystem particle;
-    private MemoryPool memoryPool;
-    private void Awake()
-    {
-        particle = GetComponent<ParticleSystem>();
-    }
+    private ParticleSystem _particle;
+    private MemoryPool _memoryPool;
 
-    public void SetUp(MemoryPool pool)
+    public void Setup(MemoryPool pool)
     {
-        memoryPool = pool;
+        _particle = GetComponent<ParticleSystem>();
+        _memoryPool = pool;
     }
-
     void Update()
     {
-        if (particle.isPlaying == false)
+        if (_particle.isPlaying == false)
         {
-            memoryPool.DeactivatePoolObject(gameObject);
+            _memoryPool.DeactivatePoolObject(gameObject);
         }
     }
 }

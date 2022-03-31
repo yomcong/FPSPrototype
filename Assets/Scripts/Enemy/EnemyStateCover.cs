@@ -22,22 +22,12 @@ public class EnemyStateCover : EnemyStateBase
             {
                 yield return new WaitForSeconds(3f);
 
-                _lastAttackTime = Time.time;
                 _isAttack = false;
             }
             else
             {
                 if (_currAttackCount >= _attackCount)
                 {
-                    // ∏Æ∆—≈‰∏µ
-                    int temp = Random.Range(1, 5);
-
-                    if (temp == 1)
-                    {
-                        _animator.ThrowGrenade();
-
-                        yield return new WaitForSeconds(2.5f);
-                    }
                     _animator.OnReload();
 
                     yield return new WaitForSeconds(5f);
@@ -62,7 +52,6 @@ public class EnemyStateCover : EnemyStateBase
     private void DoFire()
     {
         _animator.IsFire();
-        _attackStartTime = Time.time;
         _currAttackCount++;
         _isAttack = true;
 

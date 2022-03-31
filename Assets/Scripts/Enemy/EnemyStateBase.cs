@@ -21,14 +21,13 @@ public abstract class EnemyStateBase : MonoBehaviour
     protected bool _isCover = false;
     protected bool _isCrouch = false;
 
-    protected float _attackRange = 20f;  //사정거리
+    protected float _attackRange = 20f; //사정거리
     protected float _attackTime = 4f;   //공격 실행시간
-    protected float _attackDelay = 2f;   //공격 대기시간
-    protected float _lastAttackTime = 0f;
-    protected float _attackStartTime = 0f;
+    protected float _attackDelay = 2f;  //공격 대기시간
 
+    protected int _grenadeDamage = 20;
     protected int _currAttackCount = 0;
-    protected int _attackCount = 5;
+    protected int _attackCount = 3;
 
     protected bool _isAttack = false;
 
@@ -57,4 +56,13 @@ public abstract class EnemyStateBase : MonoBehaviour
            transform.rotation);
         clone.GetComponent<ProjectileMovement>().Setup(_target.position);
     }
+
+    public void GrenadeInstantiate()
+    {
+        GameObject grenadeObject = Instantiate(_owner.GetComponent<EnemyBase>().GrendePrefab
+            , _owner.GetComponent<EnemyBase>().GrenadeSpawnPoint.position, UnityEngine.Random.rotation);
+        Vector3 GrenadeDir = (transform.forward + transform.up).normalized;
+        grenadeObject.GetComponent<GrenadeProjectile>().Setup(_grenadeDamage, GrenadeDir);
+    }
+
 }

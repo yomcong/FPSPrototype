@@ -16,21 +16,18 @@ public class MemoryPool : MonoBehaviour
 
     private GameObject _poolObjectPrefab; 
     private List<PoolObject> _poolObjectList;
-    //private Queue<PoolObject> _poolObjectList;
     public int MaxCount => _maxCount;    
     public int ActiveCount => _activeCount; 
 
     private Vector3 tempPosition = new Vector3(48, 1, 48);  //임의에 포지션에 위치
 
-    public MemoryPool(GameObject poolObject)
+    public void setup(GameObject poolObject)
     {
         _maxCount = 0;
         _activeCount = 0;
         _poolObjectPrefab = poolObject;
 
         _poolObjectList = new List<PoolObject>();
-
-        //_poolObjectList = new Queue<PoolObject>();
 
         InstantiateObject();
     }
@@ -49,8 +46,6 @@ public class MemoryPool : MonoBehaviour
             poolObject.gameObject.SetActive(false);
 
             _poolObjectList.Add(poolObject);
-
-            //_poolObjectList.Enqueue(poolObject);
 
         }
     }

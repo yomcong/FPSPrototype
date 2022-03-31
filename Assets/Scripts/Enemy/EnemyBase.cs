@@ -29,11 +29,17 @@ public abstract class EnemyBase : MonoBehaviour, IDamageable
     protected GameObject _projectilePrefab;
     [SerializeField]
     protected Transform _projectileSpawnPoint;
+    [SerializeField]
+    protected GameObject _grenadePrefab;
+    [SerializeField]
+    protected Transform _grenadeSpawnPoint;
 
     protected GameObject _interactObject;
 
     public GameObject ProjectilePrefab => _projectilePrefab;
     public Transform ProjectileSpawnPoint => _projectileSpawnPoint;
+    public GameObject GrendePrefab => _grenadePrefab;
+    public Transform GrenadeSpawnPoint => _grenadeSpawnPoint;
 
     public Transform Target
     {

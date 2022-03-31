@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 861574296371339594}
   - component: {fileID: 1534854035825637462}
   - component: {fileID: -9090497310993350758}
+  - component: {fileID: -7289354780767241363}
   m_Layer: 0
   m_Name: ImpactEnemy
   m_TagString: Untagged
@@ -4882,5 +4883,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 947b004bce882794497f5a809198d0ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-7289354780767241363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5177372606675841791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d63d57346663bb4682f4317b09224eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
