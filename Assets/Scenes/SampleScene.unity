@@ -294,64 +294,6 @@ Transform:
   m_Father: {fileID: 872471283}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &96803059
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 96803060}
-  - component: {fileID: 96803061}
-  - component: {fileID: 96803062}
-  m_Layer: 3
-  m_Name: MeleeAttackCollider
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &96803060
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 96803059}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.1, y: -0.2, z: -3.33}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 507149424}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &96803061
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 96803059}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.5, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &96803062
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 96803059}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87381bac2376d30459e1952afe84aaf0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _impactMemoryPool: {fileID: 0}
 --- !u!4 &98558059 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6994275952678018908, guid: 9a001e6978368e94d9c76edd2fad395e, type: 3}
@@ -802,11 +744,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!4 &507149424 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7600095358727906173, guid: 86b7c93b1cbb3aa4090d59d2bc4f4cb1, type: 3}
-  m_PrefabInstance: {fileID: 7600095359618856021}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &619891161 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 175072598879332455, guid: 50aeb72479820e748b4216fbd05213c6, type: 3}
@@ -3893,50 +3830,18 @@ PrefabInstance:
       propertyPath: _imageAim
       value: 
       objectReference: {fileID: 171045764}
-    - target: {fileID: 7600095359064456855, guid: 86b7c93b1cbb3aa4090d59d2bc4f4cb1, type: 3}
-      propertyPath: _weaponKnifeCollider
-      value: 
-      objectReference: {fileID: 96803062}
-    - target: {fileID: 7600095359064456855, guid: 86b7c93b1cbb3aa4090d59d2bc4f4cb1, type: 3}
-      propertyPath: _weaponSetting.MeleeDamage
-      value: 50
-      objectReference: {fileID: 0}
     - target: {fileID: 7600095359123358224, guid: 86b7c93b1cbb3aa4090d59d2bc4f4cb1, type: 3}
       propertyPath: _imageAim
       value: 
       objectReference: {fileID: 171045764}
-    - target: {fileID: 7600095359123358224, guid: 86b7c93b1cbb3aa4090d59d2bc4f4cb1, type: 3}
-      propertyPath: _weaponKnifeCollider
-      value: 
-      objectReference: {fileID: 96803062}
-    - target: {fileID: 7600095359123358224, guid: 86b7c93b1cbb3aa4090d59d2bc4f4cb1, type: 3}
-      propertyPath: _weaponSetting.MeleeDamage
-      value: 50
-      objectReference: {fileID: 0}
     - target: {fileID: 7600095359221169225, guid: 86b7c93b1cbb3aa4090d59d2bc4f4cb1, type: 3}
       propertyPath: _imageAim
       value: 
       objectReference: {fileID: 171045764}
-    - target: {fileID: 7600095359221169225, guid: 86b7c93b1cbb3aa4090d59d2bc4f4cb1, type: 3}
-      propertyPath: _weaponKnifeCollider
-      value: 
-      objectReference: {fileID: 96803062}
-    - target: {fileID: 7600095359221169225, guid: 86b7c93b1cbb3aa4090d59d2bc4f4cb1, type: 3}
-      propertyPath: _weaponSetting.MeleeDamage
-      value: 50
-      objectReference: {fileID: 0}
     - target: {fileID: 7600095359561153633, guid: 86b7c93b1cbb3aa4090d59d2bc4f4cb1, type: 3}
       propertyPath: _imageAim
       value: 
       objectReference: {fileID: 171045764}
-    - target: {fileID: 7600095359561153633, guid: 86b7c93b1cbb3aa4090d59d2bc4f4cb1, type: 3}
-      propertyPath: _weaponKnifeCollider
-      value: 
-      objectReference: {fileID: 96803062}
-    - target: {fileID: 7600095359561153633, guid: 86b7c93b1cbb3aa4090d59d2bc4f4cb1, type: 3}
-      propertyPath: _weaponSetting.MeleeDamage
-      value: 50
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 86b7c93b1cbb3aa4090d59d2bc4f4cb1, type: 3}
 --- !u!1001 &7937264597813186392

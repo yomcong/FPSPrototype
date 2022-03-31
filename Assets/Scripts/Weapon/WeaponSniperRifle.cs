@@ -42,13 +42,11 @@ public class WeaponSniperRifle : WeaponBase
     {
         PlaySound(_audioClipTakeOutWeapon);
 
+        ResetVariables();
+
         _muzzleFlashEffect.SetActive(false);
 
         OnAmmoEvent.Invoke(_weaponSetting.CurrentAmmo, _weaponSetting.MaxAmmo);
-
-        ResetVariables();
-
-        _weaponSetting.IsAutomaticAttack = false;
 
         OnAutomaticEvent.Invoke(_weaponSetting.IsAutomaticAttack);
     }
@@ -102,6 +100,10 @@ public class WeaponSniperRifle : WeaponBase
         _isReload = false;
         _isAttack = false;
         _isAimModeChange = false;
+        _weaponSetting.IsAutomaticAttack = false;
+
+        _animator.IsAimMode = true;
+        StartCoroutine("OnAimModeChange");
     }
 
     private void OnAttack()

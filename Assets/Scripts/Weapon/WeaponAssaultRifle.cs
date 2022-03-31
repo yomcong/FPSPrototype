@@ -40,13 +40,11 @@ public class WeaponAssaultRifle : WeaponBase
     {
         PlaySound(_audioClipTakeOutWeapon);
 
+        ResetVariables();
+
         _muzzleFlashEffect.SetActive(false);
 
         OnAmmoEvent.Invoke(_weaponSetting.CurrentAmmo, _weaponSetting.MaxAmmo);
-
-        ResetVariables();
-
-        _weaponSetting.IsAutomaticAttack = true;
 
         OnAutomaticEvent.Invoke(_weaponSetting.IsAutomaticAttack);
     }
@@ -110,6 +108,10 @@ public class WeaponAssaultRifle : WeaponBase
         _isReload = false;
         _isAttack = false;
         _isAimModeChange = false;
+        _weaponSetting.IsAutomaticAttack = true;
+
+        _animator.IsAimMode = true;
+        StartCoroutine("OnAimModeChange");
     }
 
     private IEnumerator OnAttackLoop()

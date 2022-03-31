@@ -1,5 +1,63 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &96803059
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 96803060}
+  - component: {fileID: 96803061}
+  - component: {fileID: 96803062}
+  m_Layer: 3
+  m_Name: MeleeAttackCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &96803060
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 96803059}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.1, y: -0.2, z: -3.33}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7600095358727906173}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &96803061
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 96803059}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 0.5, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &96803062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 96803059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87381bac2376d30459e1952afe84aaf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _impactMemoryPool: {fileID: 0}
 --- !u!1 &7600095358016591495
 GameObject:
   m_ObjectHideFlags: 0
@@ -199,6 +257,7 @@ Transform:
   - {fileID: 7600095359234346949}
   - {fileID: 7600095358494376869}
   - {fileID: 7600095359025952146}
+  - {fileID: 96803060}
   m_Father: {fileID: 7600095358821824649}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
@@ -476,7 +535,7 @@ MonoBehaviour:
   weapons:
   - {fileID: 7600095359123358224}
   - {fileID: 7600095359064456855}
-  - {fileID: 7600095359561153633}
+  - {fileID: 0}
   - {fileID: 7600095359221169225}
 --- !u!114 &7600095358821824651
 MonoBehaviour:
@@ -1034,14 +1093,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cdfaae80ae56f8b44b98026857ec22b8, type: 3}
---- !u!1 &8299536427932216909 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1897447138402942686, guid: cdfaae80ae56f8b44b98026857ec22b8, type: 3}
-  m_PrefabInstance: {fileID: 7600095357917646995}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8299536427932709485 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1897447138402575102, guid: cdfaae80ae56f8b44b98026857ec22b8, type: 3}
+  m_PrefabInstance: {fileID: 7600095357917646995}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8299536427932216909 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1897447138402942686, guid: cdfaae80ae56f8b44b98026857ec22b8, type: 3}
   m_PrefabInstance: {fileID: 7600095357917646995}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7600095357918026947
@@ -1603,19 +1662,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &7600095359561153639
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7600095358493958021}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96e18a891e3a12948913ca5db8e11951, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &7600095359561153633
+--- !u!114 &5574295985284960830
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1627,10 +1674,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56cb6a51a482fcd4286f71c5d920491e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponType: 2
+  _weaponType: 0
   _weaponSetting:
     WeaponName: 2
     Damage: 20
+    MeleeDamage: 50
     CurrentAmmo: 20
     MagCapacity: 20
     MaxAmmo: 100
@@ -1638,6 +1686,7 @@ MonoBehaviour:
     AttackRate: 0.2
     AttackDistance: 20
     IsAutomaticAttack: 1
+  _weaponKnifeCollider: {fileID: 96803062}
   _isReload: 0
   _isAttack: 0
   _isAimModeChange: 0
@@ -1671,6 +1720,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _casingPrefab: {fileID: 857610483845507283, guid: 791fe04afb59cb9418026d40652f1a66, type: 3}
+--- !u!114 &7600095359561153639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7600095358493958021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96e18a891e3a12948913ca5db8e11951, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7600095358571603320
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1728,14 +1789,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 250edc37aa4cb9e4b87708b2e6007002, type: 3}
---- !u!4 &337613533796986274 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7914944190227941594, guid: 250edc37aa4cb9e4b87708b2e6007002, type: 3}
-  m_PrefabInstance: {fileID: 7600095358571603320}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &337613533796823426 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7914944190227911930, guid: 250edc37aa4cb9e4b87708b2e6007002, type: 3}
+  m_PrefabInstance: {fileID: 7600095358571603320}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &337613533796986274 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7914944190227941594, guid: 250edc37aa4cb9e4b87708b2e6007002, type: 3}
   m_PrefabInstance: {fileID: 7600095358571603320}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7600095358640686446
@@ -2143,16 +2204,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f464aa05118d2b24aa7cec4b48bf680f, type: 3}
---- !u!4 &7600095358640300006 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400008, guid: f464aa05118d2b24aa7cec4b48bf680f, type: 3}
-  m_PrefabInstance: {fileID: 7600095358640686446}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &7600095358640300016 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400030, guid: f464aa05118d2b24aa7cec4b48bf680f, type: 3}
-  m_PrefabInstance: {fileID: 7600095358640686446}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7600095358640300014 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: f464aa05118d2b24aa7cec4b48bf680f, type: 3}
@@ -2161,6 +2212,16 @@ Transform:
 --- !u!1 &7600095358640587726 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: f464aa05118d2b24aa7cec4b48bf680f, type: 3}
+  m_PrefabInstance: {fileID: 7600095358640686446}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7600095358640300016 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400030, guid: f464aa05118d2b24aa7cec4b48bf680f, type: 3}
+  m_PrefabInstance: {fileID: 7600095358640686446}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7600095358640300006 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400008, guid: f464aa05118d2b24aa7cec4b48bf680f, type: 3}
   m_PrefabInstance: {fileID: 7600095358640686446}
   m_PrefabAsset: {fileID: 0}
 --- !u!82 &7600095359123358227
@@ -2259,31 +2320,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &7600095359123358230
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7600095358640587726}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb412fc8963912f41b96fb073dc41b94, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _casingPrefab: {fileID: 857610483845507283, guid: 791fe04afb59cb9418026d40652f1a66, type: 3}
---- !u!114 &7600095359123358225
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7600095358640587726}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96e18a891e3a12948913ca5db8e11951, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7600095359123358224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2296,10 +2332,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6472237ac9274c04f935c275f0adbf9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponType: 0
+  _weaponType: 0
   _weaponSetting:
     WeaponName: 0
     Damage: 30
+    MeleeDamage: 50
     CurrentAmmo: 30
     MagCapacity: 30
     MaxAmmo: 300
@@ -2307,6 +2344,7 @@ MonoBehaviour:
     AttackRate: 0.1
     AttackDistance: 30
     IsAutomaticAttack: 1
+  _weaponKnifeCollider: {fileID: 96803062}
   _isReload: 0
   _isAttack: 0
   _isAimModeChange: 1
@@ -2326,6 +2364,31 @@ MonoBehaviour:
   _audioClipReloadPart1: {fileID: 8300000, guid: 05a51e063197fd1469bae48e78534280, type: 3}
   _audioClipReloadPart2: {fileID: 8300000, guid: 2818f9036a3f74b4c8c1589ae2758054, type: 3}
   _imageAim: {fileID: 0}
+--- !u!114 &7600095359123358225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7600095358640587726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96e18a891e3a12948913ca5db8e11951, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7600095359123358230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7600095358640587726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb412fc8963912f41b96fb073dc41b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _casingPrefab: {fileID: 857610483845507283, guid: 791fe04afb59cb9418026d40652f1a66, type: 3}
 --- !u!1001 &7600095359025557278
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2695,11 +2758,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ae78fb6952f3e4499e1a8f5b0a0376d, type: 3}
---- !u!4 &7600095359025952146 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400012, guid: 3ae78fb6952f3e4499e1a8f5b0a0376d, type: 3}
-  m_PrefabInstance: {fileID: 7600095359025557278}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7600095359025952150 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400008, guid: 3ae78fb6952f3e4499e1a8f5b0a0376d, type: 3}
@@ -2708,6 +2766,11 @@ Transform:
 --- !u!1 &7600095359025654194 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100012, guid: 3ae78fb6952f3e4499e1a8f5b0a0376d, type: 3}
+  m_PrefabInstance: {fileID: 7600095359025557278}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7600095359025952146 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400012, guid: 3ae78fb6952f3e4499e1a8f5b0a0376d, type: 3}
   m_PrefabInstance: {fileID: 7600095359025557278}
   m_PrefabAsset: {fileID: 0}
 --- !u!82 &7600095359221169226
@@ -2806,18 +2869,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &7600095359221169230
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7600095359025654194}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96e18a891e3a12948913ca5db8e11951, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7600095359221169225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2830,10 +2881,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeebf72513b492c4c98561c4bebc082a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponType: 3
+  _weaponType: 0
   _weaponSetting:
     WeaponName: 3
     Damage: 300
+    MeleeDamage: 50
     CurrentAmmo: 1
     MagCapacity: 1
     MaxAmmo: 5
@@ -2841,6 +2893,7 @@ MonoBehaviour:
     AttackRate: 2
     AttackDistance: 30
     IsAutomaticAttack: 0
+  _weaponKnifeCollider: {fileID: 96803062}
   _isReload: 0
   _isAttack: 0
   _isAimModeChange: 0
@@ -2873,6 +2926,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _casingPrefab: {fileID: 857610483845507283, guid: 791fe04afb59cb9418026d40652f1a66, type: 3}
+--- !u!114 &7600095359221169230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7600095359025654194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96e18a891e3a12948913ca5db8e11951, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7600095359234479449
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3389,6 +3454,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96e18a891e3a12948913ca5db8e11951, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7600095359064456854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7600095359234577381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb412fc8963912f41b96fb073dc41b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _casingPrefab: {fileID: 857610483845507283, guid: 791fe04afb59cb9418026d40652f1a66, type: 3}
 --- !u!114 &7600095359064456855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3401,10 +3479,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 983c5a6cd1e7b1e418b48c688120ae4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponType: 1
+  _weaponType: 0
   _weaponSetting:
     WeaponName: 1
     Damage: 100
+    MeleeDamage: 50
     CurrentAmmo: 5
     MagCapacity: 5
     MaxAmmo: 30
@@ -3412,6 +3491,7 @@ MonoBehaviour:
     AttackRate: 0.9
     AttackDistance: 50
     IsAutomaticAttack: 0
+  _weaponKnifeCollider: {fileID: 96803062}
   _isReload: 0
   _isAttack: 0
   _isAimModeChange: 0
@@ -3432,19 +3512,6 @@ MonoBehaviour:
   _audioClipReloadPart2: {fileID: 8300000, guid: 2709fe6813a38534dae6232614002ab8, type: 3}
   _imageAim: {fileID: 0}
   _imageZoomAim: {fileID: 7600095358016591489}
---- !u!114 &7600095359064456854
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7600095359234577381}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb412fc8963912f41b96fb073dc41b94, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _casingPrefab: {fileID: 857610483845507283, guid: 791fe04afb59cb9418026d40652f1a66, type: 3}
 --- !u!1001 &7600095359534077926
 PrefabInstance:
   m_ObjectHideFlags: 0

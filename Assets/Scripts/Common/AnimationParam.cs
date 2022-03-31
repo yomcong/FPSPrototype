@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[Serializable]
+//[Serializable]
 public class AnimationParam
 {
     [HideInInspector] public readonly int Fire = Animator.StringToHash("Fire");

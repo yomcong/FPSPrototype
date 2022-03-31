@@ -40,13 +40,11 @@ public class WeaponRocketLauncher : WeaponBase
     {
         PlaySound(_audioClipTakeOutWeapon);
 
+        ResetVariables();
+
         _muzzleFlashEffect.SetActive(false);
 
         OnAmmoEvent.Invoke(_weaponSetting.CurrentAmmo, _weaponSetting.MaxAmmo);
-
-        ResetVariables();
-
-        _weaponSetting.IsAutomaticAttack = false;
 
         OnAutomaticEvent.Invoke(_weaponSetting.IsAutomaticAttack);
     }
@@ -100,6 +98,10 @@ public class WeaponRocketLauncher : WeaponBase
         _isReload = false;
         _isAttack = false;
         _isAimModeChange = false;
+        _weaponSetting.IsAutomaticAttack = false;
+
+        _animator.IsAimMode = true;
+        StartCoroutine("OnAimModeChange");
     }
 
     private void OnAttack()

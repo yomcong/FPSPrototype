@@ -64,6 +64,7 @@ public abstract class WeaponBase : MonoBehaviour
     {
         _audioSource = GetComponent<AudioSource>();
         _animator = GetComponent<PlayerAnimationController>();
+        _animator.Setup();
         _casingMemoryPool = GetComponent<CasingMemoryPool>();
         _impactMemoryPool = GetComponentInParent<ImpactMemoryPool>();
         _weaponKnifeCollider = transform.parent.GetComponentInChildren<WeaponKnifeCollider>();
