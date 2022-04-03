@@ -15,13 +15,12 @@ public class ImpactMemoryPool : MonoBehaviour
         _memoryPool = new MemoryPool[_imapctPrefab.Length];
         for (int i = 0; i < _imapctPrefab.Length; ++i)
         {
-            //_memoryPool[i] = new MemoryPool(_imapctPrefab[i]);
-            //_memoryPool[i] = _imapctPrefab[i].GetComponent<MemoryPool>();
             _memoryPool[i] = _imapctPrefab[i].AddComponent<MemoryPool>();
             _memoryPool[i].setup(_imapctPrefab[i]);
 
         }
     }
+
     public void SpawnImpact(RaycastHit hit)
     {
         if (hit.transform.CompareTag("ObstacleObject"))
@@ -31,6 +30,10 @@ public class ImpactMemoryPool : MonoBehaviour
         else if (hit.transform.CompareTag("Enemy"))
         {
             OnSpawnImpact(ImpactType.Enemy, hit.point, Quaternion.LookRotation(hit.normal));
+        }
+        else if (hit.transform.CompareTag("TriggerObject"))
+        {
+            return;
         }
         else
         {
@@ -56,6 +59,10 @@ public class ImpactMemoryPool : MonoBehaviour
         else if (other.CompareTag("Enemy"))
         {
             OnSpawnImpact(ImpactType.Enemy, knifeTransform.position, Quaternion.Inverse(knifeTransform.rotation));
+        }
+        else if (other.transform.CompareTag("TriggerObject"))
+        {
+            return;
         }
         else
         {

@@ -100,6 +100,7 @@ public class WeaponRocketLauncher : WeaponBase
         _isAimModeChange = false;
         _weaponSetting.IsAutomaticAttack = false;
 
+        _imageAim.enabled = false;
         _animator.IsAimMode = true;
         StartCoroutine("OnAimModeChange");
     }

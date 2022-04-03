@@ -114,6 +114,7 @@ public class WeaponPistol : WeaponBase
         _isAimModeChange = false;
         _weaponSetting.IsAutomaticAttack = true;
 
+        _imageAim.enabled = false;
         _animator.IsAimMode = true;
         StartCoroutine("OnAimModeChange");
     }

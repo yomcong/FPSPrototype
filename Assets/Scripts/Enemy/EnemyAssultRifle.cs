@@ -38,7 +38,10 @@ public class EnemyAssultRifle : EnemyBase
     {
         bool isDie = _status.DecreaseHP(damage);
 
-        _animator.Play(_animator.AnimParam.Hit, -1, 0);
+        //if (_animator.CurrentAnimationIs(_animator.AnimParam.Hit, 1) == false)
+        //{
+        //}
+        _animator.Play(_animator.AnimParam.IsHit, -1, 0);
         StopCoroutine("HitLayerWeight");
         StartCoroutine("HitLayerWeight");
         //hpBarSlider.value = (float)status.CurrentHP / status.MaxHP;
@@ -52,7 +55,7 @@ public class EnemyAssultRifle : EnemyBase
 
     private IEnumerator HitLayerWeight()
     {
-        _animator.SetLayerWeight(1, 1);
+        _animator.SetLayerWeight(1, 0.5f);
 
         yield return new WaitForSeconds(0.1f);
 

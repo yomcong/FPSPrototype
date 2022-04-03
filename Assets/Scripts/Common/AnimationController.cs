@@ -45,9 +45,9 @@ public abstract class AnimationController : MonoBehaviour
         _animator.Play(stateName, layer, normalizedTime);
     }
 
-    public bool CurrentAnimationIs(string name)
+    public bool CurrentAnimationIs(string name, int layerIndex = 0)
     {
-        return _animator.GetCurrentAnimatorStateInfo(0).IsName(name);
+        return _animator.GetCurrentAnimatorStateInfo(layerIndex).IsName(name);
     }
 
     public void SetFloat(string paramName, float value)

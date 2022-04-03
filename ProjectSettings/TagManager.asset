@@ -11,6 +11,10 @@ TagManager:
   - Obstacle
   - ObstacleObject
   - Grenade
+  - Target
+  - Metal
+  - ExplosiveBarrel
+  - TriggerObject
   layers:
   - Default
   - TransparentFX

@@ -110,6 +110,7 @@ public class WeaponAssaultRifle : WeaponBase
         _isAimModeChange = false;
         _weaponSetting.IsAutomaticAttack = true;
 
+        _imageAim.enabled = false;
         _animator.IsAimMode = true;
         StartCoroutine("OnAimModeChange");
     }
@@ -178,10 +179,10 @@ public class WeaponAssaultRifle : WeaponBase
         Ray ray;
         RaycastHit hit;
         Vector3 targetPoint = Vector3.zero;
-
+        LayerMask playerMask = -1 - (1 << LayerMask.NameToLayer("Player")); ;
         ray = _mainCamera.ViewportPointToRay(Vector2.one * 0.5f);
 
-        if (Physics.Raycast(ray, out hit, _weaponSetting.AttackDistance))
+        if (Physics.Raycast(ray, out hit, _weaponSetting.AttackDistance, playerMask))
         {
             targetPoint = hit.point;
         }
@@ -205,7 +206,6 @@ public class WeaponAssaultRifle : WeaponBase
             {
                 hit.transform.GetComponent<IDamageable>().TakeDamage(_weaponSetting.Damage);
             }
-
         }
         Debug.DrawRay(_bulletSpawnPoint.position, attackDirection * _weaponSetting.AttackDistance, Color.blue);
     }

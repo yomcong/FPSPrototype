@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 96803062}
   m_Layer: 3
   m_Name: MeleeAttackCollider
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -69,7 +69,7 @@ GameObject:
   - component: {fileID: 7600095358016591494}
   - component: {fileID: 7600095358016591488}
   - component: {fileID: 7600095358016591489}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: ImageZoomAim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -308,6 +308,7 @@ GameObject:
   - component: {fileID: 7600095358821824648}
   - component: {fileID: 7600095358821824651}
   - component: {fileID: 7600095358821824643}
+  - component: {fileID: 182145083}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -350,8 +351,6 @@ MonoBehaviour:
     Status: {fileID: 0}
     AudioSource: {fileID: 0}
     Weapon: {fileID: 0}
-    _grenadePrefab: {fileID: 8288488140348861595, guid: a3bfad7b5e19d774b885fbb8e989b3b5, type: 3}
-    _grenadeSpawnPoint: {fileID: 7600095358821824649}
   _keyOption:
     MoveForward: 119
     MoveBackward: 115
@@ -416,12 +415,12 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 2
   m_Height: 1
-  m_Radius: 1.5
+  m_Radius: 1.3
   m_SlopeLimit: 40
   m_StepOffset: 0.1
   m_SkinWidth: 0.2
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: -0.5, z: 1}
+  m_Center: {x: 0, y: -0.5, z: 2}
 --- !u!82 &7600095358821824642
 AudioSource:
   m_ObjectHideFlags: 0
@@ -535,7 +534,7 @@ MonoBehaviour:
   weapons:
   - {fileID: 7600095359123358224}
   - {fileID: 7600095359064456855}
-  - {fileID: 0}
+  - {fileID: 5574295985284960830}
   - {fileID: 7600095359221169225}
 --- !u!114 &7600095358821824651
 MonoBehaviour:
@@ -549,7 +548,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e178137095880a42a5fe17756e660eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  imapctPrefab:
+  _imapctPrefab:
   - {fileID: 5177372606675841791, guid: 4ffe9585a59092348ac67126dc0783f7, type: 3}
   - {fileID: 5177372606675841791, guid: 476200dceac46cc42a5b345d034618f9, type: 3}
   - {fileID: 5177372606675841791, guid: 4d82145f5d863b446b8a2ab8442d58e3, type: 3}
@@ -572,6 +571,18 @@ MonoBehaviour:
   _runSpeed: 4
   _maxHP: 100
   _currentHP: 0
+--- !u!114 &182145083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7600095358821824640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d63d57346663bb4682f4317b09224eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7600095358892009805
 GameObject:
   m_ObjectHideFlags: 0
@@ -1087,9 +1098,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1897447138402942672, guid: cdfaae80ae56f8b44b98026857ec22b8, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1897447138402942674, guid: cdfaae80ae56f8b44b98026857ec22b8, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1897447138402942676, guid: cdfaae80ae56f8b44b98026857ec22b8, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1897447138402942678, guid: cdfaae80ae56f8b44b98026857ec22b8, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1897447138402942686, guid: cdfaae80ae56f8b44b98026857ec22b8, type: 3}
       propertyPath: m_Name
       value: LauncherMuzzleflash
+      objectReference: {fileID: 0}
+    - target: {fileID: 1897447138402942686, guid: cdfaae80ae56f8b44b98026857ec22b8, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cdfaae80ae56f8b44b98026857ec22b8, type: 3}
@@ -1158,6 +1189,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: PistolMuzzleflash
       objectReference: {fileID: 0}
+    - target: {fileID: 4465371736212190489, guid: 01354062ae3538d48b90a0562c0d6519, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4465371736212190491, guid: 01354062ae3538d48b90a0562c0d6519, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4465371736212190493, guid: 01354062ae3538d48b90a0562c0d6519, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4465371736212190495, guid: 01354062ae3538d48b90a0562c0d6519, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 01354062ae3538d48b90a0562c0d6519, type: 3}
 --- !u!1 &6089105949458672090 stripped
@@ -1224,6 +1271,10 @@ PrefabInstance:
     - target: {fileID: 100018, guid: d89b267f4bba77f458111172c6186de2, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100018, guid: d89b267f4bba77f458111172c6186de2, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 100020, guid: d89b267f4bba77f458111172c6186de2, type: 3}
       propertyPath: m_Layer
@@ -1487,11 +1538,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400018, guid: d89b267f4bba77f458111172c6186de2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 400018, guid: d89b267f4bba77f458111172c6186de2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 400018, guid: d89b267f4bba77f458111172c6186de2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1564,6 +1615,11 @@ Transform:
 --- !u!4 &7600095358494376871 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400016, guid: d89b267f4bba77f458111172c6186de2, type: 3}
+  m_PrefabInstance: {fileID: 7600095358493989175}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7600095358494376509 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400138, guid: d89b267f4bba77f458111172c6186de2, type: 3}
   m_PrefabInstance: {fileID: 7600095358493989175}
   m_PrefabAsset: {fileID: 0}
 --- !u!82 &7600095359561153635
@@ -1687,6 +1743,8 @@ MonoBehaviour:
     AttackDistance: 20
     IsAutomaticAttack: 1
   _weaponKnifeCollider: {fileID: 96803062}
+  _grenadePrefab: {fileID: 8288488140348861595, guid: a3bfad7b5e19d774b885fbb8e989b3b5, type: 3}
+  _grenadeSpawnPoint: {fileID: 7600095358494376509}
   _isReload: 0
   _isAttack: 0
   _isAimModeChange: 0
@@ -1739,9 +1797,29 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7600095358408174671}
     m_Modifications:
+    - target: {fileID: 7914944190227911920, guid: 250edc37aa4cb9e4b87708b2e6007002, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7914944190227911922, guid: 250edc37aa4cb9e4b87708b2e6007002, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7914944190227911924, guid: 250edc37aa4cb9e4b87708b2e6007002, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7914944190227911926, guid: 250edc37aa4cb9e4b87708b2e6007002, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7914944190227911930, guid: 250edc37aa4cb9e4b87708b2e6007002, type: 3}
       propertyPath: m_Name
       value: SniperRifleMuzzleflash
+      objectReference: {fileID: 0}
+    - target: {fileID: 7914944190227911930, guid: 250edc37aa4cb9e4b87708b2e6007002, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7914944190227941594, guid: 250edc37aa4cb9e4b87708b2e6007002, type: 3}
       propertyPath: m_RootOrder
@@ -1817,6 +1895,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: f464aa05118d2b24aa7cec4b48bf680f, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: f464aa05118d2b24aa7cec4b48bf680f, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 100004, guid: f464aa05118d2b24aa7cec4b48bf680f, type: 3}
       propertyPath: m_Layer
@@ -2204,6 +2286,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f464aa05118d2b24aa7cec4b48bf680f, type: 3}
+--- !u!4 &7600095358640300006 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400008, guid: f464aa05118d2b24aa7cec4b48bf680f, type: 3}
+  m_PrefabInstance: {fileID: 7600095358640686446}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7600095358640300016 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400030, guid: f464aa05118d2b24aa7cec4b48bf680f, type: 3}
+  m_PrefabInstance: {fileID: 7600095358640686446}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7600095358640300014 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: f464aa05118d2b24aa7cec4b48bf680f, type: 3}
@@ -2214,14 +2306,9 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: f464aa05118d2b24aa7cec4b48bf680f, type: 3}
   m_PrefabInstance: {fileID: 7600095358640686446}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &7600095358640300016 stripped
+--- !u!4 &7600095358640299646 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 400030, guid: f464aa05118d2b24aa7cec4b48bf680f, type: 3}
-  m_PrefabInstance: {fileID: 7600095358640686446}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &7600095358640300006 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400008, guid: f464aa05118d2b24aa7cec4b48bf680f, type: 3}
+  m_CorrespondingSourceObject: {fileID: 400144, guid: f464aa05118d2b24aa7cec4b48bf680f, type: 3}
   m_PrefabInstance: {fileID: 7600095358640686446}
   m_PrefabAsset: {fileID: 0}
 --- !u!82 &7600095359123358227
@@ -2320,6 +2407,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &120732822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7600095358640587726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d63d57346663bb4682f4317b09224eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7600095359123358224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2345,6 +2444,8 @@ MonoBehaviour:
     AttackDistance: 30
     IsAutomaticAttack: 1
   _weaponKnifeCollider: {fileID: 96803062}
+  _grenadePrefab: {fileID: 8288488140348861595, guid: a3bfad7b5e19d774b885fbb8e989b3b5, type: 3}
+  _grenadeSpawnPoint: {fileID: 7600095358640299646}
   _isReload: 0
   _isAttack: 0
   _isAimModeChange: 1
@@ -2431,6 +2532,10 @@ PrefabInstance:
     - target: {fileID: 100012, guid: 3ae78fb6952f3e4499e1a8f5b0a0376d, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100012, guid: 3ae78fb6952f3e4499e1a8f5b0a0376d, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 100014, guid: 3ae78fb6952f3e4499e1a8f5b0a0376d, type: 3}
       propertyPath: m_Layer
@@ -2763,6 +2868,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400008, guid: 3ae78fb6952f3e4499e1a8f5b0a0376d, type: 3}
   m_PrefabInstance: {fileID: 7600095359025557278}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &7600095359025951770 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400132, guid: 3ae78fb6952f3e4499e1a8f5b0a0376d, type: 3}
+  m_PrefabInstance: {fileID: 7600095359025557278}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7600095359025654194 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100012, guid: 3ae78fb6952f3e4499e1a8f5b0a0376d, type: 3}
@@ -2894,6 +3004,8 @@ MonoBehaviour:
     AttackDistance: 30
     IsAutomaticAttack: 0
   _weaponKnifeCollider: {fileID: 96803062}
+  _grenadePrefab: {fileID: 8288488140348861595, guid: a3bfad7b5e19d774b885fbb8e989b3b5, type: 3}
+  _grenadeSpawnPoint: {fileID: 7600095359025951770}
   _isReload: 0
   _isAttack: 0
   _isAimModeChange: 0
@@ -3012,6 +3124,10 @@ PrefabInstance:
     - target: {fileID: 100028, guid: bfbeb7b86203ba644a67ee93267dfbad, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100028, guid: bfbeb7b86203ba644a67ee93267dfbad, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 100030, guid: bfbeb7b86203ba644a67ee93267dfbad, type: 3}
       propertyPath: m_Layer
@@ -3331,14 +3447,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bfbeb7b86203ba644a67ee93267dfbad, type: 3}
+--- !u!1 &7600095359234577381 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100028, guid: bfbeb7b86203ba644a67ee93267dfbad, type: 3}
+  m_PrefabInstance: {fileID: 7600095359234479449}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7600095359234346949 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400028, guid: bfbeb7b86203ba644a67ee93267dfbad, type: 3}
   m_PrefabInstance: {fileID: 7600095359234479449}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &7600095359234577381 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100028, guid: bfbeb7b86203ba644a67ee93267dfbad, type: 3}
+--- !u!4 &7600095359234346569 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400144, guid: bfbeb7b86203ba644a67ee93267dfbad, type: 3}
   m_PrefabInstance: {fileID: 7600095359234479449}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &7600095359234346959 stripped
@@ -3492,6 +3613,8 @@ MonoBehaviour:
     AttackDistance: 50
     IsAutomaticAttack: 0
   _weaponKnifeCollider: {fileID: 96803062}
+  _grenadePrefab: {fileID: 8288488140348861595, guid: a3bfad7b5e19d774b885fbb8e989b3b5, type: 3}
+  _grenadeSpawnPoint: {fileID: 7600095359234346569}
   _isReload: 0
   _isAttack: 0
   _isAimModeChange: 0
@@ -3575,9 +3698,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5835785787464957317, guid: 55fedd2e0673d8a4eb55f83e9387c695, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5835785787464957321, guid: 55fedd2e0673d8a4eb55f83e9387c695, type: 3}
       propertyPath: m_Name
       value: Toon Muzzleflash 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5835785787464957321, guid: 55fedd2e0673d8a4eb55f83e9387c695, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5835785787464957323, guid: 55fedd2e0673d8a4eb55f83e9387c695, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5835785787464957325, guid: 55fedd2e0673d8a4eb55f83e9387c695, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5835785787464957327, guid: 55fedd2e0673d8a4eb55f83e9387c695, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55fedd2e0673d8a4eb55f83e9387c695, type: 3}
