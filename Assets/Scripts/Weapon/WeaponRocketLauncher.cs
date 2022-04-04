@@ -128,13 +128,14 @@ public class WeaponRocketLauncher : WeaponBase
 
             if (_animator.IsAimMode)
             {
-                _animator.Play(_animator.AnimParam.AimFire, -1, 0);
+                StartCoroutine("OnAimModeChange");
             }
             else
             {
-                _animator.Play(_animator.AnimParam.Fire, -1, 0);
                 StartCoroutine("OnMuzzleFlashEffect");
             }
+
+            _animator.Play(_animator.AnimParam.Fire, -1, 0);
 
             PlaySound(_audioClipFire);
 
@@ -154,40 +155,6 @@ public class WeaponRocketLauncher : WeaponBase
     {
         GameObject grenadeClone = Instantiate(_rocketPrefab, _rocketSpawnPoint.position, transform.rotation);
         grenadeClone.GetComponent<ExplosionProjectile>().Setup(_weaponSetting.Damage, -transform.forward);
-
-        //Ray ray;
-        //RaycastHit hit;
-        //Vector3 targetPoint = Vector3.zero;
-
-        //ray = _mainCamera.ViewportPointToRay(Vector2.one * 0.5f);
-
-        //if (Physics.Raycast(ray, out hit, _weaponSetting.AttackDistance))
-        //{
-        //    targetPoint = hit.point;
-        //}
-        //else
-        //{
-        //    targetPoint = ray.origin + ray.direction * _weaponSetting.AttackDistance;
-        //}
-
-        //Debug.DrawRay(ray.origin, ray.direction * _weaponSetting.AttackDistance, Color.red);
-
-        //Vector3 attackDirection = (targetPoint - _bulletSpawnPoint.position).normalized;
-        //if (Physics.Raycast(_bulletSpawnPoint.position, attackDirection, out hit, _weaponSetting.AttackDistance))
-        //{
-        //    _impactMemoryPool.SpawnImpact(hit);
-
-        //    if (hit.transform.CompareTag("Enemy"))
-        //    {
-        //        hit.transform.GetComponent<EnemyBase>().TakeDamage(_weaponSetting.Damage);
-        //    }
-        //    else if (hit.transform.CompareTag("InteractionObject"))
-        //    {
-        //        hit.transform.GetComponent<InteractionObjectBase>().TakeDamage(_weaponSetting.Damage);
-        //    }
-
-        //}
-        //Debug.DrawRay(_bulletSpawnPoint.position, attackDirection * _weaponSetting.AttackDistance, Color.blue);
     }
 
     private IEnumerator OnMuzzleFlashEffect()

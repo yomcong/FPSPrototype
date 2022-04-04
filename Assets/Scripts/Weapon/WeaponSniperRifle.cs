@@ -148,7 +148,7 @@ public class WeaponSniperRifle : WeaponBase
 
             _casingMemoryPool.SpawnCasing(_casingSpawnPoint.position, transform.right);
 
-            TwoStepRaycast();
+            launchProjectile();
         }
     }
 
@@ -161,7 +161,7 @@ public class WeaponSniperRifle : WeaponBase
         _isAttack = false;
     }
 
-    private void TwoStepRaycast()
+    private void launchProjectile()
     {
         Ray ray;
         RaycastHit hit;
@@ -183,25 +183,6 @@ public class WeaponSniperRifle : WeaponBase
            _projectileSpawnPoint.position,
            transform.rotation);
         clone.GetComponent<PlayerProjectile>().Setup(targetPoint, _weaponSetting.Damage, _weaponSetting.AttackDistance);
-
-        //Debug.DrawRay(ray.origin, ray.direction * _weaponSetting.AttackDistance, Color.red);
-
-        //Vector3 attackDirection = (targetPoint - _bulletSpawnPoint.position).normalized;
-        //if (Physics.Raycast(_bulletSpawnPoint.position, attackDirection, out hit, _weaponSetting.AttackDistance))
-        //{
-        //    _impactMemoryPool.SpawnImpact(hit);
-
-        //    if (hit.transform.CompareTag("Enemy"))
-        //    {
-        //        hit.transform.GetComponent<EnemyBase>().TakeDamage(_weaponSetting.Damage);
-        //    }
-        //    else if (hit.transform.CompareTag("InteractionObject"))
-        //    {
-        //        hit.transform.GetComponent<InteractionObjectBase>().TakeDamage(_weaponSetting.Damage);
-        //    }
-
-        //}
-        //Debug.DrawRay(_bulletSpawnPoint.position, attackDirection * _weaponSetting.AttackDistance, Color.blue);
     }
 
     private IEnumerator OnMuzzleFlashEffect()
