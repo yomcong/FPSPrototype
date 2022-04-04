@@ -179,7 +179,7 @@ public class WeaponAssaultRifle : WeaponBase
         Ray ray;
         RaycastHit hit;
         Vector3 targetPoint = Vector3.zero;
-        LayerMask playerMask = -1 - (1 << LayerMask.NameToLayer("Player")); ;
+        LayerMask playerMask = -1 - (1 << LayerMask.NameToLayer("Player"));
         ray = _mainCamera.ViewportPointToRay(Vector2.one * 0.5f);
 
         if (Physics.Raycast(ray, out hit, _weaponSetting.AttackDistance, playerMask))

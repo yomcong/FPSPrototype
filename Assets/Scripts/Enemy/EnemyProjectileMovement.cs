@@ -2,32 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileMovement : MonoBehaviour
+public class EnemyProjectileMovement : MonoBehaviour
 {
     private float _projectileDistance = 30;  //최대발사 거리
-    private int damage = 5;
+    private int _damage = 5;
 
     [SerializeField]
-    private float moveSpeed = 20f;
+    private float _moveSpeed = 20f;
     [SerializeField]
-    private Vector3 moveDirection = Vector3.zero;
+    private Vector3 _moveDirection = Vector3.zero;
 
     public void Setup(Vector3 position)
     {
-        float impactPoint = Random.Range(-0.2f, 0.2f);
-        Vector3 targetPosition = new Vector3(position.x + impactPoint, position.y + impactPoint, position.z);
+        Vector3 targetPosition = new Vector3(position.x + Random.Range(-0.2f, 0.2f), 
+            position.y + Random.Range(-0.2f, 0.2f), 
+            position.z);
         
         StartCoroutine("OnMove", targetPosition);
     }
 
     void Update()
     {
-        transform.position += moveDirection * moveSpeed * Time.deltaTime;
+        transform.position += _moveDirection * _moveSpeed * Time.deltaTime;
     }
 
-    public void MoveTo(Vector3 direction)
+    private void MoveTo(Vector3 direction)
     {
-        moveDirection = direction;
+        _moveDirection = direction;
     }
 
     private IEnumerator OnMove(Vector3 targetPosition)
@@ -54,7 +55,7 @@ public class ProjectileMovement : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            other.GetComponent<IDamageable>()?.TakeDamage(damage);
+            other.GetComponent<IDamageable>()?.TakeDamage(_damage);
 
             Destroy(gameObject);
         }

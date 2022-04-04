@@ -10,7 +10,7 @@ public class CasingMemoryPool : MonoBehaviour
 
     private void Awake()
     {
-        _memoryPool = _casingPrefab.AddComponent<MemoryPool>();
+        _memoryPool = _casingPrefab.GetComponent<MemoryPool>();
         _memoryPool.setup(_casingPrefab);
     }
 

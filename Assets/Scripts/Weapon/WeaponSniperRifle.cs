@@ -14,6 +14,11 @@ public class WeaponSniperRifle : WeaponBase
     private Transform _casingSpawnPoint;
     [SerializeField]
     private Transform _bulletSpawnPoint;
+    [SerializeField]
+    protected GameObject _projectilePrefab;
+    [SerializeField]
+    protected Transform _projectileSpawnPoint;
+
 
     [Header("Audio Clips")]
     [SerializeField]
@@ -131,13 +136,13 @@ public class WeaponSniperRifle : WeaponBase
 
             if (_animator.IsAimMode)
             {
-                _animator.Play(_animator.AnimParam.AimFire, -1, 0);
+                StartCoroutine("OnAimModeChange");
             }
             else
             {
-                _animator.Play(_animator.AnimParam.Fire, -1, 0);
                 StartCoroutine("OnMuzzleFlashEffect");
             }
+            _animator.Play(_animator.AnimParam.Fire, -1, 0);
 
             PlaySound(_audioClipFire);
 
@@ -160,11 +165,12 @@ public class WeaponSniperRifle : WeaponBase
     {
         Ray ray;
         RaycastHit hit;
+        LayerMask playerMask = -1 - (1 << LayerMask.NameToLayer("Player"));
         Vector3 targetPoint = Vector3.zero;
 
         ray = _mainCamera.ViewportPointToRay(Vector2.one * 0.5f);
 
-        if (Physics.Raycast(ray, out hit, _weaponSetting.AttackDistance))
+        if (Physics.Raycast(ray, out hit, _weaponSetting.AttackDistance, playerMask))
         {
             targetPoint = hit.point;
         }
@@ -173,24 +179,29 @@ public class WeaponSniperRifle : WeaponBase
             targetPoint = ray.origin + ray.direction * _weaponSetting.AttackDistance;
         }
 
-        Debug.DrawRay(ray.origin, ray.direction * _weaponSetting.AttackDistance, Color.red);
+        GameObject clone = Instantiate(_projectilePrefab,
+           _projectileSpawnPoint.position,
+           transform.rotation);
+        clone.GetComponent<PlayerProjectile>().Setup(targetPoint, _weaponSetting.Damage, _weaponSetting.AttackDistance);
 
-        Vector3 attackDirection = (targetPoint - _bulletSpawnPoint.position).normalized;
-        if (Physics.Raycast(_bulletSpawnPoint.position, attackDirection, out hit, _weaponSetting.AttackDistance))
-        {
-            _impactMemoryPool.SpawnImpact(hit);
+        //Debug.DrawRay(ray.origin, ray.direction * _weaponSetting.AttackDistance, Color.red);
 
-            if (hit.transform.CompareTag("Enemy"))
-            {
-                hit.transform.GetComponent<EnemyBase>().TakeDamage(_weaponSetting.Damage);
-            }
-            else if (hit.transform.CompareTag("InteractionObject"))
-            {
-                hit.transform.GetComponent<InteractionObjectBase>().TakeDamage(_weaponSetting.Damage);
-            }
+        //Vector3 attackDirection = (targetPoint - _bulletSpawnPoint.position).normalized;
+        //if (Physics.Raycast(_bulletSpawnPoint.position, attackDirection, out hit, _weaponSetting.AttackDistance))
+        //{
+        //    _impactMemoryPool.SpawnImpact(hit);
 
-        }
-        Debug.DrawRay(_bulletSpawnPoint.position, attackDirection * _weaponSetting.AttackDistance, Color.blue);
+        //    if (hit.transform.CompareTag("Enemy"))
+        //    {
+        //        hit.transform.GetComponent<EnemyBase>().TakeDamage(_weaponSetting.Damage);
+        //    }
+        //    else if (hit.transform.CompareTag("InteractionObject"))
+        //    {
+        //        hit.transform.GetComponent<InteractionObjectBase>().TakeDamage(_weaponSetting.Damage);
+        //    }
+
+        //}
+        //Debug.DrawRay(_bulletSpawnPoint.position, attackDirection * _weaponSetting.AttackDistance, Color.blue);
     }
 
     private IEnumerator OnMuzzleFlashEffect()

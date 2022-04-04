@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GrenadeProjectile : MonoBehaviour
+public class ExplosionProjectile : MonoBehaviour
 {
-    [Header("Explsion Barrel")]
     [SerializeField]
     private GameObject _explsionPrefab;
     [SerializeField]
@@ -42,6 +41,10 @@ public class GrenadeProjectile : MonoBehaviour
             else if (hit.CompareTag("InteractionObject"))
             {
                 hit.GetComponent<IDamageable>().TakeDamage(300);
+            }
+            else if( hit.CompareTag("ObstacleObject"))
+            {
+                Debug.Log("¾öÆó¹°");
             }
 
             //PlayerController player = hit.GetComponent<PlayerController>();

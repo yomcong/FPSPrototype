@@ -134,6 +134,14 @@ PrefabInstance:
       propertyPath: _imageAim
       value: 
       objectReference: {fileID: 1748478424}
+    - target: {fileID: 7600095358408174671, guid: 86b7c93b1cbb3aa4090d59d2bc4f4cb1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.053
+      objectReference: {fileID: 0}
+    - target: {fileID: 7600095358408174671, guid: 86b7c93b1cbb3aa4090d59d2bc4f4cb1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.14
+      objectReference: {fileID: 0}
     - target: {fileID: 7600095358821824640, guid: 86b7c93b1cbb3aa4090d59d2bc4f4cb1, type: 3}
       propertyPath: m_Name
       value: Player
@@ -186,10 +194,38 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7600095358821824651, guid: 86b7c93b1cbb3aa4090d59d2bc4f4cb1, type: 3}
+      propertyPath: _imapctPrefab.Array.data[0]
+      value: 
+      objectReference: {fileID: 1063549369241521774, guid: 54cd01bccb8c809489a8e2d3fb3aa67e, type: 3}
+    - target: {fileID: 7600095358821824651, guid: 86b7c93b1cbb3aa4090d59d2bc4f4cb1, type: 3}
+      propertyPath: _imapctPrefab.Array.data[1]
+      value: 
+      objectReference: {fileID: 1063549369241521774, guid: f5c394f2bfd3cad43bca31934d86055b, type: 3}
+    - target: {fileID: 7600095358821824651, guid: 86b7c93b1cbb3aa4090d59d2bc4f4cb1, type: 3}
+      propertyPath: _imapctPrefab.Array.data[2]
+      value: 
+      objectReference: {fileID: 1063549369241521774, guid: e5a346e3eb0708b41891d9451849ceca, type: 3}
+    - target: {fileID: 7600095359025654194, guid: 86b7c93b1cbb3aa4090d59d2bc4f4cb1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7600095359064456855, guid: 86b7c93b1cbb3aa4090d59d2bc4f4cb1, type: 3}
       propertyPath: _imageAim
       value: 
       objectReference: {fileID: 1748478424}
+    - target: {fileID: 7600095359064456855, guid: 86b7c93b1cbb3aa4090d59d2bc4f4cb1, type: 3}
+      propertyPath: _imageZoomAim
+      value: 
+      objectReference: {fileID: 395819028}
+    - target: {fileID: 7600095359064456855, guid: 86b7c93b1cbb3aa4090d59d2bc4f4cb1, type: 3}
+      propertyPath: _projectilePrefab
+      value: 
+      objectReference: {fileID: 857610483845507283, guid: 39850ab2d44e5704ba62cab7d0935fce, type: 3}
+    - target: {fileID: 7600095359064456855, guid: 86b7c93b1cbb3aa4090d59d2bc4f4cb1, type: 3}
+      propertyPath: _projectileSpawnPoint
+      value: 
+      objectReference: {fileID: 1820087771}
     - target: {fileID: 7600095359123358224, guid: 86b7c93b1cbb3aa4090d59d2bc4f4cb1, type: 3}
       propertyPath: _imageAim
       value: 
@@ -210,7 +246,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4492548}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Tutorial
   m_TagString: TriggerObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -378,6 +414,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4000013978381734, guid: fe9a19d4f0d796c40bf4fc6b69dd7b81, type: 3}
   m_PrefabInstance: {fileID: 161600128}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &395819028 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 175072598393557985, guid: 50aeb72479820e748b4216fbd05213c6, type: 3}
+  m_PrefabInstance: {fileID: 662154896}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &498518838 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 175072597786441457, guid: 50aeb72479820e748b4216fbd05213c6, type: 3}
@@ -407,6 +454,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 175072598393557985, guid: 50aeb72479820e748b4216fbd05213c6, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 175072598393557987, guid: 50aeb72479820e748b4216fbd05213c6, type: 3}
+      propertyPath: m_Name
+      value: 'ImageZoomAim '
+      objectReference: {fileID: 0}
+    - target: {fileID: 175072598393557987, guid: 50aeb72479820e748b4216fbd05213c6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 175072598522614330, guid: 50aeb72479820e748b4216fbd05213c6, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 175072598897740954, guid: 50aeb72479820e748b4216fbd05213c6, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1269,6 +1332,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 721aa79609ba19744ba0d00371654101, type: 3}
+--- !u!4 &1820087771 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7600095358408174671, guid: 86b7c93b1cbb3aa4090d59d2bc4f4cb1, type: 3}
+  m_PrefabInstance: {fileID: 1832510}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1894113166 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 175072598879332455, guid: 50aeb72479820e748b4216fbd05213c6, type: 3}

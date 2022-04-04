@@ -54,7 +54,7 @@ public abstract class EnemyStateBase : MonoBehaviour
        GameObject clone = Instantiate(_owner.GetComponent<EnemyBase>().ProjectilePrefab,
            _owner.GetComponent<EnemyBase>().ProjectileSpawnPoint.position,
            transform.rotation);
-        clone.GetComponent<ProjectileMovement>().Setup(_target.position);
+        clone.GetComponent<EnemyProjectileMovement>().Setup(_target.position);
     }
 
     public void GrenadeInstantiate()
@@ -62,7 +62,7 @@ public abstract class EnemyStateBase : MonoBehaviour
         GameObject grenadeObject = Instantiate(_owner.GetComponent<EnemyBase>().GrendePrefab
             , _owner.GetComponent<EnemyBase>().GrenadeSpawnPoint.position, UnityEngine.Random.rotation);
         Vector3 GrenadeDir = (transform.forward + transform.up).normalized;
-        grenadeObject.GetComponent<GrenadeProjectile>().Setup(_grenadeDamage, GrenadeDir);
+        grenadeObject.GetComponent<ExplosionProjectile>().Setup(_grenadeDamage, GrenadeDir);
     }
 
 }

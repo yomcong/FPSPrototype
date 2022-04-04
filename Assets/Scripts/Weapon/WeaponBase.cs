@@ -101,7 +101,7 @@ public abstract class WeaponBase : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         GameObject grenadeClone = Instantiate(_grenadePrefab, _grenadeSpawnPoint.position, UnityEngine.Random.rotation);
-        grenadeClone.GetComponent<GrenadeProjectile>().Setup(_weaponSetting.Damage, -transform.forward);
+        grenadeClone.GetComponent<ExplosionProjectile>().Setup(_weaponSetting.Damage, -transform.forward);
     }
 
     public void MeleeAttack()

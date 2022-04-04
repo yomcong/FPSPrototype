@@ -15,7 +15,7 @@ public class ImpactMemoryPool : MonoBehaviour
         _memoryPool = new MemoryPool[_imapctPrefab.Length];
         for (int i = 0; i < _imapctPrefab.Length; ++i)
         {
-            _memoryPool[i] = _imapctPrefab[i].AddComponent<MemoryPool>();
+            _memoryPool[i] = _imapctPrefab[i].GetComponent<MemoryPool>();
             _memoryPool[i].setup(_imapctPrefab[i]);
 
         }

@@ -9,12 +9,6 @@ public class WeaponRocketLauncher : WeaponBase
     [SerializeField]
     private GameObject _muzzleFlashEffect;
 
-    [Header("Spawn Points")]
-    [SerializeField]
-    private Transform _casingSpawnPoint;
-    [SerializeField]
-    private Transform _bulletSpawnPoint;
-
     [Header("Audio Clips")]
     [SerializeField]
     private AudioClip _audioClipTakeOutWeapon;
@@ -24,6 +18,11 @@ public class WeaponRocketLauncher : WeaponBase
     private AudioClip _audioClipReloadPart1;
     [SerializeField]
     private AudioClip _audioClipReloadPart2;
+
+    [SerializeField]
+    protected GameObject _rocketPrefab;
+    [SerializeField]
+    protected Transform _rocketSpawnPoint;
 
     [Header("Aim UI")]
     [SerializeField]
@@ -139,9 +138,7 @@ public class WeaponRocketLauncher : WeaponBase
 
             PlaySound(_audioClipFire);
 
-            _casingMemoryPool.SpawnCasing(_casingSpawnPoint.position, transform.right);
-
-            TwoStepRaycast();
+            LaunchedRocketProjectile();
         }
     }
     private IEnumerator AttackAnimation()
@@ -153,41 +150,44 @@ public class WeaponRocketLauncher : WeaponBase
         _isAttack = false;
     }
 
-    private void TwoStepRaycast()
+    private void LaunchedRocketProjectile()
     {
-        Ray ray;
-        RaycastHit hit;
-        Vector3 targetPoint = Vector3.zero;
+        GameObject grenadeClone = Instantiate(_rocketPrefab, _rocketSpawnPoint.position, transform.rotation);
+        grenadeClone.GetComponent<ExplosionProjectile>().Setup(_weaponSetting.Damage, -transform.forward);
 
-        ray = _mainCamera.ViewportPointToRay(Vector2.one * 0.5f);
+        //Ray ray;
+        //RaycastHit hit;
+        //Vector3 targetPoint = Vector3.zero;
 
-        if (Physics.Raycast(ray, out hit, _weaponSetting.AttackDistance))
-        {
-            targetPoint = hit.point;
-        }
-        else
-        {
-            targetPoint = ray.origin + ray.direction * _weaponSetting.AttackDistance;
-        }
+        //ray = _mainCamera.ViewportPointToRay(Vector2.one * 0.5f);
 
-        Debug.DrawRay(ray.origin, ray.direction * _weaponSetting.AttackDistance, Color.red);
+        //if (Physics.Raycast(ray, out hit, _weaponSetting.AttackDistance))
+        //{
+        //    targetPoint = hit.point;
+        //}
+        //else
+        //{
+        //    targetPoint = ray.origin + ray.direction * _weaponSetting.AttackDistance;
+        //}
 
-        Vector3 attackDirection = (targetPoint - _bulletSpawnPoint.position).normalized;
-        if (Physics.Raycast(_bulletSpawnPoint.position, attackDirection, out hit, _weaponSetting.AttackDistance))
-        {
-            _impactMemoryPool.SpawnImpact(hit);
+        //Debug.DrawRay(ray.origin, ray.direction * _weaponSetting.AttackDistance, Color.red);
 
-            if (hit.transform.CompareTag("Enemy"))
-            {
-                hit.transform.GetComponent<EnemyBase>().TakeDamage(_weaponSetting.Damage);
-            }
-            else if (hit.transform.CompareTag("InteractionObject"))
-            {
-                hit.transform.GetComponent<InteractionObjectBase>().TakeDamage(_weaponSetting.Damage);
-            }
+        //Vector3 attackDirection = (targetPoint - _bulletSpawnPoint.position).normalized;
+        //if (Physics.Raycast(_bulletSpawnPoint.position, attackDirection, out hit, _weaponSetting.AttackDistance))
+        //{
+        //    _impactMemoryPool.SpawnImpact(hit);
 
-        }
-        Debug.DrawRay(_bulletSpawnPoint.position, attackDirection * _weaponSetting.AttackDistance, Color.blue);
+        //    if (hit.transform.CompareTag("Enemy"))
+        //    {
+        //        hit.transform.GetComponent<EnemyBase>().TakeDamage(_weaponSetting.Damage);
+        //    }
+        //    else if (hit.transform.CompareTag("InteractionObject"))
+        //    {
+        //        hit.transform.GetComponent<InteractionObjectBase>().TakeDamage(_weaponSetting.Damage);
+        //    }
+
+        //}
+        //Debug.DrawRay(_bulletSpawnPoint.position, attackDirection * _weaponSetting.AttackDistance, Color.blue);
     }
 
     private IEnumerator OnMuzzleFlashEffect()
