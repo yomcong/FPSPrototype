@@ -179,7 +179,8 @@ public class WeaponAssaultRifle : WeaponBase
         Ray ray;
         RaycastHit hit;
         Vector3 targetPoint = Vector3.zero;
-        LayerMask playerMask = -1 - (1 << LayerMask.NameToLayer("Player"));
+        LayerMask playerMask = (1 << LayerMask.NameToLayer("Player") | (1 << LayerMask.NameToLayer("Trigger")) );
+        playerMask = ~playerMask;
         ray = _mainCamera.ViewportPointToRay(Vector2.one * 0.5f);
 
         if (Physics.Raycast(ray, out hit, _weaponSetting.AttackDistance, playerMask))
@@ -194,7 +195,7 @@ public class WeaponAssaultRifle : WeaponBase
         Debug.DrawRay(ray.origin, ray.direction * _weaponSetting.AttackDistance, Color.red);
 
         Vector3 attackDirection = (targetPoint - _bulletSpawnPoint.position).normalized;
-        if (Physics.Raycast(_bulletSpawnPoint.position, attackDirection, out hit, _weaponSetting.AttackDistance))
+        if (Physics.Raycast(_bulletSpawnPoint.position, attackDirection, out hit, _weaponSetting.AttackDistance, playerMask))
         {
             _impactMemoryPool.SpawnImpact(hit);
 

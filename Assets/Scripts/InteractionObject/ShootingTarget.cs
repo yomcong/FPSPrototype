@@ -26,6 +26,12 @@ public class ShootingTarget : InteractionObjectBase
 
             StartCoroutine("OnTargetDown");
         }
+
+        TutorialTargetEvent tutorialCheck = GetComponent<TutorialTargetEvent>();
+        if (tutorialCheck != null)
+        {
+            tutorialCheck.OnHitEvent();
+        }
     }
 
     private IEnumerator OnTargetDown()
