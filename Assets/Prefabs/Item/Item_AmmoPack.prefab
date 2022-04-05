@@ -318,7 +318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8df05012b781d1429c35ddfeaf7ee80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ammoEffectPrefab: {fileID: 0}
+  _ammoEffectPrefab: {fileID: 7555405861864225718, guid: 94369fd3f372e58468f6b73b7199ca27, type: 3}
   _increaseAmmo: 2
   _rotateSpeed: 50
 --- !u!65 &5544984098018859287

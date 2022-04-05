@@ -27,7 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7937264597244760185}
-  m_LocalRotation: {x: 0.0000018099951, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1, y: 1, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children: []
@@ -108,6 +108,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43487d932eae0d844ac008f211fbd9ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ammoEffectPrefab: {fileID: 0}
+  _ammoEffectPrefab: {fileID: 7555405861864225718, guid: 94369fd3f372e58468f6b73b7199ca27, type: 3}
   _increaseAmmo: 2
   _rotateSpeed: 50
