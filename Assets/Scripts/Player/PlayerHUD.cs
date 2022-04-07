@@ -10,6 +10,7 @@ public class PlayerHUD : MonoBehaviour
     [SerializeField]
     private Status _status;
     private WeaponBase _weapon;
+    private QuestBase _quest;
 
     [Header("Weapon Base")]
     [SerializeField]
@@ -30,6 +31,13 @@ public class PlayerHUD : MonoBehaviour
     private TextMeshProUGUI _textAmmo;
     [SerializeField]
     private TextMeshProUGUI _textGrenadeAmmo;
+
+    [Header("Scenario")]
+    [SerializeField]
+    private TextMeshProUGUI _textScenario;
+    [SerializeField]
+    private TextMeshProUGUI _textName;
+
 
     private List<GameObject> magazineList;
 
@@ -56,6 +64,14 @@ public class PlayerHUD : MonoBehaviour
         {
             weapons[i].OnAmmoEvent.AddListener(UpdateAmmoHUD);
             weapons[i].OnAutomaticEvent.AddListener(UpdateAutomaticFireIcon);
+        }
+    }
+
+    public void SetupAllQuests(QuestBase[] quests)
+    {
+        for (int i = 0; i < quests.Length; ++i)
+        {
+            quests[i].OnScenarioEvent.AddListener(UpdateScenario);
         }
     }
 
@@ -127,5 +143,10 @@ public class PlayerHUD : MonoBehaviour
 
             yield return null;
         }
+    }
+
+    private void UpdateScenario(string scenario)
+    {
+        _textScenario.text = scenario;
     }
 }

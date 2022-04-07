@@ -20,9 +20,9 @@ public class TutorialItemAndObject : QuestBase
     public override void StartQuest()
     {
         gameObject.SetActive(true);
-
-        
-
+    }
+    private void OnEnable()
+    {
         StartCoroutine("InteractToBarrel");
     }
 
@@ -82,8 +82,7 @@ public class TutorialItemAndObject : QuestBase
 
                 if (i == _itemObject.Length - 1)
                 {
-                    ClearQuest();
-                    OnQuestEvent.Invoke(true);
+                    OnQuestEvent.Invoke(_tutorialScenario);
                     yield break;
                 }
             }

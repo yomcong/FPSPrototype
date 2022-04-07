@@ -56,9 +56,7 @@ public class TutorialAttack : QuestBase
             }
         }
 
-        OnQuestEvent.Invoke(true);
-        ClearQuest();
-
+        OnQuestEvent.Invoke(_tutorialScenario);
     }
 
 }
