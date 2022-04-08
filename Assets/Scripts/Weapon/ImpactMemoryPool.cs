@@ -37,15 +37,6 @@ public class ImpactMemoryPool : MonoBehaviour
         }
         else
         {
-            //Color color = hit.transform.GetComponentInChildren<MeshRenderer>().material.color;
-
-            //if( color == null)
-            //{
-            //    color = Color.black;
-            //}
-
-            //OnSpawnImpact(ImpactType.Normal, hit.point, Quaternion.LookRotation(hit.normal), color);
-
             OnSpawnImpact(ImpactType.Normal, hit.point, Quaternion.LookRotation(hit.normal), Color.gray);
         }
     }
@@ -66,15 +57,6 @@ public class ImpactMemoryPool : MonoBehaviour
         }
         else
         {
-            //Color color = new Color();// = other.transform.GetComponentInChildren<MeshRenderer>().material.color;
-
-            //if( color == null)
-            //{
-            //    color = Color.black;
-            //}
-
-            //OnSpawnImpact(ImpactType.Normal, knifeTransform.position, Quaternion.Inverse(knifeTransform.rotation), color);
-
             OnSpawnImpact(ImpactType.Enemy, knifeTransform.position, Quaternion.Inverse(knifeTransform.rotation));
         }
     }

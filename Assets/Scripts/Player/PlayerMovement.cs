@@ -38,10 +38,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void MoveTo(Vector3 direction)
     {
-        // 이동 방향 = 캐릭터의 회전값 * 방향
         direction = transform.rotation * new Vector3(direction.x, 0, direction.z);
 
-        // 이동 힘 = 이동방향 * 속도
         _moveForce = new Vector3(direction.x * _moveSpeed, _moveForce.y, direction.z * _moveSpeed);
     }
 

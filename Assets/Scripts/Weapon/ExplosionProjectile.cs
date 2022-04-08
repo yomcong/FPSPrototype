@@ -47,32 +47,6 @@ public class ExplosionProjectile : MonoBehaviour
                 Debug.Log("¾öÆó¹°");
             }
 
-            //PlayerController player = hit.GetComponent<PlayerController>();
-            //if (player != null)
-            //{
-            //    player.TakeDamage((int)(explsionDamage * 0.2f));
-            //    continue;
-            //}
-
-            //EnemyFSM enemy = hit.GetComponentInParent<>();
-            //if (enemy != null)
-            //{
-            //    enemy.TakeDamage(explsionDamage);
-            //    continue;
-            //}
-
-            //InteractionObject interaction = hit.GetComponent<InteractionObject>();
-            //if (interaction != null)
-            //{
-            //    interaction.TakeDamage(explsionDamage);
-            //}
-
-            //Rigidbody rigidbody = hit.GetComponent<Rigidbody>();
-            //if (rigidbody != null)
-            //{
-            //    rigidbody.AddExplosionForce(explosionForce, transform.position, explosionRadius);
-            //}
-
         }
 
         Destroy(gameObject);
