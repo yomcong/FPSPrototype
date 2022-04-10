@@ -112,7 +112,7 @@ public class WeaponPistol : WeaponBase
         _isReload = false;
         _isAttack = false;
         _isAimModeChange = false;
-        _weaponSetting.IsAutomaticAttack = true;
+        _weaponSetting.IsAutomaticAttack = false;
 
         _imageAim.enabled = false;
         _animator.IsAimMode = true;

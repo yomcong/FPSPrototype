@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum TutorialScenario { Movement = 0, Attack_Part1, Attack_Part2, ItemAndObject, };
-
+public enum TutorialScenario { MovementPart1 = 0, MovementPart2, AttackPart1, AttackPart2
+        , ItemAndObjectPart1, ItemAndObjectPart2, ItemAndObjectPart3 };
 
 public class TutorialManager : MonoBehaviour
 {
@@ -26,7 +26,7 @@ public class TutorialManager : MonoBehaviour
 
     private void Start()
     {
-        _questList[(int)TutorialScenario.Movement].StartQuest();
+        _questList[(int)TutorialScenario.MovementPart1].StartQuest();
     }
 
     private void UpdateToQuest(TutorialScenario questSuccess)

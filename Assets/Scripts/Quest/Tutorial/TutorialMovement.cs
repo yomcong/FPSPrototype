@@ -12,15 +12,13 @@ public class TutorialMovement : QuestBase
     {
         _capsuleCollider = GetComponent<CapsuleCollider>();
         gameObject.SetActive(false);
-        
     }
 
     public override void StartQuest()
     {
         gameObject.SetActive(true);
-        OnScenarioEvent.Invoke(_tutorialScenarioParam.MovementPart1);
+        ProgressToQuestText(_tutorialScenario);
     }
-
 
     public override void ClearQuest()
     {
@@ -30,6 +28,7 @@ public class TutorialMovement : QuestBase
             _tempObstacleWall[i].gameObject.SetActive(false);
         }
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Player"))

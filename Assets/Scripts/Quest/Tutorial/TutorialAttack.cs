@@ -9,6 +9,8 @@ public class TutorialAttack : QuestBase
     [SerializeField]
     private GameObject[] _target;
     private bool[] _targetHitCheck;
+
+    
     private void Awake()
     {
         gameObject.SetActive(false);
@@ -25,6 +27,7 @@ public class TutorialAttack : QuestBase
     public override void StartQuest()
     {
         gameObject.SetActive(true);
+        ProgressToQuestText(_tutorialScenario);
     }
 
     public override void ClearQuest()

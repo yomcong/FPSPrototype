@@ -15,6 +15,8 @@ public class ExplosionBarrel : InteractionObjectBase
     private float _explosionRadius = 10.0f;
     [SerializeField]
     private float _explosionForce = 1000.0f;
+    [SerializeField]
+    private int _explosionDamage = 45;
 
     private bool _isExplode = false;
 
@@ -42,7 +44,7 @@ public class ExplosionBarrel : InteractionObjectBase
         {
             if(hit.CompareTag("Player") || hit.CompareTag("Enemy"))
             {
-                hit.GetComponent<IDamageable>()?.TakeDamage(50);
+                hit.GetComponent<IDamageable>()?.TakeDamage(_explosionDamage);
                 continue;
             }
             else if(hit.CompareTag("InteractionObject"))

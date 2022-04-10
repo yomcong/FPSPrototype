@@ -35,9 +35,6 @@ public class PlayerHUD : MonoBehaviour
     [Header("Scenario")]
     [SerializeField]
     private TextMeshProUGUI _textScenario;
-    [SerializeField]
-    private TextMeshProUGUI _textName;
-
 
     private List<GameObject> magazineList;
 

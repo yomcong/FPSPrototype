@@ -15,15 +15,24 @@ public class TutorialItemAndObject : QuestBase
     {
         gameObject.SetActive(false);
 
+        for (int i = 0; i < _interactionObject.Length; ++i)
+        {
+            _interactionObject[i].SetActive(false);
+        }
+
+        for (int i = 0; i < _itemObject.Length; ++i)
+        {
+            _itemObject[i].SetActive(false);
+        }
+
     }
 
     public override void StartQuest()
     {
         gameObject.SetActive(true);
-    }
-    private void OnEnable()
-    {
+        ProgressToQuestText(_tutorialScenario);
         StartCoroutine("InteractToBarrel");
+
     }
 
     public override void ClearQuest()
@@ -55,6 +64,7 @@ public class TutorialItemAndObject : QuestBase
                 if( i == _interactionObject.Length - 1)
                 {
                     StartCoroutine("InteractToItem");
+                    ProgressToQuestText(TutorialScenario.ItemAndObjectPart2);
                     yield break;
                 }
             }
@@ -78,6 +88,11 @@ public class TutorialItemAndObject : QuestBase
                 if (_itemObject[i] != null)
                 {
                     break;
+                }
+
+                if (_itemObject[0] == null)
+                {
+                    ProgressToQuestText(TutorialScenario.ItemAndObjectPart3);
                 }
 
                 if (i == _itemObject.Length - 1)
