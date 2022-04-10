@@ -180,8 +180,8 @@ GameObject:
   - component: {fileID: 8288488140341600095}
   - component: {fileID: 2522234207041764607}
   - component: {fileID: 6203620860546233316}
-  - component: {fileID: 6277867172462485302}
   - component: {fileID: 619953117695692907}
+  - component: {fileID: 7265230995141576948}
   m_Layer: 8
   m_Name: EnemyGrenade
   m_TagString: Grenade
@@ -255,22 +255,6 @@ CapsuleCollider:
   m_Height: 0.5
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6277867172462485302
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8288488140348861595}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08ff10ebfadefbe40b4b853c6d5b5c84, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _explsionPrefab: {fileID: 3226921059324719311, guid: 699d0eacdd38fc54da351db36838d45a, type: 3}
-  _explosionRadius: 10
-  _explosionForce: 500
-  _throwForce: 500
 --- !u!96 &619953117695692907
 TrailRenderer:
   serializedVersion: 2
@@ -369,6 +353,22 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!114 &7265230995141576948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8288488140348861595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f347b2e951a6d6e4f90bab8553e99003, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _explsionPrefab: {fileID: 3226921059324719311, guid: 699d0eacdd38fc54da351db36838d45a, type: 3}
+  _explosionRadius: 10
+  _explosionForce: 500
+  _throwForce: 1000
 --- !u!1 &8288488140348861597
 GameObject:
   m_ObjectHideFlags: 0

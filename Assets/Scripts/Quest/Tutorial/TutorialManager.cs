@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum TutorialScenario { MovementPart1 = 0, MovementPart2, AttackPart1, AttackPart2
-        , ItemAndObjectPart1, ItemAndObjectPart2, ItemAndObjectPart3 };
+public enum TutorialScenarioEvent { MovementPart1 = 0, MovementPart2, AttackPart1, AttackPart2
+        , ItemAndObject, FindEnemyPart1};
+
 
 public class TutorialManager : MonoBehaviour
 {
@@ -26,10 +27,10 @@ public class TutorialManager : MonoBehaviour
 
     private void Start()
     {
-        _questList[(int)TutorialScenario.MovementPart1].StartQuest();
+        _questList[(int)TutorialScenarioEvent.MovementPart1].StartQuest();
     }
 
-    private void UpdateToQuest(TutorialScenario questSuccess)
+    private void UpdateToQuest(TutorialScenarioEvent questSuccess)
     {
         _questList[(int)questSuccess].ClearQuest();
 

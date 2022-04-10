@@ -25,8 +25,6 @@ public class EnemyAssultRifle : EnemyBase
     private void Start()
     {
         StartCoroutine("CalculateDistanceToTarget");
-        //StartCoroutine(CalculateDistanceToTarget());
-
     }
 
     private void Update()
@@ -38,12 +36,10 @@ public class EnemyAssultRifle : EnemyBase
     {
         bool isDie = _status.DecreaseHP(damage);
 
-        //if (_animator.CurrentAnimationIs(_animator.AnimParam.Hit, 1) == false)
-        //{
-        //}
         _animator.Play(_animator.AnimParam.IsHit, -1, 0);
         StopCoroutine("HitLayerWeight");
         StartCoroutine("HitLayerWeight");
+
         //hpBarSlider.value = (float)status.CurrentHP / status.MaxHP;
 
         if (isDie == true)
@@ -142,11 +138,6 @@ public class EnemyAssultRifle : EnemyBase
                 float dot = Vector3.Dot(iter.transform.forward, dirToTarget);
 
                 float cross = Vector3.Dot(Vector3.up, crossVec);
-
-                //if (dot <= 0)
-                //{
-                //    continue;
-                //}
 
                 if (dot <= Mathf.Abs(cross))
                 {

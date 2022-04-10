@@ -64,7 +64,7 @@ public class TutorialItemAndObject : QuestBase
                 if( i == _interactionObject.Length - 1)
                 {
                     StartCoroutine("InteractToItem");
-                    ProgressToQuestText(TutorialScenario.ItemAndObjectPart2);
+                    OnScenarioEvent.Invoke(_tutorialScenarioParam.ItemAndObjectPart2);
                     yield break;
                 }
             }
@@ -92,7 +92,7 @@ public class TutorialItemAndObject : QuestBase
 
                 if (_itemObject[0] == null)
                 {
-                    ProgressToQuestText(TutorialScenario.ItemAndObjectPart3);
+                    OnScenarioEvent.Invoke(_tutorialScenarioParam.ItemAndObjectPart3);
                 }
 
                 if (i == _itemObject.Length - 1)

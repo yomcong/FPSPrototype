@@ -184,7 +184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _targetDetectedRadius: 15
-  _targetDetectedAngle: 60
+  _targetDetectedAngle: 90
   _detectedLimitRange: 30
   _detectedObstacleObjectRadius: 10
   _target: {fileID: 0}
@@ -2603,6 +2603,18 @@ PrefabInstance:
     - target: {fileID: 3904688535621842820, guid: 9a001e6978368e94d9c76edd2fad395e, type: 3}
       propertyPath: m_Name
       value: GunFivot
+      objectReference: {fileID: 0}
+    - target: {fileID: 6994275952678018908, guid: 9a001e6978368e94d9c76edd2fad395e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6994275952678018908, guid: 9a001e6978368e94d9c76edd2fad395e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6994275952678018908, guid: 9a001e6978368e94d9c76edd2fad395e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a001e6978368e94d9c76edd2fad395e, type: 3}

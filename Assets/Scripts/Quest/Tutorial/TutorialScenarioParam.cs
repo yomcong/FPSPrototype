@@ -12,5 +12,6 @@ public class TutorialScenarioParam
     public readonly string ItemAndObjectPart1 = "드럼통은 공격시 폭발하여 데미지를 입힙니다. 공격해 보십시오";
     public readonly string ItemAndObjectPart2 = "데미지를 입으셨군요! 나무 박스를 공격해 아이템을 획득할 수 있습니다.";
     public readonly string ItemAndObjectPart3 = "회복 아이템이군요, 가까이 가면 획득하며 HP를 회복합니다.";
+    public readonly string FindEnemyPart1 = "적이 나타났습니다! 적군은 타겟을 발견하면 공격을 합니다.";
 
 }
