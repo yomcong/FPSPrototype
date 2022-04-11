@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum TutorialScenario { MovementPart1 = 0, MovementPart2, AttackPart1, AttackPart2
+public enum TutorialScenario { MovementPart1 = 0, MovementPart2, AttackPart1, AttackPart2, AttackPart3, AttackPart4
         , ItemAndObject, FindEnemyPart1};
 
 

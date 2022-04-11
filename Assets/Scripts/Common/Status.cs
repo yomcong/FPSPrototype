@@ -26,26 +26,6 @@ public class Status : MonoBehaviour
     public int CurrentHP => _currentHP;
     public int MaxHP => _maxHP;
 
-    //public float WalkSpeed
-    //{
-    //    get;
-    //}
-    //public float RunSpeed
-    //{
-    //    get;
-    //}
-    //public float CurrentHP
-    //{
-    //    get;
-    //}
-    //public float MaxHP
-    //{
-    //    get;
-    //}
-
-    //public bool DecreaseHP(int damage);
-    //public void IncreaseHP(int hp);
-
     private void Awake()
     {
         _currentHP = _maxHP;

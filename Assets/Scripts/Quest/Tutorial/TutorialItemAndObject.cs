@@ -9,7 +9,9 @@ public class TutorialItemAndObject : QuestBase
     [SerializeField]
     private GameObject[] _interactionObject;
     [SerializeField]
-    private GameObject[] _itemObject;
+    private GameObject[] _healthObject;
+    [SerializeField]
+    private GameObject[] _ammoObject;
 
     private void Awake()
     {
@@ -20,10 +22,16 @@ public class TutorialItemAndObject : QuestBase
             _interactionObject[i].gameObject.SetActive(false);
         }
 
-        for (int i = 0; i < _itemObject.Length; ++i)
+        for (int i = 0; i < _healthObject.Length; ++i)
         {
-            _itemObject[i].gameObject.SetActive(false);
+            _healthObject[i].gameObject.SetActive(false);
         }
+
+        for (int i = 0; i < _ammoObject.Length; ++i)
+        {
+            _ammoObject[i].gameObject.SetActive(false);
+        }
+
 
     }
 
@@ -31,18 +39,7 @@ public class TutorialItemAndObject : QuestBase
     {
         gameObject.SetActive(true);
         ProgressToQuestText(_tutorialScenario);
-        if(gameObject.activeInHierarchy)
-        {
-            StartCoroutine("InteractToBarrel"); 
-        }
-        else
-        {
-            gameObject.SetActive(true);
-            if (gameObject.activeInHierarchy)
-            {
-                StartCoroutine("InteractToBarrel");
-            }
-        }
+        StartCoroutine("InteractToBarrel");
     }
 
     public override void ClearQuest()
@@ -66,14 +63,15 @@ public class TutorialItemAndObject : QuestBase
         {
             for (int i = 0; i < _interactionObject.Length; ++i)
             {
-                if(_interactionObject[i] != null)
+                if (_interactionObject[i] != null)
                 {
                     break;
                 }
 
-                if( i == _interactionObject.Length - 1)
+                if (i == _interactionObject.Length - 1)
                 {
-                    StartCoroutine("InteractToItem");
+                    yield return new WaitForSeconds(1.5f);
+                    StartCoroutine("InteractToHealthItem");
                     OnScenarioEvent.Invoke(_tutorialScenarioParam.ItemAndObjectPart2);
                     yield break;
                 }
@@ -84,30 +82,31 @@ public class TutorialItemAndObject : QuestBase
         }
     }
 
-    private IEnumerator InteractToItem()
+    private IEnumerator InteractToHealthItem()
     {
-        for (int i = 0; i < _itemObject.Length; ++i)
+        for (int i = 0; i < _healthObject.Length; ++i)
         {
-            _itemObject[i].gameObject.SetActive(true);
+            _healthObject[i].gameObject.SetActive(true);
         }
 
         while (true)
         {
-            for (int i = 0; i < _itemObject.Length; ++i)
+            for (int i = 0; i < _healthObject.Length; ++i)
             {
-                if (_itemObject[i] != null)
+                if (_healthObject[i] != null)
                 {
                     break;
                 }
 
-                if (_itemObject[0] == null)
+                if (_healthObject[0] == null)
                 {
                     OnScenarioEvent.Invoke(_tutorialScenarioParam.ItemAndObjectPart3);
                 }
 
-                if (i == _itemObject.Length - 1)
+                if (i == _healthObject.Length - 1)
                 {
-                    OnQuestEvent.Invoke(_tutorialScenario);
+                    StartCoroutine("InteractToAmmoItem");
+                    OnScenarioEvent.Invoke(_tutorialScenarioParam.ItemAndObjectPart4);
                     yield break;
                 }
             }
@@ -117,5 +116,39 @@ public class TutorialItemAndObject : QuestBase
         }
 
     }
+
+    private IEnumerator InteractToAmmoItem()
+    {
+        for (int i = 0; i < _ammoObject.Length; ++i)
+        {
+            _ammoObject[i].gameObject.SetActive(true);
+        }
+
+        while (true)
+        {
+            for (int i = 0; i < _ammoObject.Length; ++i)
+            {
+                if (_ammoObject[i] != null)
+                {
+                    break;
+                }
+
+                if (_ammoObject[0] == null && _ammoObject[1] == null)
+                {
+                    OnScenarioEvent.Invoke(_tutorialScenarioParam.ItemAndObjectPart5);
+                }
+
+                if (i == _ammoObject.Length - 1)
+                {
+                    OnQuestEvent.Invoke(_tutorialScenario);
+                    yield break;
+                }
+            }
+
+            yield return null;
+
+        }
+    }
+
 
 }

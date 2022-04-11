@@ -50,8 +50,12 @@ public class ExplosionBarrel : InteractionObjectBase
             else if(hit.CompareTag("InteractionObject"))
             {
                 hit.GetComponent<IDamageable>()?.TakeDamage(300);
-                hit.GetComponent<Rigidbody>().AddExplosionForce
-                    (_explosionForce, transform.position, _explosionRadius);
+
+                Rigidbody tempRigid = hit.GetComponent<Rigidbody>();
+                if(tempRigid != null)
+                {
+                    tempRigid.AddExplosionForce(_explosionForce, transform.position, _explosionRadius);
+                }            
             }
         }
 

@@ -26,12 +26,6 @@ public class ShootingTarget : InteractionObjectBase
 
             StartCoroutine("OnTargetDown");
         }
-
-        TutorialTargetEvent tutorialCheck = GetComponent<TutorialTargetEvent>();
-        if (tutorialCheck != null)
-        {
-            tutorialCheck.OnHitEvent();
-        }
     }
 
     private IEnumerator OnTargetDown()
@@ -41,7 +35,15 @@ public class ShootingTarget : InteractionObjectBase
 
         yield return StartCoroutine(OnAnmation(0, 90));
 
-        StartCoroutine("OnTargetUp");
+        TutorialTargetEvent tutorialCheck = GetComponent<TutorialTargetEvent>();
+        if (tutorialCheck != null)
+        {
+            tutorialCheck.OnHitEvent();
+        }
+        else
+        {
+            StartCoroutine("OnTargetUp");
+        }
     }
 
     private IEnumerator OnTargetUp()
@@ -52,6 +54,8 @@ public class ShootingTarget : InteractionObjectBase
         _audioSource.Play();
 
         yield return StartCoroutine(OnAnmation(90, 0));
+
+        
 
         _isPossibleHit = true;
     }

@@ -51,8 +51,8 @@ public class PlayerHUD : MonoBehaviour
     {
         _status.OnHPEvent.AddListener(UpdateHPHUD);
 
-        _imageAutomaticIcon.gameObject.SetActive(true);
-        _imageSingleIcon.gameObject.SetActive(false);
+        _imageAutomaticIcon.gameObject.SetActive(false);
+        _imageSingleIcon.gameObject.SetActive(true);
     }
 
     public void SetupAllWeapons(WeaponBase[] weapons)

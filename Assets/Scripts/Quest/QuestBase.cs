@@ -42,6 +42,12 @@ public abstract class QuestBase : MonoBehaviour
             case TutorialScenario.AttackPart2:
                 OnScenarioEvent.Invoke(_tutorialScenarioParam.AttackPart2);
                 break;
+            case TutorialScenario.AttackPart3:
+                OnScenarioEvent.Invoke(_tutorialScenarioParam.AttackPart3);
+                break;
+            case TutorialScenario.AttackPart4:
+                OnScenarioEvent.Invoke(_tutorialScenarioParam.AttackPart4);
+                break;
             case TutorialScenario.ItemAndObject:
                 OnScenarioEvent.Invoke(_tutorialScenarioParam.ItemAndObjectPart1);
                 break;
