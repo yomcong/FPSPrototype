@@ -108,7 +108,7 @@ public class WeaponAssaultRifle : WeaponBase
         _isReload = false;
         _isAttack = false;
         _isAimModeChange = false;
-        _weaponSetting.IsAutomaticAttack = false;
+        _weaponSetting.IsAutomaticAttack = true;
 
         _imageAim.enabled = false;
         _animator.IsAimMode = true;

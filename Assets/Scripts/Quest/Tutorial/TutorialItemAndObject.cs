@@ -13,16 +13,16 @@ public class TutorialItemAndObject : QuestBase
 
     private void Awake()
     {
-        gameObject.SetActive(false);
+        transform.gameObject.SetActive(false);
 
         for (int i = 0; i < _interactionObject.Length; ++i)
         {
-            _interactionObject[i].SetActive(false);
+            _interactionObject[i].gameObject.SetActive(false);
         }
 
         for (int i = 0; i < _itemObject.Length; ++i)
         {
-            _itemObject[i].SetActive(false);
+            _itemObject[i].gameObject.SetActive(false);
         }
 
     }
@@ -31,8 +31,18 @@ public class TutorialItemAndObject : QuestBase
     {
         gameObject.SetActive(true);
         ProgressToQuestText(_tutorialScenario);
-        StartCoroutine("InteractToBarrel");
-
+        if(gameObject.activeInHierarchy)
+        {
+            StartCoroutine("InteractToBarrel"); 
+        }
+        else
+        {
+            gameObject.SetActive(true);
+            if (gameObject.activeInHierarchy)
+            {
+                StartCoroutine("InteractToBarrel");
+            }
+        }
     }
 
     public override void ClearQuest()
@@ -49,7 +59,7 @@ public class TutorialItemAndObject : QuestBase
     {
         for (int i = 0; i < _interactionObject.Length; ++i)
         {
-            _interactionObject[i].SetActive(true);
+            _interactionObject[i].gameObject.SetActive(true);
         }
 
         while (true)
@@ -78,7 +88,7 @@ public class TutorialItemAndObject : QuestBase
     {
         for (int i = 0; i < _itemObject.Length; ++i)
         {
-            _itemObject[i].SetActive(true);
+            _itemObject[i].gameObject.SetActive(true);
         }
 
         while (true)

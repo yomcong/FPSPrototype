@@ -6,7 +6,7 @@ public class MemoryPool : MonoBehaviour
 {
     private class PoolObject
     {
-        public bool isActive;           
+        public bool IsActive;           
         public GameObject gameObject;   //보여지는 실제 오브젝트
     }
 
@@ -40,7 +40,7 @@ public class MemoryPool : MonoBehaviour
         {
             PoolObject poolObject = new PoolObject();
 
-            poolObject.isActive = false;
+            poolObject.IsActive = false;
             poolObject.gameObject = GameObject.Instantiate(_poolObjectPrefab);
             poolObject.gameObject.transform.position = tempPosition;
             poolObject.gameObject.SetActive(false);
@@ -81,11 +81,11 @@ public class MemoryPool : MonoBehaviour
         {
             PoolObject poolObject = _poolObjectList[i];
 
-            if (poolObject.isActive == false)
+            if (poolObject.IsActive == false)
             {
                 _activeCount++;
 
-                poolObject.isActive = true;
+                poolObject.IsActive = true;
                 poolObject.gameObject.SetActive(true);
 
                 return poolObject.gameObject;
@@ -113,7 +113,7 @@ public class MemoryPool : MonoBehaviour
                 _activeCount--;
 
                 poolObject.gameObject.transform.position = tempPosition;
-                poolObject.isActive = false;
+                poolObject.IsActive = false;
                 poolObject.gameObject.SetActive(false);
 
                 return;
@@ -134,10 +134,10 @@ public class MemoryPool : MonoBehaviour
         {
             PoolObject poolObject = _poolObjectList[i];
 
-            if (poolObject.gameObject != null && poolObject.isActive == true)
+            if (poolObject.gameObject != null && poolObject.IsActive == true)
             {
                 poolObject.gameObject.transform.position = tempPosition;
-                poolObject.isActive = false;
+                poolObject.IsActive = false;
                 poolObject.gameObject.SetActive(false);
 
                 return;

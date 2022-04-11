@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [System.Serializable]
-public class QuestEvent : UnityEngine.Events.UnityEvent<TutorialScenarioEvent> { }
+public class QuestEvent : UnityEngine.Events.UnityEvent<TutorialScenario> { }
 
 [System.Serializable]
 public class ScenarioEvent : UnityEngine.Events.UnityEvent<string> { }
@@ -18,7 +18,7 @@ public abstract class QuestBase : MonoBehaviour
     public ScenarioEvent OnScenarioEvent = new ScenarioEvent();
 
     [SerializeField]
-    protected TutorialScenarioEvent _tutorialScenario;
+    protected TutorialScenario _tutorialScenario;
 
     protected TutorialScenarioParam _tutorialScenarioParam = new TutorialScenarioParam();
 
@@ -26,30 +26,28 @@ public abstract class QuestBase : MonoBehaviour
 
     public abstract void ClearQuest();
 
-    public void ProgressToQuestText(TutorialScenarioEvent tutorialScenario)
+    public void ProgressToQuestText(TutorialScenario tutorialScenario)
     {
         switch (tutorialScenario)
         {
-            case TutorialScenarioEvent.MovementPart1:
+            case TutorialScenario.MovementPart1:
                 OnScenarioEvent.Invoke(_tutorialScenarioParam.MovementPart1);
                 break;
-            case TutorialScenarioEvent.MovementPart2:
+            case TutorialScenario.MovementPart2:
                 OnScenarioEvent.Invoke(_tutorialScenarioParam.MovementPart2);
                 break;
-            case TutorialScenarioEvent.AttackPart1:
+            case TutorialScenario.AttackPart1:
                 OnScenarioEvent.Invoke(_tutorialScenarioParam.AttackPart1);
                 break;
-            case TutorialScenarioEvent.AttackPart2:
+            case TutorialScenario.AttackPart2:
                 OnScenarioEvent.Invoke(_tutorialScenarioParam.AttackPart2);
                 break;
-            case TutorialScenarioEvent.ItemAndObject:
+            case TutorialScenario.ItemAndObject:
                 OnScenarioEvent.Invoke(_tutorialScenarioParam.ItemAndObjectPart1);
                 break;
-            case TutorialScenarioEvent.FindEnemyPart1:
+            case TutorialScenario.FindEnemyPart1:
                 OnScenarioEvent.Invoke(_tutorialScenarioParam.FindEnemyPart1);
                 break;
-
-                
         }
     }
 
