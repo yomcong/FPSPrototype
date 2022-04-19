@@ -113,9 +113,11 @@ public abstract class WeaponBase : MonoBehaviour
 
         OnGrenadeEvent.Invoke(_weaponGrenade.CurrentGrenade);
 
+        Vector3 offsetPos = new Vector3(0, 0.15f, 0);
+
         yield return new WaitForSeconds(1f);
 
-        GameObject grenadeClone = Instantiate(_grenadePrefab, _grenadeSpawnPoint.position, UnityEngine.Random.rotation);
+        GameObject grenadeClone = Instantiate(_grenadePrefab, _grenadeSpawnPoint.position + offsetPos, UnityEngine.Random.rotation);
         grenadeClone.GetComponent<ExplosionProjectile>().Setup(_weaponSetting.GrenadeThrowPower, _weaponSetting.GrenadeDamage, -transform.forward);
     }
 
