@@ -34,4 +34,9 @@ public class EnemyFSM : MonoBehaviour
         }
     }
 
+    public void IsDie()
+    {
+        _enemyState.IsDie();
+    }
+
 }

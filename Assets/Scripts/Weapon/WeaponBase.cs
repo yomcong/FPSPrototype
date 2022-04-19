@@ -8,6 +8,8 @@ public enum WeaponType { Main = 0, Sub, Sub2, Special, Throw };
 [System.Serializable]
 public class AmmoEvent : UnityEngine.Events.UnityEvent<int, int> { }
 [System.Serializable]
+public class GrenadeEvent : UnityEngine.Events.UnityEvent<int> { }
+[System.Serializable]
 public class AutomaticEvent : UnityEngine.Events.UnityEvent<bool> { }
 
 public abstract class WeaponBase : MonoBehaviour
@@ -19,6 +21,8 @@ public abstract class WeaponBase : MonoBehaviour
     protected WeaponSetting _weaponSetting;
     [SerializeField]
     protected WeaponKnifeCollider _weaponKnifeCollider;
+    [SerializeField]
+    protected WeaponGrenade _weaponGrenade;
 
     [SerializeField]
     protected GameObject _grenadePrefab;
@@ -50,7 +54,9 @@ public abstract class WeaponBase : MonoBehaviour
     public AmmoEvent OnAmmoEvent = new AmmoEvent();
     [HideInInspector]
     public AutomaticEvent OnAutomaticEvent = new AutomaticEvent();
-
+    [HideInInspector]
+    public GrenadeEvent OnGrenadeEvent = new GrenadeEvent();
+    
 
     public PlayerAnimationController Animator => _animator;
     public WeaponNaming WeaponName => _weaponSetting.WeaponName;
@@ -60,7 +66,6 @@ public abstract class WeaponBase : MonoBehaviour
     public abstract void StartWeaponAction(int type = 0);
     public abstract void StopWeaponAction(int type = 0);
     public abstract void StartReload();
-    //public abstract void ThrowGrenade();
 
     public abstract void IsAutomaticChange();
     public abstract void IncreaseAmmo();
@@ -72,6 +77,7 @@ public abstract class WeaponBase : MonoBehaviour
         _animator.Setup();
         _casingMemoryPool = GetComponent<CasingMemoryPool>();
         _impactMemoryPool = GetComponentInParent<ImpactMemoryPool>();
+        _weaponGrenade = GetComponentInParent<WeaponGrenade>();
         _weaponKnifeCollider = transform.parent.GetComponentInChildren<WeaponKnifeCollider>();
 
         _mainCamera = Camera.main;
@@ -85,27 +91,41 @@ public abstract class WeaponBase : MonoBehaviour
     }
     public void ThrowGrenade()
     {
-        if( _isAimModeChange || _isReload || _isAttack)
+        if (_isAimModeChange || _isReload || _isAttack || 
+            _animator.CurrentAnimationIs(_animator.AnimParam.ThrowGrenade)) 
+        {
+            return;
+        }
+
+        if(_weaponGrenade.CurrentGrenade < 1)
         {
             return;
         }
 
         StartCoroutine("GrenadeInstantiate");
-        //StartCoroutine("GrenadeInstantiate", (grenadePrefab, grenadeSpawnPoint));
     }
 
     public IEnumerator GrenadeInstantiate()
     {
         _animator.Play(_animator.AnimParam.Grenade, -1, 0);
 
+        _weaponGrenade.CurrentGrenade--;
+
+        OnGrenadeEvent.Invoke(_weaponGrenade.CurrentGrenade);
+
         yield return new WaitForSeconds(1f);
 
         GameObject grenadeClone = Instantiate(_grenadePrefab, _grenadeSpawnPoint.position, UnityEngine.Random.rotation);
-        grenadeClone.GetComponent<ExplosionProjectile>().Setup(_weaponSetting.GrenadeDamage, -transform.forward);
+        grenadeClone.GetComponent<ExplosionProjectile>().Setup(_weaponSetting.GrenadeThrowPower, _weaponSetting.GrenadeDamage, -transform.forward);
     }
 
     public void MeleeAttack()
     {
+        if(_animator.CurrentAnimationIs(_animator.AnimParam.KnifeAttack))
+        {
+            return;
+        }
+
         _animator.Play(_animator.AnimParam.MeleeAttack, -1, 0);
 
         StartCoroutine("MeleeAttackCollisionCheck");

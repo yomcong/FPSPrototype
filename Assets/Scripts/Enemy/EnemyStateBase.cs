@@ -16,6 +16,7 @@ public abstract class EnemyStateBase : MonoBehaviour
     protected Status _status;
     protected Transform _target;
     protected EnemyFSM _enemyFSM;
+    protected CapsuleCollider _capsuleCollider;
 
     protected bool _isStanding = false;
     protected bool _isCover = false;
@@ -26,6 +27,8 @@ public abstract class EnemyStateBase : MonoBehaviour
     protected float _attackDelay = 2f;  //공격 대기시간
 
     protected int _grenadeDamage = 20;
+    protected float _grenadeThrowPower = 100f;
+
     protected int _currAttackCount = 0;
     protected int _attackCount = 3;
 
@@ -47,6 +50,7 @@ public abstract class EnemyStateBase : MonoBehaviour
         _status = owner.GetComponent<Status>();
         _enemyFSM = owner.GetComponent<EnemyBase>().EnemyFSM;
         _target = target.transform;
+        _capsuleCollider = owner.GetComponent<CapsuleCollider>();
     }
 
     public void ShotProjectile()
@@ -62,7 +66,19 @@ public abstract class EnemyStateBase : MonoBehaviour
         GameObject grenadeObject = Instantiate(_owner.GetComponent<EnemyBase>().GrendePrefab
             , _owner.GetComponent<EnemyBase>().GrenadeSpawnPoint.position, UnityEngine.Random.rotation);
         Vector3 GrenadeDir = (transform.forward + transform.up).normalized;
-        grenadeObject.GetComponent<ExplosionProjectile>().Setup(_grenadeDamage, GrenadeDir);
+
+        float targetDistance = Vector3.Distance(_target.position, transform.position);
+
+        _grenadeThrowPower = targetDistance * 60;
+
+        grenadeObject.GetComponent<ExplosionProjectile>().Setup(_grenadeThrowPower, _grenadeDamage, GrenadeDir);
+    }
+
+    public virtual void IsDie()
+    {
+        _animator.Play(_animator.AnimParam.IsDie, -1, 0);
+
+        Destroy(_owner, 5f);
     }
 
 }

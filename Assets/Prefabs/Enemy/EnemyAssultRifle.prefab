@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &941547147
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 941547148}
+  m_Layer: 7
+  m_Name: TextDamageSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &941547148
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 941547147}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 690067856982579684}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &33577485683251066
 GameObject:
   m_ObjectHideFlags: 0
@@ -100,6 +130,7 @@ Transform:
   - {fileID: 8031751951101444505}
   - {fileID: 321324325136882011}
   - {fileID: 5027090049621227888}
+  - {fileID: 941547148}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -169,8 +200,8 @@ MonoBehaviour:
       m_Calls: []
   _walkSpeed: 1.5
   _runSpeed: 3
-  _maxHP: 100
-  _currentHP: 100
+  _maxHP: 5000
+  _currentHP: 5000
 --- !u!114 &1015883263813746188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,14 +215,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _targetDetectedRadius: 15
-  _targetDetectedAngle: 90
+  _targetDetectedAngle: 360
   _detectedLimitRange: 30
-  _detectedObstacleObjectRadius: 10
+  _detectedObstacleObjectRadius: 4
   _target: {fileID: 0}
   _projectilePrefab: {fileID: 857610483845507283, guid: bf956f622b1642f4f9ad71c5e592f8a5, type: 3}
   _projectileSpawnPoint: {fileID: 5141696426627134884}
   _grenadePrefab: {fileID: 8288488140348861595, guid: 388803ff10056eb47aefac430edad3f1, type: 3}
   _grenadeSpawnPoint: {fileID: 2834729793673578782}
+  _textDamage: {fileID: 4342634345491737858, guid: 424e843bbfa956b46a3d5783bd5df767, type: 3}
+  _canvas: {fileID: 0}
+  _textDamageSpawnPoint: {fileID: 941547148}
 --- !u!114 &1015883263813746195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2618,13 +2652,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a001e6978368e94d9c76edd2fad395e, type: 3}
---- !u!4 &3930087728582103613 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1207009457958910149, guid: 9a001e6978368e94d9c76edd2fad395e, type: 3}
-  m_PrefabInstance: {fileID: 2759107072211512056}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5141696426627134884 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6994275952678018908, guid: 9a001e6978368e94d9c76edd2fad395e, type: 3}
+  m_PrefabInstance: {fileID: 2759107072211512056}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3930087728582103613 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1207009457958910149, guid: 9a001e6978368e94d9c76edd2fad395e, type: 3}
   m_PrefabInstance: {fileID: 2759107072211512056}
   m_PrefabAsset: {fileID: 0}

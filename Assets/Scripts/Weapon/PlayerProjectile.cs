@@ -27,6 +27,23 @@ public class PlayerProjectile : MonoBehaviour
     {
         Vector3 moveDir =  transform.position + _moveDirection * _moveSpeed * Time.deltaTime;
 
+        Ray ray = new Ray(transform.position, transform.forward);
+        RaycastHit hit;
+        LayerMask playerMask = -1 - (1 << LayerMask.NameToLayer("Player"));
+
+        if (Physics.Raycast(ray, out hit, _moveSpeed*Time.deltaTime, playerMask))
+        {
+            if (hit.transform.CompareTag("Enemy"))
+            {
+                hit.transform.GetComponent<EnemyBase>().TakeDamage(_damage);
+            }
+            else if (hit.transform.CompareTag("InteractionObject"))
+            {
+                hit.transform.GetComponent<InteractionObjectBase>().TakeDamage(_damage);
+            }
+
+        }
+
         _rigidbody.MovePosition(moveDir);
     }
 
@@ -56,13 +73,13 @@ public class PlayerProjectile : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.CompareTag("Enemy"))
-        {
-            collision.transform.GetComponent<EnemyBase>().TakeDamage(_damage);
-        }
-        else if (collision.transform.CompareTag("InteractionObject"))
-        {
-            collision.transform.GetComponent<InteractionObjectBase>().TakeDamage(_damage);
-        }
+        //if (collision.transform.CompareTag("Enemy"))
+        //{
+        //    collision.transform.GetComponent<EnemyBase>().TakeDamage(_damage);
+        //}
+        //else if (collision.transform.CompareTag("InteractionObject"))
+        //{
+        //    collision.transform.GetComponent<InteractionObjectBase>().TakeDamage(_damage);
+        //}
     }
 }

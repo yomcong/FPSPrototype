@@ -20,14 +20,17 @@ public class WeaponKnifeCollider : MonoBehaviour
     public void StartCollider(int damage)
     {
         _damage = damage;
-        _collider.enabled = true;
 
-        StartCoroutine("DisablebyTime", 0.1f);
+        StartCoroutine("DisablebyTime");
     }
 
-    private IEnumerator DisablebyTime(float time)
+    private IEnumerator DisablebyTime()
     {
-        yield return new WaitForSeconds(time);
+        yield return new WaitForSeconds(0.25f);
+
+        _collider.enabled = true;
+
+        yield return new WaitForSeconds(0.25f);
 
         _collider.enabled = false;
     }
@@ -40,7 +43,11 @@ public class WeaponKnifeCollider : MonoBehaviour
         {
             other.GetComponentInParent<IDamageable>()?.TakeDamage(_damage);
         }
-        else if (other.CompareTag("ObstacleObject"))
+        else if (other.CompareTag("InteractionObject"))
+        {
+            other.GetComponent<IDamageable>()?.TakeDamage(_damage);
+        }
+        else if (other.CompareTag("TriggerObject"))
         {
             other.GetComponent<IDamageable>()?.TakeDamage(_damage);
         }

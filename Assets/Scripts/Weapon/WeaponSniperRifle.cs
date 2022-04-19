@@ -165,7 +165,8 @@ public class WeaponSniperRifle : WeaponBase
     {
         Ray ray;
         RaycastHit hit;
-        LayerMask playerMask = -1 - (1 << LayerMask.NameToLayer("Player"));
+        LayerMask playerMask = (1 << LayerMask.NameToLayer("Player") | (1 << LayerMask.NameToLayer("Trigger")));
+        playerMask = ~playerMask;
         Vector3 targetPoint = Vector3.zero;
 
         ray = _mainCamera.ViewportPointToRay(Vector2.one * 0.5f);

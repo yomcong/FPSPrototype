@@ -35,6 +35,4 @@ public class EnemyAnimationController : AnimationController
         _animator.SetTrigger(_animationParam.Idle);
     }
 
-    
-
 }

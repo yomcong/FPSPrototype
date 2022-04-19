@@ -181,6 +181,7 @@ public class WeaponAssaultRifle : WeaponBase
         Vector3 targetPoint = Vector3.zero;
         LayerMask playerMask = (1 << LayerMask.NameToLayer("Player") | (1 << LayerMask.NameToLayer("Trigger")) );
         playerMask = ~playerMask;
+
         ray = _mainCamera.ViewportPointToRay(Vector2.one * 0.5f);
 
         if (Physics.Raycast(ray, out hit, _weaponSetting.AttackDistance, playerMask))
@@ -201,11 +202,11 @@ public class WeaponAssaultRifle : WeaponBase
 
             if (hit.transform.CompareTag("Enemy"))
             {
-                hit.transform.GetComponent<IDamageable>().TakeDamage(_weaponSetting.Damage);
+                hit.transform.GetComponent<IDamageable>()?.TakeDamage(_weaponSetting.Damage);
             }
             else if (hit.transform.CompareTag("InteractionObject"))
             {
-                hit.transform.GetComponent<IDamageable>().TakeDamage(_weaponSetting.Damage);
+                hit.transform.GetComponent<IDamageable>()?.TakeDamage(_weaponSetting.Damage);
             }
         }
         Debug.DrawRay(_bulletSpawnPoint.position, attackDirection * _weaponSetting.AttackDistance, Color.blue);

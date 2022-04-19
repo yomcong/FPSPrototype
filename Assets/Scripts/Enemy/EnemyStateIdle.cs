@@ -12,8 +12,7 @@ public class EnemyStateIdle : EnemyStateBase
 
         _navMeshAgent.speed = 0f;
         _animator.MoveSpeed = 0f;
-        StartCoroutine("StateAction")
-;
+        StartCoroutine("StateAction");
     }
 
     public override IEnumerator StateAction()

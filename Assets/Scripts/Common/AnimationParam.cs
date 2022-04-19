@@ -20,6 +20,8 @@ public class AnimationParam
     public readonly int TrunAround = Animator.StringToHash("Trun");
     public readonly int MeleeAttack = Animator.StringToHash("MeleeAttack");
     public readonly int IsHit = Animator.StringToHash("Hit");
+    public readonly int IsDie = Animator.StringToHash("Die");
+    public readonly int IsCrouchDie = Animator.StringToHash("CrouchDie");
 
     public readonly string Movement = "Movement";
     public readonly string Trun = "Trun";
@@ -27,5 +29,9 @@ public class AnimationParam
     public readonly string CoverFire = "CoverFire";
     public readonly string StandingFire = "StandingFire";
     public readonly string Hit = "Hit";
-    
+    public readonly string ThrowGrenade = "Grenade";
+    public readonly string CrouchIdle = "CrouchIdle";
+    public readonly string CrouchReload = "CrouchReload";
+    public readonly string KnifeAttack = "MeleeAttack";
+
 }

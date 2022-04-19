@@ -16,12 +16,16 @@ public class ExplosionProjectile : MonoBehaviour
     private int _explsionDamage;
     private new Rigidbody _rigidbody;
 
-    public void Setup(int damage, Vector3 rotation)
+    public void Setup(float throwForce, int damage, Vector3 rotation)
     {
+        _explsionDamage = damage;
+        _throwForce = throwForce;
+
         _rigidbody = GetComponent<Rigidbody>();
         _rigidbody.AddForce(rotation * _throwForce);
 
-        _explsionDamage = damage;
+        Destroy(gameObject, 10f);
+
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -32,19 +36,23 @@ public class ExplosionProjectile : MonoBehaviour
 
         foreach (Collider hit in colliders)
         {
-            if (hit.CompareTag("Player") || hit.CompareTag("Enemy"))
+            if (hit.CompareTag("Player"))
+            {
+                hit.GetComponent<IDamageable>()?.TakeDamage(_explsionDamage / 5);
+                continue;
+            }
+            else if (hit.CompareTag("Enemy"))
             {
                 hit.GetComponent<IDamageable>()?.TakeDamage(_explsionDamage);
-
                 continue;
             }
             else if (hit.CompareTag("InteractionObject"))
             {
-                hit.GetComponent<IDamageable>().TakeDamage(300);
+                hit.GetComponent<IDamageable>()?.TakeDamage(_explsionDamage);
             }
             else if( hit.CompareTag("ObstacleObject"))
             {
-                Debug.Log("¾öÆó¹°");
+                hit.GetComponent<IDamageable>()?.TakeDamage(_explsionDamage);
             }
 
         }

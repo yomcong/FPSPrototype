@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class TutorialAttack : QuestBase
 {
-    [SerializeField]
-    private GameObject[] _tempObstacleWall;
+    //[SerializeField]
+    //private GameObject[] _tempObstacleWall;
     [SerializeField]
     private GameObject[] _target;
     private bool[] _targetHitCheck;
@@ -34,10 +34,12 @@ public class TutorialAttack : QuestBase
     {
         gameObject.SetActive(false);
 
-        for (int i = 0; i < _tempObstacleWall.Length; ++i)
-        {
-            _tempObstacleWall[i].gameObject.SetActive(false);
-        }
+        ObstacleWallDestory();
+
+        //for (int i = 0; i < _tempObstacleWall.Length; ++i)
+        //{
+        //    _tempObstacleWall[i].gameObject.SetActive(false);
+        //}
     }
 
     private void TargetHitCheck(GameObject gameObject)

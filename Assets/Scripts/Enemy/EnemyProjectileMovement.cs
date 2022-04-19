@@ -59,5 +59,9 @@ public class EnemyProjectileMovement : MonoBehaviour
 
             Destroy(gameObject);
         }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }

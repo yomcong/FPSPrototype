@@ -11,6 +11,7 @@ public class EnemyStateCrouch : EnemyStateBase
         _currAttackCount = 0;
 
         StartCoroutine("TakeCover");
+        StartCoroutine("CrouchToColliderUpdate");
     }
 
     public override IEnumerator StateAction()
@@ -54,7 +55,11 @@ public class EnemyStateCrouch : EnemyStateBase
         _animator.IsCover = false;
         OnInteractEvent.Invoke(false);
 
-        StopCoroutine("LookRotationToTarget");
+        _capsuleCollider.center = Vector3.up;
+        _capsuleCollider.height = 1.8f;
+
+        //StopCoroutine("CrouchToColliderUpdate");
+        //StopCoroutine("LookRotationToTarget");
         StopAllCoroutines();
     }
 
@@ -66,6 +71,26 @@ public class EnemyStateCrouch : EnemyStateBase
 
         StopCoroutine("LaunchedProjectile");
         StartCoroutine("LaunchedProjectile");
+    }
+
+    private IEnumerator CrouchToColliderUpdate()
+    {
+        while (true)
+        {
+            if(_animator.CurrentAnimationIs(_animator.AnimParam.CrouchIdle) || _animator.CurrentAnimationIs(_animator.AnimParam.CrouchReload))
+            {
+                _capsuleCollider.center = new Vector3(0, 0.5f, 0);
+                _capsuleCollider.height = 1.3f;
+            }
+            else
+            {
+                _capsuleCollider.center = Vector3.up;
+                _capsuleCollider.height = 1.8f;
+            }
+
+            yield return null;
+        }
+
     }
 
     private IEnumerator LaunchedProjectile()
@@ -129,5 +154,13 @@ public class EnemyStateCrouch : EnemyStateBase
             yield return null;
         }
     }
+
+    public override void IsDie()
+    {
+        _animator.Play(_animator.AnimParam.IsCrouchDie, -1, 0);
+
+        Destroy(_owner, 5f);
+    }
+
 
 }

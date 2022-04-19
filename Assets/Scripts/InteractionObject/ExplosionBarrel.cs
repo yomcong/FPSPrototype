@@ -17,12 +17,22 @@ public class ExplosionBarrel : InteractionObjectBase
     private float _explosionForce = 1000.0f;
     [SerializeField]
     private int _explosionDamage = 45;
+    [SerializeField]
+    private GameObject _textDamage;
+    [SerializeField]
+    private Canvas _canvas;
+    [SerializeField]
+    private Transform _textDamageSpawnPoint;
+
 
     private bool _isExplode = false;
 
     public override void TakeDamage(int damage)
     {
         _currentHP -= damage;
+
+        GameObject textDamage = Instantiate(_textDamage, _textDamageSpawnPoint.position, Quaternion.identity, _canvas.transform);
+        textDamage.GetComponent<DamageText>()?.Setup(damage, _canvas, _textDamageSpawnPoint.position);
 
         if (_currentHP <= 0 && _isExplode == false)
         {

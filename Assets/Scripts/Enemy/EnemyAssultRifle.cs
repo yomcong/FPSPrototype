@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,18 +9,28 @@ public class EnemyAssultRifle : EnemyBase
 {
     private enum ObstaclePointDir { Forward = 0, Right, Left, Back }
 
-    private bool _inBattle = false;
-
     private Transform _ObstacleObjectPoint;
+    private CapsuleCollider _capsuleCollider;
+    [SerializeField]
+    private GameObject _textDamage;
+    [SerializeField]
+    private Canvas _canvas;
+    [SerializeField]
+    private Transform _textDamageSpawnPoint;
+
+    private bool _inBattle = false;
+    private bool _isDie = false;
 
     private void Awake()
     {
         Setup();
 
-        _targetDetectedRadius = 15;
-        _targetDetectedAngle = 60;
-        _detectedLimitRange = 30;
-        _detectedObstacleObjectRadius = 10;
+        _capsuleCollider = GetComponent<CapsuleCollider>();
+
+        //_targetDetectedRadius = 15;
+        //_targetDetectedAngle = 60;
+        //_detectedLimitRange = 30;
+        //_detectedObstacleObjectRadius = 3;
     }
 
     private void Start()
@@ -27,25 +38,27 @@ public class EnemyAssultRifle : EnemyBase
         StartCoroutine("CalculateDistanceToTarget");
     }
 
-    private void Update()
-    {
-
-    }
-
     public override void TakeDamage(int damage)
     {
         bool isDie = _status.DecreaseHP(damage);
 
-        _animator.Play(_animator.AnimParam.IsHit, -1, 0);
-        StopCoroutine("HitLayerWeight");
-        StartCoroutine("HitLayerWeight");
-
+        GameObject textDamage = Instantiate(_textDamage, _textDamageSpawnPoint.position, Quaternion.identity, _canvas.transform);
+        textDamage.GetComponent<DamageText>()?.Setup(damage, _canvas, _textDamageSpawnPoint.position);
         //hpBarSlider.value = (float)status.CurrentHP / status.MaxHP;
 
-        if (isDie == true)
+        if (isDie == true && _isDie == false)
         {
             //enemyMemoryPool.DeactivateEnemy(gameObject);
-            _status.IncreaseHP(100);
+            _isDie = true;
+            _capsuleCollider.enabled = false;
+
+            _enemyFSM.IsDie();
+        }
+        else
+        {
+            _animator.Play(_animator.AnimParam.IsHit, -1, 0);
+            StopCoroutine("HitLayerWeight");
+            StartCoroutine("HitLayerWeight");
         }
     }
 
@@ -90,11 +103,14 @@ public class EnemyAssultRifle : EnemyBase
     {
         Vector3 dirToTarget = (_target.position - transform.position).normalized;
 
+        LayerMask objectMask = (1 << LayerMask.NameToLayer("InteractionObject") | (1 << LayerMask.NameToLayer("ObstacleObject")));
+        objectMask = ~objectMask;
+
         if (Vector3.Angle(transform.forward, dirToTarget) <= _targetDetectedAngle)
         {
             RaycastHit hit;
 
-            if (Physics.Raycast(transform.position, dirToTarget, out hit, _targetDetectedRadius, -1))
+            if (Physics.Raycast(transform.position, dirToTarget, out hit, _targetDetectedRadius, objectMask))
             {
                 if (hit.transform.CompareTag("Player"))
                 {

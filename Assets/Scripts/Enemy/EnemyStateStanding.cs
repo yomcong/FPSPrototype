@@ -37,17 +37,11 @@ public class EnemyStateStanding : EnemyStateBase
             {
                 if (_currAttackCount >= _attackCount)
                 {
-                    // ∏Æ∆—≈‰∏µ
-                    int temp = Random.Range(1, 5);
+                    _animator.ThrowGrenade();
 
-                    if (temp == 1)
-                    {
-                        _animator.ThrowGrenade();
+                    yield return new WaitForSeconds(2.5f);
 
-                        yield return new WaitForSeconds(2.5f);
-
-                        GrenadeInstantiate();
-                    }
+                    GrenadeInstantiate();
 
                     _animator.OnReload();
 

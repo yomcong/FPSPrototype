@@ -5,8 +5,8 @@ using UnityEngine;
 public class TutorialFindEnemyPart1 : QuestBase
 {
     private CapsuleCollider _capsuleCollider;
-    [SerializeField]
-    private GameObject[] _tempObstacleWall;
+    //[SerializeField]
+    //private GameObject[] _tempObstacleWall;
     private void Awake()
     {
         _capsuleCollider = GetComponent<CapsuleCollider>();
@@ -22,10 +22,13 @@ public class TutorialFindEnemyPart1 : QuestBase
     public override void ClearQuest()
     {
         gameObject.SetActive(false);
-        for (int i = 0; i < _tempObstacleWall.Length; ++i)
-        {
-            _tempObstacleWall[i].gameObject.SetActive(false);
-        }
+
+        ObstacleWallDestory();
+
+        //for (int i = 0; i < _tempObstacleWall.Length; ++i)
+        //{
+        //    _tempObstacleWall[i].gameObject.SetActive(false);
+        //}
     }
 
     private void OnTriggerEnter(Collider other)

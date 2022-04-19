@@ -35,16 +35,18 @@ public class PlayerHUD : MonoBehaviour
     [Header("Scenario")]
     [SerializeField]
     private TextMeshProUGUI _textScenario;
+    [SerializeField]
+    private TextMeshProUGUI _textScenarioName;
 
     private List<GameObject> magazineList;
 
     [Header("HP & BloodScreen UI")]
     [SerializeField]
     private TextMeshProUGUI textHP;
-    //[SerializeField]
-    //private Image imageBloodScreen;
-    //[SerializeField]
-    //private AnimationCurve curveBloodScreen;
+    [SerializeField]
+    private Image imageBloodScreen;
+    [SerializeField]
+    private AnimationCurve curveBloodScreen;
 
 
     private void Awake()
@@ -61,6 +63,7 @@ public class PlayerHUD : MonoBehaviour
         {
             weapons[i].OnAmmoEvent.AddListener(UpdateAmmoHUD);
             weapons[i].OnAutomaticEvent.AddListener(UpdateAutomaticFireIcon);
+            weapons[i].OnGrenadeEvent.AddListener(UpdateGrenadeHUD);
         }
     }
 
@@ -69,6 +72,7 @@ public class PlayerHUD : MonoBehaviour
         for (int i = 0; i < quests.Length; ++i)
         {
             quests[i].OnScenarioEvent.AddListener(UpdateScenario);
+            quests[i].OnScenarioNameEvent.AddListener(UpdateScenarioName);
         }
     }
 
@@ -90,6 +94,12 @@ public class PlayerHUD : MonoBehaviour
     {
         _textAmmo.text = $"<size=55>{ currentAmmo}/</size=40>{maxAmmo}";
     }
+
+    private void UpdateGrenadeHUD(int currentGrenade)
+    {
+        _textGrenadeAmmo.text = $"{currentGrenade}";
+    }
+    
 
     private void UpdateMagazineHUD(int currentMagazine)
     {
@@ -113,11 +123,11 @@ public class PlayerHUD : MonoBehaviour
             return;
         }
 
-        //if (previous - current > 0)
-        //{
-        //    StopCoroutine("OnBloodScreen");
-        //    StartCoroutine("OnBloodScreen");
-        //}
+        if (previous - current > 0)
+        {
+            StopCoroutine("OnBloodScreen");
+            StartCoroutine("OnBloodScreen");
+        }
     }
 
     private void UpdateAutomaticFireIcon(bool isAutomatic)
@@ -134,9 +144,9 @@ public class PlayerHUD : MonoBehaviour
         {
             percent += Time.deltaTime;
 
-            //Color color = imageBloodScreen.color;
-            //color.a = Mathf.Lerp(1, 0, curveBloodScreen.Evaluate(percent));
-            //imageBloodScreen.color = color;
+            Color color = imageBloodScreen.color;
+            color.a = Mathf.Lerp(1, 0, curveBloodScreen.Evaluate(percent));
+            imageBloodScreen.color = color;
 
             yield return null;
         }
@@ -145,5 +155,10 @@ public class PlayerHUD : MonoBehaviour
     private void UpdateScenario(string scenario)
     {
         _textScenario.text = scenario;
+    }
+
+    private void UpdateScenarioName(string scenarioName)
+    {
+        _textScenarioName.text = scenarioName;
     }
 }

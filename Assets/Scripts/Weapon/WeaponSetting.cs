@@ -12,7 +12,9 @@ public struct WeaponSetting
 
     public int Damage;
     public int MeleeDamage;
+
     public int GrenadeDamage;
+    public float GrenadeThrowPower;
 
     public int CurrentAmmo;
     public int MagCapacity;

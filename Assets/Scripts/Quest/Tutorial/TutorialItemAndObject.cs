@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class TutorialItemAndObject : QuestBase
 {
-    [SerializeField]
-    private GameObject[] _tempObstacleWall;
+    //[SerializeField]
+    //private GameObject[] _tempObstacleWall;
     [SerializeField]
     private GameObject[] _interactionObject;
     [SerializeField]
@@ -31,8 +31,6 @@ public class TutorialItemAndObject : QuestBase
         {
             _ammoObject[i].gameObject.SetActive(false);
         }
-
-
     }
 
     public override void StartQuest()
@@ -46,10 +44,12 @@ public class TutorialItemAndObject : QuestBase
     {
         gameObject.SetActive(false);
 
-        for (int i = 0; i < _tempObstacleWall.Length; ++i)
-        {
-            _tempObstacleWall[i].gameObject.SetActive(false);
-        }
+        ObstacleWallDestory();
+
+        //for (int i = 0; i < _tempObstacleWall.Length; ++i)
+        //{
+        //    _tempObstacleWall[i].gameObject.SetActive(false);
+        //}
     }
 
     public IEnumerator InteractToBarrel()
@@ -73,6 +73,15 @@ public class TutorialItemAndObject : QuestBase
                     yield return new WaitForSeconds(1.5f);
                     StartCoroutine("InteractToHealthItem");
                     OnScenarioEvent.Invoke(_tutorialScenarioParam.ItemAndObjectPart2);
+                    OnScenarioNameEvent.Invoke(_tutorialScenarioParam.ItemName);
+
+                    for (int j = 0; j < 4; ++j)
+                    {
+                        _tempObstacleWall[j].GetComponent<RoadBlockObject>()?.IsDisable();
+
+                        _tempObstacleWall[j].gameObject.SetActive(false);
+                    }
+
                     yield break;
                 }
             }

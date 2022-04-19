@@ -45,13 +45,9 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     [SerializeField] private Components _components = new Components();
     [SerializeField] private KeyOption _keyOption = new KeyOption();
-    //[SerializeField] private CameraOption _cameraOption = new CameraOption();
-    //[SerializeField] private AnimatorOption _animatorOption = new AnimatorOption();
     [SerializeField] private CharacterState _state = new CharacterState();
     public Components Com => _components;
     public KeyOption Key => _keyOption;
-    //public CameraOption CamOption => _cameraOption;
-    //public AnimatorOption AnimOption => _animatorOption;
     public CharacterState State => _state;
 
     [Header("Audio Clips")]
@@ -141,7 +137,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     private void UpdateJump()
     {
-        if (Input.GetKeyDown(Key.Jump) /*&& is*/)
+        if (Input.GetKeyDown(Key.Jump) )
         {
             if (Com.Movement.Jump())
             {

@@ -154,7 +154,7 @@ public class WeaponRocketLauncher : WeaponBase
     private void LaunchedRocketProjectile()
     {
         GameObject grenadeClone = Instantiate(_rocketPrefab, _rocketSpawnPoint.position, transform.rotation);
-        grenadeClone.GetComponent<ExplosionProjectile>().Setup(_weaponSetting.Damage, -transform.forward);
+        grenadeClone.GetComponent<ExplosionProjectile>().Setup(_weaponSetting.GrenadeThrowPower, _weaponSetting.Damage, -transform.forward);
     }
 
     private IEnumerator OnMuzzleFlashEffect()
@@ -241,6 +241,10 @@ public class WeaponRocketLauncher : WeaponBase
     {
         _weaponSetting.MaxAmmo = _weaponSetting.MaxAmmo + 2 > _weaponSetting.MaxLimitAmmo
             ? _weaponSetting.MaxLimitAmmo : _weaponSetting.MaxAmmo + 2;
+
+        _weaponGrenade.CurrentGrenade = _weaponGrenade.MaxGrenade;
+
+        OnGrenadeEvent.Invoke(_weaponGrenade.CurrentGrenade);
 
         OnAmmoEvent.Invoke(CurrentAmmo, MaxAmmo);
     }

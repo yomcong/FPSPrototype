@@ -12,7 +12,7 @@ public abstract class EnemyBase : MonoBehaviour, IDamageable
     [SerializeField]
     protected float _targetDetectedAngle; //적 인식각도
     [SerializeField]
-    protected float _detectedLimitRange;  //정찰 범위
+    protected float _detectedLimitRange;  //적 추적범위
     [SerializeField]
     protected float _detectedObstacleObjectRadius;  //오브젝트 인식 범위
     [SerializeField]
@@ -41,10 +41,10 @@ public abstract class EnemyBase : MonoBehaviour, IDamageable
     public GameObject GrendePrefab => _grenadePrefab;
     public Transform GrenadeSpawnPoint => _grenadeSpawnPoint;
 
-    public Transform Target
-    {
-        get => _target;
-    }
+    //public Transform Target
+    //{
+    //    get => _target;
+    //}
 
     public List<EnemyStateBase> StateList
     {

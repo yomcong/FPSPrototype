@@ -10,6 +10,13 @@ public class ShootingTarget : InteractionObjectBase
     private AudioClip _clipTargetDown;
     private float _tagetUpDelayTime = 2;
 
+    [SerializeField]
+    private GameObject _textDamage;
+    [SerializeField]
+    private Canvas _canvas;
+    [SerializeField]
+    private Transform _textDamageSpawnPoint;
+
     private AudioSource _audioSource;
     private bool _isPossibleHit = true;
 
@@ -23,6 +30,9 @@ public class ShootingTarget : InteractionObjectBase
         if (_isPossibleHit)
         {
             _isPossibleHit = false;
+
+            GameObject textDamage = Instantiate(_textDamage, _textDamageSpawnPoint.position, Quaternion.identity, _canvas.transform);
+            textDamage.GetComponent<DamageText>()?.Setup(damage, _canvas, _textDamageSpawnPoint.position);
 
             StartCoroutine("OnTargetDown");
         }
